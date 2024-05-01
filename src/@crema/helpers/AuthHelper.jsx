@@ -17,11 +17,11 @@ export const getUserFromFirebase = (user) => {
   if (user)
     return {
       id: 1,
-      uid: user.uid,
-      displayName: user.displayName ? user.displayName : 'Crema User',
+      uid: user._id,
+      displayName: user.name ? user.name : 'Crema User',
       email: user.email,
       photoURL: user.photoURL ? user.photoURL : '/assets/images/avatar/A11.jpg',
-      role: authRole.User,
+      role: user.role,
     };
   return user;
 };

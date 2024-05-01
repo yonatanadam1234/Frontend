@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,14 +28,28 @@ const validationSchema = yup.object({
 });
 
 const SigninFirebase = () => {
+  const [rememberMe, setRememberMe] = useState(false);
   const { logInWithEmailAndPassword, logInWithPopup } = useAuthMethod();
-  const navigate = useNavigate();
+  const [auth, setAuth]= useState({})
 
+  const navigate = useNavigate();
   const onGoToForgetPassword = () => {
     navigate('/forget-password', { tab: 'firebase' });
   };
 
   const { messages } = useIntl();
+
+  useEffect(() => {
+    const email = localStorage.getItem('email')
+    const password = localStorage.getItem('password')
+    const data = {
+      email:email,
+      password:password
+    }
+    if(email && password) {
+      logInWithEmailAndPassword(data);
+    }
+  }, []);
 
   return (
     <AuthWrapper>
@@ -44,12 +58,16 @@ const SigninFirebase = () => {
           <Formik
             validateOnChange={true}
             initialValues={{
-              email: 'crema.demo@gmail.com',
-              password: 'Pass@1!@all',
+              email: '',
+              password: '',
             }}
             validationSchema={validationSchema}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
+              localStorage.setItem('email',data.email);
+              if (rememberMe) {
+                localStorage.setItem('password',data.password);
+              }
               logInWithEmailAndPassword(data);
               setSubmitting(false);
             }}
@@ -98,7 +116,12 @@ const SigninFirebase = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <Checkbox sx={{ ml: -3 }} id='rememberMe' />
+                    <Checkbox
+                      sx={{ ml: -3 }}
+                      id='rememberMe'
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
                     <Box
                       aria-labelledby='rememberMe'
                       component='span'

@@ -98,7 +98,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
               fontWeight: Fonts.MEDIUM,
             }}
           >
-            {values.displayName}
+            {values.name}
           </Typography>
           <Typography
             sx={{

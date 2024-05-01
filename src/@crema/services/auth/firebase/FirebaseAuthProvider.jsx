@@ -157,6 +157,8 @@ const FirebaseAuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    localStorage.removeItem('email')
+    localStorage.removeItem('password')
     setFirebaseData({ ...firebaseData, isLoading: true });
     try {
       await signOut(auth);

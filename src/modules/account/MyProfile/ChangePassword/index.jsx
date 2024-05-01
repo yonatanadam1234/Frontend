@@ -5,13 +5,15 @@ import { Fonts } from '@crema/constants/AppEnums';
 import ChangePasswordForm from './ChangePasswordForm';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useAuthMethod } from '../../../../@crema/hooks/AuthHooks';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const validationSchema = yup.object({
   oldPassword: yup
     .string()
     .required('No password provided.')
-    .min(8, 'Password is too short - should be 8 chars minimum.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+    .min(8, 'Password is too short - should be 8 chars minimum.'),
   newPassword: yup
     .string()
     .required('New password required.')
@@ -23,41 +25,46 @@ const validationSchema = yup.object({
 });
 
 const ChangePassword = () => {
+  const { HandleChangePassword } = useAuthMethod();
+
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        maxWidth: 550,
-      }}
-    >
-      <Typography
-        component='h3'
+    <>
+      <ToastContainer />
+      <Box
         sx={{
-          fontSize: 16,
-          fontWeight: Fonts.BOLD,
-          mb: { xs: 3, lg: 5 },
+          position: 'relative',
+          maxWidth: 550,
         }}
       >
-        <IntlMessages id='common.changePassword' />
-      </Typography>
-      <Formik
-        validateOnChange={false}
-        validateOnBlur={true}
-        initialValues={{
-          oldPassword: '',
-          newPassword: null,
-          retypeNewPassword: 'us',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(data, { setSubmitting }) => {
-          setSubmitting(true);
-          console.log('data: ', data);
-          setSubmitting(false);
-        }}
-      >
-        {() => <ChangePasswordForm />}
-      </Formik>
-    </Box>
+        <Typography
+          component='h3'
+          sx={{
+            fontSize: 16,
+            fontWeight: Fonts.BOLD,
+            mb: { xs: 3, lg: 5 },
+          }}
+        >
+          <IntlMessages id='common.changePassword' />
+        </Typography>
+        <Formik
+          validateOnChange={false}
+          validateOnBlur={true}
+          initialValues={{
+            oldPassword: '',
+            newPassword: null,
+            retypeNewPassword: null,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(data, { setSubmitting }) => {
+            setSubmitting(true);
+            HandleChangePassword(data)
+            setSubmitting(false);
+          }}
+        >
+          {() => <ChangePasswordForm />}
+        </Formik>
+      </Box>
+    </>
   );
 };
 

@@ -111,6 +111,26 @@ export const useAuthMethod = () => {
     }
   }
 
+  const HandleChangePassword = (data) => {
+    try {
+      const newdata = {
+        email: localStorage.getItem('email'),
+        oldpassword: data.oldPassword,
+        newpassword: data.newPassword
+      }
+      jwtAxios.post('changepassword', newdata).then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data.message);
+        }
+      })
+        .catch((res) => {
+          toast.error(res.response.data.message);
+        })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
   const handleVerifyOtp = (otp) => {
     verifyUser({ email: localStorage.getItem("email"), otp: otp })
   }
@@ -120,6 +140,7 @@ export const useAuthMethod = () => {
     handleforgetpassword,
     VerifyforgetpasswordOTP,
     updatePassword,
+    HandleChangePassword,
     logInWithEmailAndPassword,
     logInWithPopup,
     logout,
