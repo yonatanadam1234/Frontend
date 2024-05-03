@@ -15,6 +15,7 @@ import {
   BsCart4,
   BsChatDots,
   BsCurrencyBitcoin,
+  BsFillGearFill,
   BsQuestionDiamond,
 } from 'react-icons/bs';
 import { DiHtml5Multimedia } from 'react-icons/di';
@@ -38,6 +39,23 @@ import { RoutePermittedRole } from '@crema/constants/AppEnums';
 import { TbFileInvoice } from 'react-icons/tb';
 
 const routesConfig = [
+  {
+    id: 'setting',
+    title: 'Setting',
+    messageId: 'sidebar.setting',
+    type: 'group',
+    children: [
+      {
+        id: 'setting',
+        title: 'Setting',
+        messageId: 'sidebar.app.dashboard.setting',
+        type: 'item',
+        permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
+        icon: <BsFillGearFill />,
+        url: '/my-profile',
+      }
+    ],
+  },
   {
     id: 'app',
     title: 'Application',

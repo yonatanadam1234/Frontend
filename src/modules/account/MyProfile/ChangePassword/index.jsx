@@ -55,10 +55,11 @@ const ChangePassword = () => {
             retypeNewPassword: null,
           }}
           validationSchema={validationSchema}
-          onSubmit={(data, { setSubmitting }) => {
+          onSubmit={(data, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             HandleChangePassword(data)
             setSubmitting(false);
+            resetForm();
           }}
         >
           {() => <ChangePasswordForm />}

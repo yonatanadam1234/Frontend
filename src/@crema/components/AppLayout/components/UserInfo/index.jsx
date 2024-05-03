@@ -51,10 +51,10 @@ const UserInfo = ({ color }) => {
           {user.photoURL ? (
             <Avatar
               sx={{
-                height: 40,
-                width: 40,
+                height: 35,
+                width: 35,
                 fontSize: 24,
-                backgroundColor: orange[500],
+                // backgroundColor: orange[500],
               }}
               src={user.photoURL}
             />
