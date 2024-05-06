@@ -4,7 +4,7 @@
   "version": "4.1.1",
   "type": "module",
   "scripts": {
-    "start":"vite",
+    "start": "vite",
     "dev": "vite",
     "build": "NODE_OPTIONS=--max_old_space_size=4096 vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -12,15 +12,16 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@aws-amplify/auth": "^6.0.16",
     "@emotion/cache": "^11.11.0",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@googlemaps/js-api-loader": "^1.16.2",
     "@mui/base": "^5.0.0-beta.33",
     "@mui/icons-material": "^5.14.1",
     "@mui/lab": "^5.0.0-alpha.162",
-    "@mui/material": "^5.15.6",
+    "@mui/material": "^5.15.16",
     "@mui/system": "^5.15.6",
     "@mui/x-data-grid": "^6.10.0",
     "@mui/x-data-grid-generator": "^6.10.0",

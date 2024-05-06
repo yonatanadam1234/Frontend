@@ -52,7 +52,7 @@ const routesConfig = [
         type: 'item',
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
         icon: <BsFillGearFill />,
-        url: '/my-profile',
+        url: '/shops',
       }
     ],
   },

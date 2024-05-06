@@ -1,11 +1,11 @@
 import React from 'react';
 import { RoutePermittedRole } from '@crema/constants/AppEnums';
-import Account from '../../../modules/account/MyProfile';
+import Shops from '../../components/Shops/Shops';
 
 export const accountPagesConfigs = [
   {
     permittedRole: RoutePermittedRole.User,
-    path: '/my-profile',
-    element: <Account />,
+    path: '/shops',
+    element: <Shops />,
   },
 ];
