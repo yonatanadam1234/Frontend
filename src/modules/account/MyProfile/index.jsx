@@ -66,7 +66,7 @@ const Account = () => {
             fontSize: 16,
             color: 'text.primary',
             fontWeight: Fonts.SEMI_BOLD,
-            mb: {
+            mb: { 
               xs: 2,
               lg: 4,
             },

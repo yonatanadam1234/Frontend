@@ -140,7 +140,7 @@ const UserInfo = () => {
         <MenuItem
           onClick={() => {
             handleClose();
-            navigate('/my-profile');
+            navigate('/my-account');
           }}
           sx={{
             px: 6,

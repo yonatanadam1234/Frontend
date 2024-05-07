@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useState } from "react";
 import {
@@ -26,7 +26,6 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
-import { fontSize, height, padding, width } from "@mui/system";
 
 function createData(name, calories, fat) {
   return {
@@ -49,16 +48,13 @@ function createData(name, calories, fat) {
 }
 
 function Row(props) {
-  const { row, handleopen, shops } = props;
+  const { row, handleopen, platform, shops, setShops } = props;
   const [hOpen, setHopen] = useState(false);
 
   const handleHistory = () => {
-    if (hOpen) {
-      setHopen(false);
-    } else {
-      setHopen(true);
-    }
+    setHopen(!hOpen);
   };
+
   return (
     <React.Fragment>
       <TableRow sx={{ alignItems: "center" }}>
@@ -80,7 +76,7 @@ function Row(props) {
             border: "0",
             height: "74px",
             gap: "10px",
-            fontSize:"14px"
+            fontSize: "14px",
           }}
         >
           <img
@@ -96,13 +92,18 @@ function Row(props) {
           />
           {row.calories}
         </TableCell>
-        <TableCell align="right" style={{fontSize:"14px"}}>
-          {shops.length != 0 ? shops.length : "No "} Shops
+        <TableCell align="right" style={{ fontSize: "14px" }}>
+          {shops[platform]?.length !== undefined ? shops[platform].length : "No"} Shops
         </TableCell>
         <TableCell align="right">
           <Box
-            onClick={handleopen}
-            sx={{ cursor: "pointer", ":hover": { color: "black" },color:"blue",fontSize:"14px" }}
+            onClick={() => handleopen(platform)}
+            sx={{
+              cursor: "pointer",
+              ":hover": { color: "black" },
+              color: "blue",
+              fontSize: "14px",
+            }}
           >
             + Add Shop
           </Box>
@@ -125,7 +126,7 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {shops.map((historyRow, index) => (
+                  {(shops[platform] || []).map((historyRow, index) => (
                     <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {historyRow.storeName}
@@ -176,42 +177,77 @@ const rows = [
 
 export default function Shops() {
   const [open, setOpen] = useState(false);
-  const [shops, setShops] = useState([]);
+  const [shops, setShops] = useState({
+    Amazon: [],
+    Wix: [],
+    Shopify: [],
+    "Woo Commerce": [], // Fixed the platform name to match the state key
+  });
   const [newShop, setNewShop] = useState({
     storeName: "",
-    storefrontURL: "",
+    storefrontURL: "https://",
     marketplace: "",
     timezone: "",
   });
-  const handleopen = () => {
+  const [selectedPlatform, setSelectedPlatform] = useState("");
+
+  const handleopen = (platform) => {
+    setSelectedPlatform(platform);
     setOpen(true);
+    // Reset storefrontURL only if it's the first time opening this platform's form
+    if (!shops[platform]?.length) {
+      setNewShop((prevShop) => ({
+        ...prevShop,
+        storefrontURL: "https://",
+      }));
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewShop((prevShop) => ({
-      ...prevShop,
-      [name]: value,
-    }));
+    if (name === "storefrontURL") {
+    
+      if (!value || !value.startsWith("https://")) {
+        setNewShop((prevShop) => ({
+          ...prevShop,
+          [name]: `${value}`,
+        }));
+      } else {
+        setNewShop((prevShop) => ({
+          ...prevShop,
+          [name]: value,
+        }));
+      }
+    } else {
+      setNewShop((prevShop) => ({
+        ...prevShop,
+        [name]: value,
+      }));
+    }
   };
+  
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setNewShop((prevShop) => ({ ...prevShop, [name]: value }));
   };
 
   const handleAddShop = () => {
-    setShops((prevShops) => [...prevShops, newShop]);
+    const updatedShops = { ...shops };
+    updatedShops[selectedPlatform] = [...updatedShops[selectedPlatform], newShop];
+    setShops(updatedShops);
     setNewShop({
       storeName: "",
-      storefrontURL: "",
+      storefrontURL: "https://",
       marketplace: "",
       timezone: "",
     });
     setOpen(false);
   };
+
   const marketplaces = [
     { value: "amazon.com", label: "Amazon.com" },
     { value: "amazon.co.uk", label: "Amazon.co.uk" },
@@ -226,7 +262,6 @@ export default function Shops() {
     // Add more timezones as needed
   ];
 
-  console.log("shops", shops);
   return (
     <>
       <TableContainer component={Paper}>
@@ -250,8 +285,9 @@ export default function Shops() {
                 key={row.name}
                 row={row}
                 handleopen={handleopen}
-                open={open}
+                platform={row.calories}
                 shops={shops}
+                setShops={setShops}
               />
             ))}
           </TableBody>
@@ -259,15 +295,19 @@ export default function Shops() {
       </TableContainer>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
-          style={{ display: "flex", justifyContent: "space-between",fontSize:"18px" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: "18px",
+          }}
         >
-          Add Amazon Shop
+          Add {selectedPlatform} Shop
           <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
         </DialogTitle>
 
         <DialogTitle style={{ fontSize: "14px" }}>
-          Fill in the following detail to connect to BeProfit with your amazone
-          store
+          Fill in the following detail to connect to BeProfit with your{" "}
+          {selectedPlatform} store
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -280,7 +320,7 @@ export default function Shops() {
             onChange={handleInputChange}
           />
           <Box
-            onclick={""}
+            onClick={""}
             sx={{
               cursor: "pointer",
               ":hover": { color: "black" },
@@ -302,7 +342,7 @@ export default function Shops() {
           <TextField
             select
             margin="dense"
-            label="Amazon Marketplace"
+            label={`${selectedPlatform} Marketplace`}
             fullWidth
             name="marketplace"
             value={newShop.marketplace}

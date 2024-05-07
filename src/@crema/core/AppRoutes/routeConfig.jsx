@@ -9,6 +9,8 @@ import {
   RiShieldUserLine,
   RiTodoLine,
 } from 'react-icons/ri';
+import { FaOpencart } from "react-icons/fa";
+
 import { BiCarousel, BiCartAlt, BiErrorAlt, BiTask } from 'react-icons/bi';
 import {
   BsBriefcase,
@@ -62,6 +64,15 @@ const routesConfig = [
     messageId: 'sidebar.application',
     type: 'group',
     children: [
+      {
+        id: 'Order',
+        title: 'Order',
+        messageId: 'sidebar.app.dashboard.order',
+        type: 'item',
+        permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
+        icon: <FaOpencart/>,
+        url: '/dashboards/order',
+      },
       {
         id: 'crypto',
         title: 'Crypto',

@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useThemeContext } from '@crema/context/AppContextProvider/ThemeContextProvider';
 import { useAuthMethod, useAuthUser } from '../../../utility/AuthHooks';
 import AppLogo from '../components/AppLogo';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -102,6 +103,7 @@ const useStyles = makeStyles((theme) => {
 
 const SidebarHeader = () => {
   const { themeMode } = useThemeContext();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -155,7 +157,7 @@ const SidebarHeader = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem>My account</MenuItem>
+          <MenuItem onClick={() => navigate('/my-profile')}>My account</MenuItem>
           <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
       </Box>

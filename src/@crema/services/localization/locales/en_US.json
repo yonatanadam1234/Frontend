@@ -396,6 +396,7 @@
   "sidebar.application": "Application",
   "sidebar.setting": "Settings",
   "sidebar.app.dashboard": "Dashboards",
+  "sidebar.app.dashboard.order":"Order",
   "sidebar.app.dashboard.crm": "CRM",
   "dashboard.crm.vsLastDays": "vs 30 days",
   "dashboard.crm.visitorsPageViews": "Visitors & Page Views",
