@@ -80,11 +80,11 @@ function Row(props) {
           }}
         >
           <img
-            src={`src/assets/images/${row.name}`}
+            src={`src/assets/icon/${row.name}`}
             alt=""
             style={{
-              width: "35px",
-              height: "35px",
+              width: "40px",
+              height: "40px",
               border: "1px solid gray",
               borderRadius: "50px",
               padding: "5px",
@@ -169,19 +169,19 @@ Row.propTypes = {
 };
 
 const rows = [
-  createData("Amazon_icon.png", "Amazon", "+ Add Shop"),
-  createData("wix.png", "Wix", "+ Add Shop"),
-  createData("shopify.png", "Shopify", "+ Add Shop"),
-  createData("woo.png", "Woo Commerce", "+ Add Shop"),
+  createData("Amazon_icon.svg", "Amazon", "+ Add Shop"),
+  createData("shopify.svg", "Shopify", "+ Add Shop"),
+  createData("ebay.svg", "eBay", "+ Add Shop"),
+  createData("magento.svg", "Magento", "+ Add Shop"),
 ];
 
 export default function Shops() {
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
     Amazon: [],
-    Wix: [],
     Shopify: [],
-    "Woo Commerce": [], // Fixed the platform name to match the state key
+    eBay: [],
+    Magento: [],
   });
   const [newShop, setNewShop] = useState({
     storeName: "",
@@ -210,7 +210,6 @@ export default function Shops() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "storefrontURL") {
-    
       if (!value || !value.startsWith("https://")) {
         setNewShop((prevShop) => ({
           ...prevShop,
@@ -404,3 +403,4 @@ export default function Shops() {
     </>
   );
 }
+
