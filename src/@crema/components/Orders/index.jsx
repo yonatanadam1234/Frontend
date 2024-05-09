@@ -55,7 +55,7 @@ const Orders = () => {
 
             <Hidden smDown>
               <AppsPagination
-                rowsPerPage={8}
+                rowsPerPage={10}
                 count={apiData?.count}
                 page={page}
                 onPageChange={onPageChange}
@@ -76,7 +76,7 @@ const Orders = () => {
 
       <Hidden smUp>
         <AppsPagination
-          rowsPerPage={8}
+          rowsPerPage={10}
           count={apiData?.count}
           page={page}
           onPageChange={onPageChange}
