@@ -10,7 +10,7 @@ import AppLoader from '@crema/components/AppLoader';
 
 const OrderTable = ({ orderData, loading }) => {
   return (
-    <AppTableContainer>
+    <AppTableContainer >
       {loading ? (
         <AppLoader />
       ) : (
@@ -39,3 +39,4 @@ OrderTable.propTypes = {
   orderData: PropTypes.array,
   loading: PropTypes.bool,
 };
+

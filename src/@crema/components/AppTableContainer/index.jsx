@@ -10,6 +10,8 @@ const AppTableContainer = ({ children, sxStyle }) => {
           whiteSpace: 'nowrap',
         },
         ...sxStyle,
+        overflowX:'scroll',
+        
       }}
     >
       {children}
