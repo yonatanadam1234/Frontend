@@ -11,15 +11,21 @@ import {
   FormControl,
   Select,
   TextField,
+  InputLabel,
+  Typography,
 } from "@mui/material";
 import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";
 import AppsPagination from "@crema/components/AppsPagination";
 import AppSearchBar from "@crema/components/AppSearchBar";
 import { useGetDataApi } from "@crema/hooks/APIHooks";
-import OrderTable from "./OrderTable";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { display } from "@mui/system";
+
+import AmazoneOrderTable from "./AmazoneOrder";
+import ShopifyOrderTabel from "./ShopifyOrder";
+import EbayOrderTabel from "./EbayOrder";
+import MagentoOrderTabel from "./MagentoOrder";
+
 
 const Orders = () => {
   const { messages } = useIntl();
@@ -56,6 +62,9 @@ const Orders = () => {
     orderSource: "",
   });
 
+  // State to hold the selected platform
+  const [selectedPlatform, setSelectedPlatform] = useState("Amazon");
+
   const onPageChange = (event, value) => {
     setPage(value);
   };
@@ -83,313 +92,176 @@ const Orders = () => {
   };
 
   const applyFilters = () => {
-    // Apply filters to the table data
-    // You can filter the data based on the selected filter options
+ 
     console.log("Applied Filters:", filters);
   };
 
-  return (
-    <AppsContainer title={messages["eCommerce.recentOrders"]} fullView>
-      <AppsHeader>
-        <Box
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          width={1}
-          justifyContent="space-between"
-        >
-          <AppSearchBar
-            iconPosition="right"
-            overlap={false}
-            onChange={(event) => onSearchOrder(event.target.value)}
-            placeholder={messages["common.searchHere"]}
+  const renderOrderComponent = () => {
+    switch (selectedPlatform) {
+      case "Amazon":
+        return (
+          <AmazoneOrderTable
+            orderData={apiData?.data || []}
+            loading={loading}
+            filters={filters}
           />
+        );
+      case "Shopify":
+        return (
+          <ShopifyOrderTabel
+            orderData={apiData?.data || []}
+            loading={loading}
+            filters={filters}
+          />
+        );
+      case "Ebay":
+        return (
+          <EbayOrderTabel
+            orderData={apiData?.data || []}
+            loading={loading}
+            filters={filters}
+          />
+        );
+      case "Magento":
+        return (
+          <MagentoOrderTabel
+            orderData={apiData?.data || []}
+            loading={loading}
+            filters={filters}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+  
+  return (
+    <>
+      <Box display="flex" alignItems="center">
+        <InputLabel id="demo-simple-select-label" style={{ color: "#000" }}>
+          <Typography
+            display="block"
+            style={{ paddingBottom: "30px", fontSize: "20px" }}
+          >
+            Recent Orders:
+          </Typography>
+          Select Platforms : &nbsp;
+        </InputLabel>
+        <Select
+          value={selectedPlatform}
+          onChange={(event) => setSelectedPlatform(event.target.value)}
+          displayEmpty
+          style={{ minWidth: "300px", height: "40px", marginTop: "55px" }}
+        >
+          <MenuItem value="Amazon" selected>Amazon</MenuItem>
+          <MenuItem value="Shopify">Shopify</MenuItem>
+          <MenuItem value="Ebay">eBay</MenuItem>
+          <MenuItem value="Magento">Magento</MenuItem>
+        </Select>
+      </Box>
+      <AppsContainer fullView>
+        <AppsHeader>
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            width={1}
+            justifyContent="space-between"
+          >
+            <AppSearchBar
+              iconPosition="right"
+              overlap={false}
+              onChange={(event) => onSearchOrder(event.target.value)}
+              placeholder={messages["common.searchHere"]}
+            />
 
-          <Box display="flex" flexDirection="row" alignItems="center">
-            <IconButton color="primary" onClick={toggleFilterDrawer}>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <IconButton color="primary" onClick={toggleFilterDrawer}>
+                <Button variant="contained" style={{ background: "#0A8FDC" }}>
+                  <FilterListIcon />
+                  &nbsp;Filters
+                </Button>
+              </IconButton>
               <Button variant="contained" style={{ background: "#0A8FDC" }}>
-                <FilterListIcon />
-                &nbsp;Filters
+                Add Order
               </Button>
-            </IconButton>
-            <Button variant="contained" style={{ background: "#0A8FDC" }}>
-              Add Order
-            </Button>
 
-            <Hidden smDown>
-              <AppsPagination
-                rowsPerPage={10}
-                count={apiData?.count}
-                page={page}
-                onPageChange={onPageChange}
-              />
-            </Hidden>
+              <Hidden smDown>
+                <AppsPagination
+                  rowsPerPage={10}
+                  count={apiData?.count}
+                  page={page}
+                  onPageChange={onPageChange}
+                />
+              </Hidden>
+            </Box>
           </Box>
-        </Box>
-      </AppsHeader>
+        </AppsHeader>
 
-      <AppsContent
-        sx={{
-          paddingTop: 2.5,
-          paddingBottom: 2.5,
-        }}
-      >
-        <OrderTable
-          orderData={apiData?.data || []}
-          loading={loading}
-          filters={filters}
-        />
-      </AppsContent>
+        <AppsContent
+          sx={{
+            paddingTop: 2.5,
+            paddingBottom: 2.5,
+            overflowX: "auto", // Add horizontal scroll
+          }}
+        >
+          {renderOrderComponent()}
+        </AppsContent>
 
-      <Hidden smUp>
-        <AppsPagination
-          rowsPerPage={10}
-          count={apiData?.count}
-          page={page}
-          onPageChange={onPageChange}
-        />
-      </Hidden>
+        <Hidden smUp>
+          <AppsPagination
+            rowsPerPage={10}
+            count={apiData?.count}
+            page={page}
+            onPageChange={onPageChange}
+          />
+        </Hidden>
 
-      <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
-        <Box p={10}>
-          <FormControl
-            fullWidth
-            sx={{
-              paddingTop: 5,
-              paddingBottom: 5,
-            }}
-          >
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
+        <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
+          <Box p={10}>
+            <FormControl
               fullWidth
-              style={{ marginTop: "10px" }}
-             
+              sx={{
+                paddingTop: 5,
+                paddingBottom: 5,
+              }}
             >
-              <MenuItem value="">Price</MenuItem>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <TextField id="standard-basic" label="Min-Price" variant="filled" />
-                <TextField id="standard-basic" label="Max-Price" variant="filled"/>
-              </Box>
-            </Select>
-
-
-
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Price</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+            </FormControl>
+            {/* Add more filter options */}
+            <Button
+              onClick={applyFilters}
+              variant="contained"
+              color="primary"
               fullWidth
-              style={{ marginTop: "10px" }}
             >
-              <MenuItem value="">Vendor</MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Financial </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Fulfillment </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Countries </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Price </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">COGS </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Shipping </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Physical Location (POS) </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value=""># Items </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Status </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Sales Channel </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Discount Code </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Marketing Source </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">UTM Source </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">UTM Medium </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">UTM Content </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">UTM Term </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">UTM Campaign </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Payment Gateways </MenuItem>
-            </Select>
-            <Select
-              value={filters.product}
-              onChange={handleFilterChange}
-              name="product"
-              displayEmpty
-              fullWidth
-              style={{ marginTop: "10px" }}
-            >
-              <MenuItem value="">Order Source </MenuItem>
-            </Select>
-          </FormControl>
-          {/* Add more filter options */}
-          <Button
-            onClick={applyFilters}
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            Apply Filters
-          </Button>
-        </Box>
-      </Drawer>
-    </AppsContainer>
+              Apply Filters
+            </Button>
+          </Box>
+        </Drawer>
+      </AppsContainer>
+    </>
   );
 };
 

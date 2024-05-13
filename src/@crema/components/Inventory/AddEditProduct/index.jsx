@@ -50,7 +50,7 @@ export const AddEditProduct = ({ selectedProd }) => {
           },
         }}
       >
-        {selectedProd ? 'Edit Product' : 'Create a new product'}
+        {product-listing ? 'Edit Product' : 'Create a new product'}
       </Box>
 
       <Formik

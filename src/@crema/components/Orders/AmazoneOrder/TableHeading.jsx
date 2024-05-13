@@ -31,13 +31,13 @@ const TableHeading = () => {
         align="left"
         style={{
           position: "sticky",
-          right: 150,
+          right: 140,
           zIndex: 3,
           width: "50px",
           backgroundColor: "#cee8f8",
         }}
       >
-        Con.Profit
+        Selling Fees
       </TableCell>
       <TableCell
         align="left"
@@ -49,7 +49,7 @@ const TableHeading = () => {
           backgroundColor: "#cee8f8",
         }}
       >
-        Con.Margin
+        Fba Fees
       </TableCell>
       <TableCell
         align="left"

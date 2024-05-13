@@ -71,13 +71,13 @@ const TableItem = ({ data }) => {
         align="left"
         style={{
           position: "sticky",
-          right: 150,
+          right: 140,
           zIndex: 3,
           width: "50px",
           backgroundColor: "#cee8f8",
         }}
       >
-        {data.conProfit}
+        {data.selling_fees}
       </TableCell>
       <TableCell
         align="left"
@@ -89,7 +89,7 @@ const TableItem = ({ data }) => {
           backgroundColor: "#cee8f8",
         }}
       >
-        {data.conMargin}
+        {data.fba_fees}
       </TableCell>
       <TableCell
         align="left"

@@ -109,6 +109,9 @@ function Row(props) {
           </Box>
         </TableCell>
       </TableRow>
+
+
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={hOpen} timeout="auto" unmountOnExit>
@@ -146,6 +149,9 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+
+
+      
     </React.Fragment>
   );
 }

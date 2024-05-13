@@ -7,10 +7,14 @@ import TableHeading from './TableHeading';
 import TableItem from './TableItem';
 import AppTableContainer from '@crema/components/AppTableContainer';
 import AppLoader from '@crema/components/AppLoader';
+import { Typography } from '@mui/material';
 
-const OrderTable = ({ orderData, loading }) => {
+const AmazoneOrderTable = ({ orderData, loading }) => {
   return (
+    <>
+     <Typography display="block" style={{paddingBottom:'5px',fontSize:'14px',paddingLeft:'15px',fontWeight:'2000'}}>Amazone Orders</Typography>
     <AppTableContainer >
+     
       {loading ? (
         <AppLoader />
       ) : (
@@ -26,16 +30,17 @@ const OrderTable = ({ orderData, loading }) => {
         </Table>
       )}
     </AppTableContainer>
+    </>
   );
 };
 
-export default OrderTable;
+export default AmazoneOrderTable;
 
-OrderTable.defaultProps = {
+AmazoneOrderTable.defaultProps = {
   orderData: [],
 };
 
-OrderTable.propTypes = {
+AmazoneOrderTable.propTypes = {
   orderData: PropTypes.array,
   loading: PropTypes.bool,
 };

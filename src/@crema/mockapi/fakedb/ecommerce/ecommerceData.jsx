@@ -297,6 +297,16 @@ const ecommerceData = [
     SKU: 'MB023',
     productInfo,
     productSpec,
+    Item:'1',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    product_weight:'2kg',
+    Product_Status:true,
+    Item_Volume:'-'
+
   },
   {
     id: 3,
@@ -332,6 +342,15 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'2',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -370,6 +389,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'3',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status: true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -407,8 +436,65 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'4',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
+  },
+  {
+    id: 2,
+    createdAt: '19 Dec 2022',
+    inStock: true,
+    category: 1,
+    title: 'HP Pavilion Gaming Ryzen 7 Octa Core 4800H',
+    description:
+      'Microsoft Office 2019 Home and Student, HP Documentation, HP e-service, HP BIOS Recovery, HP SSRM, HP Smart, HP Jumpstarts, Dropbox, HP Audio Switch, HP Audio Boost',
+    mrp: 1250,
+    brand: 4,
+    ideaFor: 3,
+    discount: '20',
+    rating: 4,
+    color: ProductColors.PINK,
+    reviews: 4356,
+    image: [
+      {
+        id: 3,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 43,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 23,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 54,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+    ],
+    SKU: 'MB023',
+    productInfo,
+    productSpec,
+    Item:'1',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    product_weight:'2kg',
+    Product_Status:true,
+    Item_Volume:'-'
+
   },
   {
     id: 6,
@@ -444,6 +530,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'5',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -481,6 +577,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'6',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -519,9 +625,67 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'7',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
+  {
+    id: 2,
+    createdAt: '19 Dec 2022',
+    inStock: true,
+    category: 1,
+    title: 'HP Pavilion Gaming Ryzen 7 Octa Core 4800H',
+    description:
+      'Microsoft Office 2019 Home and Student, HP Documentation, HP e-service, HP BIOS Recovery, HP SSRM, HP Smart, HP Jumpstarts, Dropbox, HP Audio Switch, HP Audio Boost',
+    mrp: 1250,
+    brand: 4,
+    ideaFor: 3,
+    discount: '20',
+    rating: 4,
+    color: ProductColors.PINK,
+    reviews: 4356,
+    image: [
+      {
+        id: 3,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 43,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 23,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 54,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+    ],
+    SKU: 'MB023',
+    productInfo,
+    productSpec,
+    Item:'1',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    product_weight:'2kg',
+    Product_Status:true,
+    Item_Volume:'-'
+
+  },
+
   {
     id: 9,
     title: 'APPLE iPhone 12 (Blue, 64 GB)',
@@ -556,11 +720,23 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'8',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
+
+
   {
-    id: 1,
+    id: 10,
     title: "Mens's Exclusive Watch",
     description:
       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
@@ -593,6 +769,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'9',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -630,8 +816,65 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'10',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
+  },
+  {
+    id: 2,
+    createdAt: '19 Dec 2022',
+    inStock: true,
+    category: 1,
+    title: 'HP Pavilion Gaming Ryzen 7 Octa Core 4800H',
+    description:
+      'Microsoft Office 2019 Home and Student, HP Documentation, HP e-service, HP BIOS Recovery, HP SSRM, HP Smart, HP Jumpstarts, Dropbox, HP Audio Switch, HP Audio Boost',
+    mrp: 1250,
+    brand: 4,
+    ideaFor: 3,
+    discount: '20',
+    rating: 4,
+    color: ProductColors.PINK,
+    reviews: 4356,
+    image: [
+      {
+        id: 3,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 43,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 23,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+      {
+        id: 54,
+        src: '/assets/images/ecommerce/item-2.png',
+      },
+    ],
+    SKU: 'MB023',
+    productInfo,
+    productSpec,
+    Item:'1',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    product_weight:'2kg',
+    Product_Status:true,
+    Item_Volume:'-'
+
   },
   {
     id: 11,
@@ -667,6 +910,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'11',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -705,6 +958,16 @@ const ecommerceData = [
       },
     ],
     SKU: 'MB023',
+    Item:'12',
+    product_Title:'DNA 28" Silver and Black Aluminium Alloy Lightweight Baseball Softball Rounders Bat Full Size Adults and Teens',
+    Item_SKU:'P-DNA-BARROW-01',
+    shiping_group:'2',
+    Item_Cost:'36',
+    Product_Category:'Food',
+    
+    Product_Status:true,
+    Item_Volume:'-',
+    product_weight:'2kg',
     productInfo,
     productSpec,
   },
@@ -732,8 +995,8 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
   {
     amazon_order_id: '403-9759361-7117131',
@@ -757,8 +1020,8 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
   {
     amazon_order_id: '403-9759361-7117131',
@@ -782,9 +1045,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -807,9 +1071,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -832,9 +1097,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -857,9 +1123,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -882,9 +1149,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -907,9 +1175,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -932,9 +1201,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -957,9 +1227,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -982,9 +1253,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1007,9 +1279,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1032,9 +1305,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1057,9 +1331,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1082,9 +1357,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1107,9 +1383,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1132,9 +1409,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1157,9 +1435,10 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
   {
     amazon_order_id: '403-9759361-7117131',
     purchase_date: '2023-12-31T14:21:40+00:00',
@@ -1182,9 +1461,88 @@ export const recentOrders = [
     ship_postal_code: '86200',
     ship_country: 'FR',
     is_iba: 'FALSE',
-    conProfit: '$100', // New column for con.profit
-    conMargin: '8%',   // New column for con.margin
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
   },
+  
+  {
+    amazon_order_id: '403-9759361-7117131',
+    purchase_date: '2023-12-31T14:21:40+00:00',
+    last_updated_date: '2024-01-02T17:25:27+00:00',
+    order_status: 'Shipped',
+    fulfillment_channel: 'Merchant',
+    sales_channel: 'Amazon.fr',
+    ship_service_level: 'Standard',
+    product_name: 'Brouette de pêche à la carpe avec sac de transport intégré en acier robuste et corps réglable',
+    sku: 'P-DNA-BARROW-01',
+    item_status: 'Shipped',
+    quantity: '1',
+    currency: 'EUR',
+    item_price: '94.95',
+    item_tax: '15.83',
+    shipping_price: '2.95',
+    shipping_tax: '0.49',
+    ship_city: 'La roche rigault',
+    ship_state: 'UK',
+    ship_postal_code: '86200',
+    ship_country: 'FR',
+    is_iba: 'FALSE',
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
+  },
+  
+  {
+    amazon_order_id: '403-9759361-7117131',
+    purchase_date: '2023-12-31T14:21:40+00:00',
+    last_updated_date: '2024-01-02T17:25:27+00:00',
+    order_status: 'Shipped',
+    fulfillment_channel: 'Merchant',
+    sales_channel: 'Amazon.fr',
+    ship_service_level: 'Standard',
+    product_name: 'Brouette de pêche à la carpe avec sac de transport intégré en acier robuste et corps réglable',
+    sku: 'P-DNA-BARROW-01',
+    item_status: 'Shipped',
+    quantity: '1',
+    currency: 'EUR',
+    item_price: '94.95',
+    item_tax: '15.83',
+    shipping_price: '2.95',
+    shipping_tax: '0.49',
+    ship_city: 'La roche rigault',
+    ship_state: 'UK',
+    ship_postal_code: '86200',
+    ship_country: 'FR',
+    is_iba: 'FALSE',
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
+  },
+  
+  {
+    amazon_order_id: '403-9759361-7117131',
+    purchase_date: '2023-12-31T14:21:40+00:00',
+    last_updated_date: '2024-01-02T17:25:27+00:00',
+    order_status: 'Shipped',
+    fulfillment_channel: 'Merchant',
+    sales_channel: 'Amazon.fr',
+    ship_service_level: 'Standard',
+    product_name: 'Brouette de pêche à la carpe avec sac de transport intégré en acier robuste et corps réglable',
+    sku: 'P-DNA-BARROW-01',
+    item_status: 'Shipped',
+    quantity: '1',
+    currency: 'EUR',
+    item_price: '94.95',
+    item_tax: '15.83',
+    shipping_price: '2.95',
+    shipping_tax: '0.49',
+    ship_city: 'La roche rigault',
+    ship_state: 'UK',
+    ship_postal_code: '86200',
+    ship_country: 'FR',
+    is_iba: 'FALSE',
+    selling_fees: '$100', // New column for con.profit
+    fba_fees: '8%',   // New column for con.margin
+  },
+  
  
   // Add more orders here as needed
 ];
