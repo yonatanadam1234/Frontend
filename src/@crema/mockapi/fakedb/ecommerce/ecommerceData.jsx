@@ -1003,7 +1003,6 @@ export const recentOrders = [
     item_tax: "15.83",
     shipping_price: "2.95",
     shiping_group: "2",
-    shiping_group: "2",
     shipping_tax: "0.49",
     ship_city: "La roche rigault",
     ship_state: "UK",
