@@ -9,7 +9,7 @@ import AppTableContainer from "@crema/components/AppTableContainer";
 import AppLoader from "@crema/components/AppLoader";
 import { Typography } from "@mui/material";
 
-const EbayOrderTabel = ({ orderData, loading }) => {
+const EbayOrderTabel = ({ displayProductCost,orderData, loading }) => {
   return (
     <>
       {" "}
@@ -28,16 +28,16 @@ const EbayOrderTabel = ({ orderData, loading }) => {
         {loading ? (
           <AppLoader />
         ) : (
-          <Table stickyHeader className="table">
-            <TableHead>
-              <TableHeading />
-            </TableHead>
-            <TableBody>
-              {orderData.map((data) => (
-                <TableItem data={data} key={data.id} />
-              ))}
-            </TableBody>
-          </Table>
+          <Table stickyHeader className='table'>
+          <TableHead>
+            <TableHeading displayProductCost={displayProductCost} />
+          </TableHead>
+          <TableBody>
+            {orderData.map((data) => (
+              <TableItem data={data} key={data.id} displayProductCost={displayProductCost} /> 
+            ))}
+          </TableBody>
+        </Table>
         )}
       </AppTableContainer>{" "}
     </>

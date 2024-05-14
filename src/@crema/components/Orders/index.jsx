@@ -13,7 +13,11 @@ import {
   TextField,
   InputLabel,
   Typography,
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
 } from "@mui/material";
+import { IoCloseSharp } from "react-icons/io5";
 import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";
 import AppsPagination from "@crema/components/AppsPagination";
@@ -25,7 +29,7 @@ import AmazoneOrderTable from "./AmazoneOrder";
 import ShopifyOrderTabel from "./ShopifyOrder";
 import EbayOrderTabel from "./EbayOrder";
 import MagentoOrderTabel from "./MagentoOrder";
-
+import { display, margin, width } from "@mui/system";
 
 const Orders = () => {
   const { messages } = useIntl();
@@ -64,6 +68,8 @@ const Orders = () => {
 
   // State to hold the selected platform
   const [selectedPlatform, setSelectedPlatform] = useState("Amazon");
+  // State to manage whether to display product cost column
+  const [displayProductCost, setDisplayProductCost] = useState(false);
 
   const onPageChange = (event, value) => {
     setPage(value);
@@ -92,7 +98,6 @@ const Orders = () => {
   };
 
   const applyFilters = () => {
- 
     console.log("Applied Filters:", filters);
   };
 
@@ -104,6 +109,7 @@ const Orders = () => {
             orderData={apiData?.data || []}
             loading={loading}
             filters={filters}
+            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
           />
         );
       case "Shopify":
@@ -112,6 +118,7 @@ const Orders = () => {
             orderData={apiData?.data || []}
             loading={loading}
             filters={filters}
+            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
           />
         );
       case "Ebay":
@@ -120,6 +127,7 @@ const Orders = () => {
             orderData={apiData?.data || []}
             loading={loading}
             filters={filters}
+            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
           />
         );
       case "Magento":
@@ -128,13 +136,14 @@ const Orders = () => {
             orderData={apiData?.data || []}
             loading={loading}
             filters={filters}
+            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
           />
         );
       default:
         return null;
     }
   };
-  
+
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -153,7 +162,9 @@ const Orders = () => {
           displayEmpty
           style={{ minWidth: "300px", height: "40px", marginTop: "55px" }}
         >
-          <MenuItem value="Amazon" selected>Amazon</MenuItem>
+          <MenuItem value="Amazon" selected>
+            Amazon
+          </MenuItem>
           <MenuItem value="Shopify">Shopify</MenuItem>
           <MenuItem value="Ebay">eBay</MenuItem>
           <MenuItem value="Magento">Magento</MenuItem>
@@ -174,7 +185,16 @@ const Orders = () => {
               onChange={(event) => onSearchOrder(event.target.value)}
               placeholder={messages["common.searchHere"]}
             />
-
+            {/* Checkbox for displaying product cost */}
+            <Box display="flex" alignItems="right">
+              <label style={{ marginRight: "380px" }}>
+                <input
+                  type="checkbox"
+                  onChange={() => setDisplayProductCost(!displayProductCost)}
+                />
+                &nbsp;&nbsp;Display Product Cost
+              </label>
+            </Box>
             <Box display="flex" flexDirection="row" alignItems="center">
               <IconButton color="primary" onClick={toggleFilterDrawer}>
                 <Button variant="contained" style={{ background: "#0A8FDC" }}>
@@ -218,14 +238,26 @@ const Orders = () => {
         </Hidden>
 
         <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
+          <Box style={{
+            width:'100%',
+            display:'flex',
+            justifyContent:'flex-end',
+          }}>
+            <IoCloseSharp style={{fontSize:'38px',marginRight:'10px',}} onClick={toggleFilterDrawer}/>
+          </Box>
           <Box p={10}>
             <FormControl
               fullWidth
               sx={{
-                paddingTop: 5,
                 paddingBottom: 5,
               }}
             >
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Top Seller Product"
+                />
+              </FormGroup>
               <Select
                 value={filters.product}
                 onChange={handleFilterChange}
@@ -235,6 +267,160 @@ const Orders = () => {
                 style={{ marginTop: "10px" }}
               >
                 <MenuItem value="">Price</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Con.Profit</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Con.Margin</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Order Status</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Ship Country</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Ship City</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Ship State</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Ship Postal Code</MenuItem>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <TextField
                     id="standard-basic"

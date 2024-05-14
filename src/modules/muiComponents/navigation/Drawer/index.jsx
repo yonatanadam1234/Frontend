@@ -36,7 +36,7 @@ import ClippedDrawerSource from "./ClippedDrawer?raw";
 const BottomNavigation = () => {
   return (
     <>
-      <AppComponentHeader
+      <AppComponentHeader 
         title="Drawer"
         description="Navigation drawers provide access to destinations in your app. Side sheets are surfaces containing supplementary content that are anchored to the left or right edge of the screen."
         refUrl="https://mui.com/components/drawers/"

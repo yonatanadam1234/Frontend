@@ -40,6 +40,8 @@ import {
 import { RoutePermittedRole } from "@crema/constants/AppEnums";
 import { TbFileInvoice } from "react-icons/tb";
 import { MdOutlineInventory } from "react-icons/md";
+import { MdOutlineSettingsInputComponent } from "react-icons/md";
+import { MdOutlineChecklist } from "react-icons/md";
 
 
 
@@ -62,12 +64,12 @@ const routesConfig = [
         url: "/shops",
       },
       {
-        id: "product setting",
+        id:"product setting",
         title: "Product Setting",
         messageId: "sidebar.app.dashboard.Productsetting",
         type: "collapse",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <InventoryIcon />,
+        icon: <MdOutlineSettingsInputComponent style={{marginLeft:'32px'}}/>,
         children: [
           {
             id: "Inventory",
@@ -75,7 +77,7 @@ const routesConfig = [
             messageId: "sidebar.app.dashboard.Productlisting",
             type: "item",
             permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-  
+            icon: <MdOutlineChecklist />,
             url: "/dashboards/inventory",
           },
         ],

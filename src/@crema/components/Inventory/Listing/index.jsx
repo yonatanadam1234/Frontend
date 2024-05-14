@@ -12,6 +12,7 @@ import { Fonts } from '@crema/constants/AppEnums';
 import AppCard from '@crema/components/AppCard';
 import Slide from '@mui/material/Slide';
 import ListingTable from './ListingTable';
+import FilterItem from '../../../../@crema/components/Inventory/FilterItem';
 
 
 const ProductListing = () => {
@@ -62,7 +63,7 @@ const ProductListing = () => {
       </Box>
       <AppGridContainer spacing={7} >
         <Slide direction='right' in mountOnEnter unmountOnExit>
-          <Grid item xs={12}> {/* Set to xs={12} to take full width */}
+          <Grid item xs={9}> {/* Set to xs={12} to take full width */}
             <AppCard
               title={
                 <AppsHeader>
@@ -126,6 +127,11 @@ const ProductListing = () => {
                 />
               </Hidden>
             </AppCard>
+          </Grid>
+        </Slide>
+        <Slide direction='left' in mountOnEnter unmountOnExit>
+          <Grid item xs={12} lg={3}>
+            <FilterItem filterData={filterData} setFilterData={setFilterData} />
           </Grid>
         </Slide>
         

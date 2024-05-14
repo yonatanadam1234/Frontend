@@ -3,10 +3,14 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { BsFillGearFill } from "react-icons/bs";
 
-const TableHeading = () => {
+const TableHeading = ({ displayProductCost }) => {
+  console.log("data",displayProductCost)
   return (
+    
     <TableRow>
       <TableCell>Amazon Order Id</TableCell>
+      <TableCell>Customer Name</TableCell>
+      {displayProductCost && <TableCell>Product Cost</TableCell>}
       <TableCell>Purchase Date</TableCell>
       <TableCell>Last Updated Date</TableCell>
       <TableCell>Order Status</TableCell>
@@ -21,23 +25,28 @@ const TableHeading = () => {
       <TableCell>Item Price</TableCell>
       <TableCell>Item Tax</TableCell>
       <TableCell>Shipping Price</TableCell>
+      <TableCell>shiping group</TableCell>
       <TableCell>Shipping Tax</TableCell>
       <TableCell>Ship City</TableCell>
       <TableCell>Ship State</TableCell>
       <TableCell>Ship Postal Code</TableCell>
       <TableCell>Ship Country</TableCell>
       <TableCell>Is Iba</TableCell>
+      <TableCell>Selling Fees</TableCell>
+      <TableCell>Fba Fees</TableCell>
+      {/* Conditionally render the Product Cost column */}
+
       <TableCell
         align="left"
         style={{
           position: "sticky",
-          right: 140,
+          right: 145,
           zIndex: 3,
           width: "50px",
           backgroundColor: "#cee8f8",
         }}
       >
-        Selling Fees
+        Con.Profit
       </TableCell>
       <TableCell
         align="left"
@@ -49,7 +58,7 @@ const TableHeading = () => {
           backgroundColor: "#cee8f8",
         }}
       >
-        Fba Fees
+        Con.Margin
       </TableCell>
       <TableCell
         align="left"
