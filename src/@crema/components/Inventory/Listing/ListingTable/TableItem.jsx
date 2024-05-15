@@ -33,6 +33,7 @@ const TableItem = ({ data }) => {
   const navigate = useNavigate();
   const [hOpen, setHopen] = useState(false);
   const [shippingGroup, setShippingGroup] = useState(data.shiping_group);
+  const [selectedShippingGroup, setSelectedShippingGroup] = useState(data.shiping_group);
   const [mrp, setMrp] = useState(data.mrp);
   const [productWeight, setProductWeight] = useState(data.product_weight);
   const [editingMrp, setEditingMrp] = useState(false);
@@ -43,8 +44,7 @@ const TableItem = ({ data }) => {
   };
 
   const handleShippingGroupChange = (event) => {
-    const newShippingGroup = event.target.value;
-    setShippingGroup(newShippingGroup);
+    setSelectedShippingGroup(event.target.value);
     // You can add logic here to update the shipping group in your data source
   };
 
@@ -159,9 +159,9 @@ const TableItem = ({ data }) => {
 
         <StyledTableCell align="left">{data.Item_SKU}</StyledTableCell>
 
-        <StyledTableCell align="left">
+        <StyledTableCell style={{display:'flex'}}>
           <Select
-            value={shippingGroup}
+            value={selectedShippingGroup}
             onChange={handleShippingGroupChange}
             sx={{ border: "1px solid #ced4da" }}
           >
@@ -169,8 +169,10 @@ const TableItem = ({ data }) => {
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
+             
             ))}
           </Select>
+          <StyledTableCell style={{marginTop:'10px'}}>{data.shiping_group}</StyledTableCell>
         </StyledTableCell>
 
         <StyledTableCell align="left">
@@ -213,11 +215,8 @@ const TableItem = ({ data }) => {
           </Box>
         </StyledTableCell>
 
-        <StyledTableCell align="left">{data.Item_Volume}</StyledTableCell>
+        <StyledTableCell align="left">{data.shiping_price}</StyledTableCell>
 
-        <TableCell align="right">
-          <OrderActions id={data.id} />
-        </TableCell>
       </TableRow>
 
       <TableRow>

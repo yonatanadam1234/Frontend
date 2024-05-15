@@ -8,8 +8,9 @@ import {
 export const navStyles = [
   {
     id: 1,
+ 
     alias: NavStyle.DEFAULT,
-    image: '/assets/images/navigationStyle/default.svg',
+    image: '/assets/images/navigationStyle/mini.svg',
   },
   {
     id: 2,
@@ -29,7 +30,7 @@ export const navStyles = [
   {
     id: 5,
     alias: NavStyle.MINI,
-    image: '/assets/images/navigationStyle/mini.svg',
+    image: '/assets/images/navigationStyle/default.svg',
   },
   {
     id: 6,

@@ -1,34 +1,34 @@
 // ProductListing.jsx
-import AppsHeader from '@crema/components/AppsContainer/AppsHeader';
-import { useGetDataApi } from '@crema/hooks/APIHooks';
-import { Box, Grid, Hidden } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
-import AppsContent from '@crema/components/AppsContainer/AppsContent';
-import AppsPagination from '@crema/components/AppsPagination';
-import AppSearchBar from '@crema/components/AppSearchBar';
-import AppGridContainer from '@crema/components/AppGridContainer';
-import { Fonts } from '@crema/constants/AppEnums';
-import AppCard from '@crema/components/AppCard';
-import Slide from '@mui/material/Slide';
-import ListingTable from './ListingTable';
-import FilterItem from '../../../../@crema/components/Inventory/FilterItem';
-
-
+import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
+import { useGetDataApi } from "@crema/hooks/APIHooks";
+import { Box, Grid, Hidden, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import AppsContent from "@crema/components/AppsContainer/AppsContent";
+import AppsPagination from "@crema/components/AppsPagination";
+import AppSearchBar from "@crema/components/AppSearchBar";
+import AppGridContainer from "@crema/components/AppGridContainer";
+import { Fonts } from "@crema/constants/AppEnums";
+import AppCard from "@crema/components/AppCard";
+import Slide from "@mui/material/Slide";
+import ListingTable from "./ListingTable";
+import FilterItem from "../../../../@crema/components/Inventory/FilterItem";
+import { Button } from "@mui/base";
+import FilterListIcon from "@mui/icons-material/FilterList";
 const ProductListing = () => {
   const { messages } = useIntl();
   const [filterData, setFilterData] = useState({
-    title: '',
+    title: "",
     inStock: [],
     mrp: { start: 0, end: 30000 },
   });
 
   const [page, setPage] = useState(0);
   const [{ apiData, loading }, { setQueryParams }] = useGetDataApi(
-    '/api/ecommerce/list',
+    "/api/ecommerce/list",
     [],
     {},
-    false,
+    false
   );
 
   const { list, total } = apiData;
@@ -40,18 +40,14 @@ const ProductListing = () => {
     setQueryParams({ filterData, page });
   }, [filterData, page]);
 
-  const searchProduct = (title) => {
-    setFilterData({ ...filterData, title });
-  };
-
   return (
     <>
       <Box
-        component='h2'
-        variant='h2'
+        component="h2"
+        variant="h2"
         sx={{
           fontSize: 16,
-          color: 'text.primary',
+          color: "text.primary",
           fontWeight: Fonts.SEMI_BOLD,
           mb: {
             xs: 2,
@@ -59,46 +55,52 @@ const ProductListing = () => {
           },
         }}
       >
-        {messages['sidebar.ecommerceAdmin.Inventory']}
+        {messages["sidebar.ecommerceAdmin.Inventory"]}
       </Box>
-      <AppGridContainer spacing={7} >
-        <Slide direction='right' in mountOnEnter unmountOnExit>
-          <Grid item xs={9}> {/* Set to xs={12} to take full width */}
+      <AppGridContainer spacing={7}>
+        <Slide direction="right" in mountOnEnter unmountOnExit>
+          <Grid item xs={12}>
+            {" "}
+            {/* Set to xs={12} to take full width */}
             <AppCard
               title={
                 <AppsHeader>
                   <Box
-                    display='flex'
-                    flexDirection='row'
-                    alignItems='center'
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
                     width={1}
-                    justifyContent='space-between'
+                    justifyContent="space-between"
                   >
                     <AppSearchBar
-                      iconPosition='right'
+                      iconPosition="right"
                       overlap={false}
-                      onChange={(event) => searchProduct(event.target.value)}
-                      placeholder={messages['common.searchHere']}
+                      onChange={(event) => onSearchOrder(event.target.value)}
+                      placeholder={messages["common.searchHere"]}
                     />
-                    <Box
-                      display='flex'
-                      flexDirection='row'
-                      alignItems='center'
-                      justifyContent='flex-end'
-                    >
-                      <Hidden smDown>
-                        <AppsPagination
-                          rowsPerPage={10}
-                          count={total}
-                          page={page}
-                          onPageChange={onPageChange}
-                        />
-                      </Hidden>
+                    
+
+                    <Box display="flex" flexDirection="row" alignItems="center">
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                      >
+                        <Hidden smDown>
+                          <AppsPagination
+                            rowsPerPage={10}
+                            count={total}
+                            page={page}
+                            onPageChange={onPageChange}
+                          />
+                        </Hidden>
+                      </Box>
                     </Box>
                   </Box>
                 </AppsHeader>
               }
-              headerStyle = {{ p: 0 }}
+              headerStyle={{ p: 0 }}
               contentStyle={{ p: 0 }}
             >
               <AppsContent
@@ -108,15 +110,7 @@ const ProductListing = () => {
                 }}
               >
                 <ListingTable productData={list || []} loading={loading} />
-                {/* <Pagination
-                  count={Math.ceil(total / 10)} // Assuming 10 items per page
-                  page={page}
-                  onChange={onPageChange}
-                  shape="rounded"
-                  size="large"
-                  siblingCount={1}
-                  boundaryCount={1}
-                /> */}
+        
               </AppsContent>
               <Hidden smUp>
                 <AppsPagination
@@ -129,12 +123,11 @@ const ProductListing = () => {
             </AppCard>
           </Grid>
         </Slide>
-        <Slide direction='left' in mountOnEnter unmountOnExit>
+        {/* <Slide direction="left" in mountOnEnter unmountOnExit>
           <Grid item xs={12} lg={3}>
             <FilterItem filterData={filterData} setFilterData={setFilterData} />
           </Grid>
-        </Slide>
-        
+        </Slide> */}
       </AppGridContainer>
     </>
   );

@@ -1,27 +1,27 @@
-import React from 'react';
-import { Grid } from '@mui/material';
-import AppGridContainer from '@crema/components/AppGridContainer';
-import AppAnimate from '@crema/components/AppAnimate';
-import { useGetDataApi } from '@crema/hooks/APIHooks';
-import StateCard from './StateCard';
-import SalesReport from './SalesReport';
-import BudgetStatistic from './BudgetStatistic';
-import TopInquiries from './TopInquiries';
-import WeeklyBestSellers from './WeeklyBestSellers';
-import AgeOfAudience from './AgeOfAudience';
-import ReportCard from './ReportCard';
-import RecentOrders from './RecentOrders';
-import Revenue from './Revenue';
-import RevenueGraph from './RevenueGraph';
-import MarketingCampaign from './MarketingCampaign';
-import NewCustomers from './NewCustomers';
-import PopularProducts from './PopularProducts';
-import Browser from './Browser';
-import AppLoader from '@crema/components/AppLoader';
+import React from "react";
+import { Grid } from "@mui/material";
+import AppGridContainer from "@crema/components/AppGridContainer";
+import AppAnimate from "@crema/components/AppAnimate";
+import { useGetDataApi } from "@crema/hooks/APIHooks";
+import StateCard from "./StateCard";
+import SalesReport from "./SalesReport";
+import BudgetStatistic from "./BudgetStatistic";
+import TopInquiries from "./TopInquiries";
+import WeeklyBestSellers from "./WeeklyBestSellers";
+import AgeOfAudience from "./AgeOfAudience";
+import ReportCard from "./ReportCard";
+import RecentOrders from "./RecentOrders";
+import Revenue from "./Revenue";
+import RevenueGraph from "./RevenueGraph";
+import MarketingCampaign from "./MarketingCampaign";
+import NewCustomers from "./NewCustomers";
+import PopularProducts from "./PopularProducts";
+import Browser from "./Browser";
+import AppLoader from "@crema/components/AppLoader";
 
 const ECommerce = () => {
   const [{ apiData: ecommerceData, loading }] = useGetDataApi(
-    '/dashboard/ecommerce',
+    "/dashboard/ecommerce"
   );
 
   return (
@@ -29,16 +29,23 @@ const ECommerce = () => {
       {loading ? (
         <AppLoader />
       ) : (
-        <AppAnimate animation='transition.slideUpIn' delay={200}>
+        <AppAnimate animation="transition.slideUpIn" delay={200}>
           <AppGridContainer>
             {ecommerceData.stateData.map((data) => (
               <Grid key={data.id} item xs={12} sm={6} lg={3}>
                 <StateCard data={data} />
               </Grid>
             ))}
+
+
+
+            {/* sales graph */}
             <Grid item xs={12} md={9} lg={9}>
               <SalesReport />
             </Grid>
+
+
+
             <Grid item xs={12} md={3} lg={3}>
               <BudgetStatistic />
             </Grid>
@@ -48,6 +55,8 @@ const ECommerce = () => {
                 <ReportCard data={data} />
               </Grid>
             ))}
+
+
 
             <Grid item xs={12} md={6} lg={5} xl={4}>
               <TopInquiries topInquiries={ecommerceData.topInquiries} />

@@ -187,7 +187,7 @@ const Orders = () => {
             />
             {/* Checkbox for displaying product cost */}
             <Box display="flex" alignItems="right">
-              <label style={{ marginRight: "380px" }}>
+              <label style={{ marginRight: "550px" }}>
                 <input
                   type="checkbox"
                   onChange={() => setDisplayProductCost(!displayProductCost)}
@@ -258,6 +258,56 @@ const Orders = () => {
                   label="Top Seller Product"
                 />
               </FormGroup>
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Low Seller Products"
+                />
+              </FormGroup>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Geographic Location</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
+              <Select
+                value={filters.product}
+                onChange={handleFilterChange}
+                name="product"
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "10px" }}
+              >
+                <MenuItem value="">Promotional Orders</MenuItem>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    id="standard-basic"
+                    label="Min-Price"
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    label="Max-Price"
+                    variant="filled"
+                  />
+                </Box>
+              </Select>
               <Select
                 value={filters.product}
                 onChange={handleFilterChange}

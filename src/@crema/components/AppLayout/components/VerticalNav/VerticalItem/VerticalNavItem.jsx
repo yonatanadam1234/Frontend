@@ -23,6 +23,7 @@ const VerticalNavItem = ({ children, level, ...rest }) => {
         'curved-menu': menuStyle === MenuStyle.CURVED_MENU,
       })}
       sx={{
+
         height: 40,
         my: 0.25,
         cursor: 'pointer',
@@ -148,6 +149,9 @@ const VerticalNavItem = ({ children, level, ...rest }) => {
           },
           '& .MuiTouchRipple-root': {
             display: 'none',
+          },
+          '& .shopsedit':{
+          
           },
         },
       }}

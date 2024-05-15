@@ -14,8 +14,9 @@ const TableHeading = () => {
       <TableCell align='left'>Product Category</TableCell>
       <TableCell align='left'>Product Weight</TableCell>
       <TableCell align='left'>Product Status</TableCell>
-      <TableCell align='left'>Item Volume (shipment , storage)</TableCell>
-      <TableCell align='left'>Actions</TableCell>
+      <TableCell align='left'>shipping price</TableCell>
+      <TableCell align='left'>Custome</TableCell>
+      
     </TableHeader>
   );
 };

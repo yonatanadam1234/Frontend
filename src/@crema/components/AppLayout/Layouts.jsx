@@ -12,11 +12,11 @@ import HorHeaderFixed from './HorHeaderFixed';
 import HorDarkLayout from './HorDarkLayout';
 
 const Layouts = {
-  [NavStyle.DEFAULT]: Default,
+  [NavStyle.DEFAULT]: MiniSidebar,
   [NavStyle.BIT_BUCKET]: BitBucket,
   [NavStyle.STANDARD]: Standard,
   [NavStyle.DRAWER]: DrawerLayout,
-  [NavStyle.MINI]: MiniSidebar,
+  [NavStyle.MINI]: Default,
   [NavStyle.MINI_SIDEBAR_TOGGLE]: MiniSidebarToggle,
   [NavStyle.HEADER_USER]: HeaderUserLayout,
   [NavStyle.HEADER_USER_MINI]: HeaderUserMiniLayout,

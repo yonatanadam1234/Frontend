@@ -140,8 +140,7 @@ const TableItem = ({ data, displayProductCost }) => {
       <TableCell>{data.is_iba}</TableCell>
       <TableCell>{data.selling_fees}</TableCell>
       <TableCell>{data.fba_fees}</TableCell>
-      {/* Conditionally render the Product Cost data */}
-
+    
       <TableCell
         align="left"
         style={{

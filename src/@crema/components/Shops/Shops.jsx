@@ -80,7 +80,7 @@ function Row(props) {
           }}
         >
           <img
-            src={`src/assets/icon/${row.name}`}
+            src={`assets/icon/${row.name}`}
             alt=""
             style={{
               width: "40px",

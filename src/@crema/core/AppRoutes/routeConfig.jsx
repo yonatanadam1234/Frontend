@@ -60,7 +60,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.shops",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <AddBusinessIcon />,
+        icon: <AddBusinessIcon style={{marginLeft:'32px'}}/>,
         url: "/shops",
       },
       {
@@ -77,7 +77,7 @@ const routesConfig = [
             messageId: "sidebar.app.dashboard.Productlisting",
             type: "item",
             permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-            icon: <MdOutlineChecklist />,
+            icon: <MdOutlineChecklist style={{marginLeft:'32px'}}/>,
             url: "/dashboards/inventory",
           },
         ],
@@ -91,6 +91,15 @@ const routesConfig = [
     messageId: "sidebar.application",
     type: "group",
     children: [
+      {
+        id: "e-commerce",
+        title: "E-Commerce",
+        messageId: "sidebar.app.dashboard.eCommerce",
+        type: "item",
+        permittedRole: [RoutePermittedRole.User],
+        icon: <BsCart4 />,
+        url: "/dashboards/e-commerce",
+      },
       {
         id: "Order",
         title: "Order",
@@ -137,15 +146,7 @@ const routesConfig = [
       //   icon: <FaRegHospital />,
       //   url: "/dashboards/health-care",
       // },
-      {
-        id: "e-commerce",
-        title: "E-Commerce",
-        messageId: "sidebar.app.dashboard.eCommerce",
-        type: "item",
-        permittedRole: [RoutePermittedRole.User],
-        icon: <BsCart4 />,
-        url: "/dashboards/e-commerce",
-      },
+     
       // {
       //   id: "academy",
       //   title: "Academy",

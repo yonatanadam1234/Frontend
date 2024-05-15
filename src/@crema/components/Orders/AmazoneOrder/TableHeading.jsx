@@ -46,7 +46,7 @@ const TableHeading = ({ displayProductCost }) => {
           backgroundColor: "#cee8f8",
         }}
       >
-        Con.Profit
+        Total Profit
       </TableCell>
       <TableCell
         align="left"
