@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import { Fonts } from "@crema/constants/AppEnums";
 
 const StateWrapper = styled("div")((props) => {
+  
   return {
     flex: 1,
     position: "relative",
@@ -98,12 +99,14 @@ const StateCard = ({ data }) => {
         },
       }}
     >
+
       <StateWrapper color={data.color}>
         <Box className="state-icon">
           <Box className="hsIcon">
             <Icon>{data.icon}</Icon>
           </Box>
         </Box>
+
         <div className="state-content">
           <Box
             sx={{
@@ -138,6 +141,7 @@ const StateCard = ({ data }) => {
               {data.title}
             </Typography>
           </Box>
+
           <Box
             sx={{
               display: "inline-flex",
@@ -151,8 +155,10 @@ const StateCard = ({ data }) => {
                 },
             }}
           >
+            
             <Box component="span" className="state-growth">
               {data.growth}%
+
               <Box
                 component="span"
                 sx={{
@@ -163,6 +169,7 @@ const StateCard = ({ data }) => {
               >
                 ^
               </Box>
+
             </Box>
             <div>
               <Typography
@@ -173,6 +180,7 @@ const StateCard = ({ data }) => {
               </Typography>
             </div>
           </Box>
+
         </div>
       </StateWrapper>
     </AppCard>

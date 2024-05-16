@@ -56,19 +56,19 @@ const analyticsData = {
       id: 1,
 
       amount: '3510',
-      type: 'Author Sales',
+      type: 'Turnover',
       icon: '/assets/images/dashboard/auther_sales.svg',
     },
     {
       id: 2,
       amount: '3.2M',
-      type: 'All Time Revenue',
+      type: 'Cost of Sales ',
       icon: '/assets/images/dashboard/all_time_sales.svg',
     },
     {
       id: 3,
       amount: '390',
-      type: 'Commissions',
+      type: 'Revenue',
       icon: '/assets/images/dashboard/commission_sale.svg',
     },
     // {

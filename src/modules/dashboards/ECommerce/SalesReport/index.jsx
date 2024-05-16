@@ -1,96 +1,36 @@
 import React from 'react';
-import AppCard from '@crema/components/AppCard';
-import SalesChart from './SalesChart';
-import AppSelect from '@crema/components/AppSelect';
-import { useIntl } from 'react-intl';
-import IntlMessages from '@crema/helpers/IntlMessages';
-import { alpha, useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import data from './data';
+import { Typography } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-
-const DotActionItem = styled('div')(({ theme }) => {
-  return {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    lineHeight: 1,
-    paddingBottom: 2,
-    fontSize: 12,
-    color: theme.palette.text.secondary,
-    '&:not(:first-of-type)': {
-      marginLeft: 16,
-      paddingLeft: 16,
-      borderLeft: `solid 1px ${alpha(theme.palette.text.secondary, 0.2)}`,
-    },
-    '& .dot-icon': {
-      height: 10,
-      width: 10,
-      marginRight: 4,
-      marginTop: 3,
-      borderRadius: '50%',
-    },
-  };
-});
-
-const SalesReport = () => {
-  const { messages } = useIntl();
-
-  const theme = useTheme();
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleSelectionType = () => {};
-
-  return (
-    <AppCard
-      sxStyle={{ position: 'relative' }}
-      title={messages['dashboard.eCommerce.salesReportOverview']}
-      action={
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <Box
-            sx={{
-              display: { xs: 'none', sm: 'flex' },
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              mr: 2,
-            }}
-          >
-            <DotActionItem>
-              <span
-                style={{ backgroundColor: theme.palette.secondary.main }}
-                className='dot-icon'
-              />
-              <IntlMessages id='dashboard.eCommerce.return' />
-            </DotActionItem>
-            <DotActionItem>
-              <span
-                style={{ backgroundColor: theme.palette.primary.main }}
-                className='dot-icon'
-              />
-              <IntlMessages id='common.orders' />
-            </DotActionItem>
-          </Box>
-          <AppSelect
-            menus={[
-              messages['dashboard.thisWeek'],
-              messages['dashboard.lastWeeks'],
-              messages['dashboard.lastMonth'],
-            ]}
-            defaultValue={messages['dashboard.thisWeek']}
-            onChange={handleSelectionType}
-          />
-        </Box>
-      }
-    >
-      <SalesChart />
-    </AppCard>
-  );
-};
-
+const SalesReport = () => (
+  <>
+  <Typography sx={{padding:5, fontSize:20}}>Daily Sales</Typography>
+  <ResponsiveContainer width='100%' height={300} >
+    <LineChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+      <XAxis dataKey='name' />
+      <YAxis />
+      <CartesianGrid strokeDasharray='3 3' />
+      <Tooltip />
+      <Legend />
+      <Line
+        type='monotone'
+        dataKey='pv'
+        stroke='#4299E1'
+        activeDot={{ r: 8 }}
+      />
+      <Line type='monotone' dataKey='uv' stroke='#F04F47' />
+    </LineChart>
+  </ResponsiveContainer>
+  </>
+);
 export default SalesReport;

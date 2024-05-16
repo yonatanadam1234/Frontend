@@ -16,11 +16,11 @@ const WeeklyBestSellers = ({ data }) => {
       title={messages['dashboard.eCommerce.weeklyBestSellers']}
       action={messages['common.viewAll']}
     >
-      <AppScrollbar style={{ maxHeight: 200 }}>
+      <AppScrollbar style={{ maxHeight: 300 }}>
         <AppList
           data={data}
           renderRow={(bestSeller) => (
-            <BestSellersCell key={bestSeller.id} bestSeller={bestSeller} />
+            <BestSellersCell key={bestSeller.id} bestSeller={bestSeller}/>
           )}
         />
       </AppScrollbar>

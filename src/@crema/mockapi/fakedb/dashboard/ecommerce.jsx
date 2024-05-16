@@ -1,17 +1,10 @@
 const ecommerce = {
   stateData: [
-    {
-      id: 3,
-      icon: "domain",
-      title: "Total Sales ",
-      value: 2140,
-      growth: 33,
-      color: "#E2A72E",
-    },
+
     {
       id: 2,
       icon: "local_shipping",
-      title: "Profit After Cost of Goods",
+      title: "Total Expenses",
       value: 3100,
       growth: 33,
       color: "#0A8FDC",
@@ -19,7 +12,7 @@ const ecommerce = {
     {
       id: 1,
       icon: "point_of_sale",
-      title: "Profit After Expenses",
+      title: " Expenses ",
       value: 32100,
       growth: 33,
       color: "#43C888",
@@ -27,7 +20,7 @@ const ecommerce = {
     {
       id: 4,
       icon: "supervisor_account",
-      title: "Margin %",
+      title: "Total Margin",
       value: 15000,
       growth: 21,
       color: "#F04F47",
