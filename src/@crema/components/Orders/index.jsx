@@ -177,7 +177,7 @@ const Orders = () => {
             flexDirection="row"
             alignItems="center"
             width={1}
-            justifyContent="space-between"
+           
           >
             <AppSearchBar
               iconPosition="right"
@@ -186,8 +186,8 @@ const Orders = () => {
               placeholder={messages["common.searchHere"]}
             />
             {/* Checkbox for displaying product cost */}
-            <Box display="flex" alignItems="right">
-              <label style={{ marginRight: "550px" }}>
+            <Box  alignItems="right" >
+              <label >
                 <input
                   type="checkbox"
                   onChange={() => setDisplayProductCost(!displayProductCost)}
@@ -195,14 +195,14 @@ const Orders = () => {
                 &nbsp;&nbsp;Display Product Cost
               </label>
             </Box>
-            <Box display="flex" flexDirection="row" alignItems="center">
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="right" flex='auto'>
               <IconButton color="primary" onClick={toggleFilterDrawer}>
                 <Button variant="contained" style={{ background: "#0A8FDC" }}>
                   <FilterListIcon />
                   &nbsp;Filters
                 </Button>
               </IconButton>
-              <Button variant="contained" style={{ background: "#0A8FDC" }}>
+              <Button variant="contained" style={{ background: "#0A8FDC" }} >
                 Add Order
               </Button>
 
@@ -210,7 +210,7 @@ const Orders = () => {
                 <AppsPagination
                   rowsPerPage={10}
                   count={apiData?.count}
-                  page={page}
+                  page={page} 
                   onPageChange={onPageChange}
                 />
               </Hidden>

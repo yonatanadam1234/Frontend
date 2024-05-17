@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import OrderActions from './OrderActions';
-import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { ellipsisLines } from '@crema/helpers/StringHelper';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import Typography from '@mui/material/Typography';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import React, { useState } from "react";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import Typography from "@mui/material/Typography";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableHead from "@mui/material/TableHead";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { FaEdit } from "react-icons/fa";
+import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { ellipsisLines } from "@crema/helpers/StringHelper";
 
 const StyledTableCell = styled(TableCell)(() => ({
   fontSize: 14,
@@ -33,7 +33,9 @@ const TableItem = ({ data }) => {
   const navigate = useNavigate();
   const [hOpen, setHopen] = useState(false);
   const [shippingGroup, setShippingGroup] = useState(data.shiping_group);
-  const [selectedShippingGroup, setSelectedShippingGroup] = useState(data.shiping_group);
+  const [selectedShippingGroup, setSelectedShippingGroup] = useState(
+    data.shiping_group
+  );
   const [mrp, setMrp] = useState(data.mrp);
   const [productWeight, setProductWeight] = useState(data.product_weight);
   const [editingMrp, setEditingMrp] = useState(false);
@@ -82,37 +84,37 @@ const TableItem = ({ data }) => {
   const shippingGroupOptions = [1, 2, 3, 4];
   const tableData = [
     {
-      id:1,
-      Variant_SKU: 'P-DNA-BARROW-01',
+      id: 1,
+      Variant_SKU: "P-DNA-BARROW-01",
       Vendor_Title: 'DNA 28" Silver and Black Aluminium',
-      Inventory: '10',
-      Inventory_Cost: '$5678',
-      Inventory_Value: '$345354',
-      Unit_Count: '4',
-      Daily_Sales: '3',
-      Days_to_Finish: '6',
+      Inventory: "10",
+      Inventory_Cost: "$5678",
+      Inventory_Value: "$345354",
+      Unit_Count: "4",
+      Daily_Sales: "3",
+      Days_to_Finish: "6",
     },
     {
-      id:2,
-      Variant_SKU: 'P-DNA-BARROW-01',
+      id: 2,
+      Variant_SKU: "P-DNA-BARROW-01",
       Vendor_Title: 'DNA 28" Silver and Black Aluminium',
-      Inventory: '8',
-      Inventory_Cost:'$2344',
-      Inventory_Value: '$43545',
-      Unit_Count: '5',
-      Daily_Sales: '3',
-      Days_to_Finish: '7',
+      Inventory: "8",
+      Inventory_Cost: "$2344",
+      Inventory_Value: "$43545",
+      Unit_Count: "5",
+      Daily_Sales: "3",
+      Days_to_Finish: "7",
     },
     {
-      id:3,
-      Variant_SKU: 'P-DNA-BARROW-01',
+      id: 3,
+      Variant_SKU: "P-DNA-BARROW-01",
       Vendor_Title: 'DNA 28" Silver and Black Aluminium',
-      Inventory: '7',
-      Inventory_Cost: '$444',
-      Inventory_Value: '$3434',
-      Unit_Count: '6',
-      Daily_Sales: '4',
-      Days_to_Finish: '3',
+      Inventory: "7",
+      Inventory_Cost: "$444",
+      Inventory_Value: "$3434",
+      Unit_Count: "6",
+      Daily_Sales: "4",
+      Days_to_Finish: "3",
     },
   ];
 
@@ -130,9 +132,7 @@ const TableItem = ({ data }) => {
             {hOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
-
         <StyledTableCell align="left">{data.Item}</StyledTableCell>
-
         <StyledTableCell align="left" sx={{ width: 400 }}>
           <Box
             sx={{
@@ -156,10 +156,8 @@ const TableItem = ({ data }) => {
             {ellipsisLines(data.title)}
           </Box>
         </StyledTableCell>
-
         <StyledTableCell align="left">{data.Item_SKU}</StyledTableCell>
-
-        <StyledTableCell style={{display:'flex'}}>
+        <StyledTableCell style={{ display: "flex" }}>
           <Select
             value={selectedShippingGroup}
             onChange={handleShippingGroupChange}
@@ -169,10 +167,11 @@ const TableItem = ({ data }) => {
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
-             
             ))}
           </Select>
-          <StyledTableCell style={{marginTop:'10px'}}>{data.shiping_group}</StyledTableCell>
+          <StyledTableCell style={{ marginTop: "10px" }}>
+            {data.shiping_group}
+          </StyledTableCell>
         </StyledTableCell>
 
         <StyledTableCell align="left">
@@ -183,7 +182,16 @@ const TableItem = ({ data }) => {
               onBlur={handleMrpBlur}
             />
           ) : (
-            <Box onClick={() => setEditingMrp(true)}>{data.mrp}</Box>
+            <Box
+              onClick={() => setEditingMrp(true)}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {data.mrp}
+              <FaEdit style={{ marginLeft: "8px" }} />
+            </Box>
           )}
         </StyledTableCell>
 
@@ -196,10 +204,12 @@ const TableItem = ({ data }) => {
               onBlur={handleProductWeightBlur}
             />
           ) : (
-            <Box onClick={() => setEditingProductWeight(true)}>{data.product_weight}</Box>
+            <Box onClick={() => setEditingProductWeight(true)}>
+              {data.product_weight}
+              <FaEdit style={{ marginLeft: "8px" }} />
+            </Box>
           )}
         </StyledTableCell>
-
         <StyledTableCell align="left">
           <Box
             sx={{
@@ -214,9 +224,7 @@ const TableItem = ({ data }) => {
             {data.Product_Status ? "Active" : "Inactive"}
           </Box>
         </StyledTableCell>
-
         <StyledTableCell align="left">{data.shiping_price}</StyledTableCell>
-
       </TableRow>
 
       <TableRow>

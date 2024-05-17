@@ -61,7 +61,7 @@ const StateWrapper = styled("div")((props) => {
     },
     "& .state-growth": {
       marginBottom: 4,
-      padding: "4px 10px",
+      padding: "10px 10px",
       fontSize: 12,
       fontWeight: Fonts.BOLD,
       backgroundColor: props.color + "44",

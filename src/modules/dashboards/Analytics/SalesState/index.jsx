@@ -24,6 +24,7 @@ const SalesState = ({ salesState, chartData }) => {
     <AppCard
       title={messages['dashboard.analytics.salesState']}
       sxStyle={{ height: 1 }}
+      sx={{mt:8}}
       action={
         <AppSelect
           menus={[

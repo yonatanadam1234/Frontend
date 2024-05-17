@@ -31,7 +31,7 @@ const PopularProducts = ({ popularProducts }) => {
       }
       contentStyle={{ paddingLeft: 0, paddingRight: 0 }}
     >
-      <AppScrollbar style={{ maxHeight: 330 }}>
+      <AppScrollbar style={{ maxHeight: 330 }}> 
         <AppGrid
           data={popularProducts}
           responsive={{

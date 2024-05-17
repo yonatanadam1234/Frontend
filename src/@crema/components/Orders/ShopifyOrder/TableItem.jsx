@@ -7,7 +7,7 @@ import OrderActions from "./OrderActions";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-
+import { FaEdit } from "react-icons/fa";
 const TableItem = ({ data, displayProductCost }) => {
   const [shippingGroup, setShippingGroup] = useState(data.shiping_group);
   const handleShippingGroupChange = (event) => {
@@ -77,7 +77,8 @@ const TableItem = ({ data, displayProductCost }) => {
             <Box
               onDoubleClick={handleProductCostDoubleClick}
             >
-              {data.product_cost}
+             {data.product_cost}
+              <FaEdit style={{ marginLeft: "8px" }} />
             </Box>
           )}
         </TableCell>

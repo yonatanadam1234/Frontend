@@ -4,7 +4,7 @@ const ecommerce = {
     {
       id: 2,
       icon: "local_shipping",
-      title: "Total Expenses",
+      title: "Total Sales",
       value: 3100,
       growth: 33,
       color: "#0A8FDC",
@@ -12,7 +12,7 @@ const ecommerce = {
     {
       id: 1,
       icon: "point_of_sale",
-      title: " Expenses ",
+      title: " Returns ",
       value: 32100,
       growth: 33,
       color: "#43C888",
@@ -20,7 +20,7 @@ const ecommerce = {
     {
       id: 4,
       icon: "supervisor_account",
-      title: "Total Margin",
+      title: "Campaigns  ",
       value: 15000,
       growth: 21,
       color: "#F04F47",
@@ -116,7 +116,7 @@ const ecommerce = {
     {
       id: 1,
       value: "785K+",
-      type: "Yearly Traffic",
+      type: "Total Sales",
       changes: "10",
       icon: "public",
       color: "#3d5afe",
@@ -131,7 +131,7 @@ const ecommerce = {
     {
       id: 2,
       value: "$457K+",
-      type: "Yearly Profit",
+      type: "Profit After Cost of Goods",
       changes: "5",
       icon: "pie_chart",
       color: "#F04F47",
@@ -146,7 +146,7 @@ const ecommerce = {
     {
       id: 3,
       value: "565K+",
-      type: "Yearly Sale Report",
+      type: "Profit After Expenses",
       changes: "15",
       icon: "bar_chart",
       color: "#54B435",
@@ -161,7 +161,7 @@ const ecommerce = {
     {
       id: 4,
       value: "$340K+",
-      type: "Yearly Revenue",
+      type: "Margin %",
       changes: "12",
       icon: "account_balance_wallet",
       color: "#0BBFDB",

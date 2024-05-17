@@ -33,6 +33,13 @@ const ECommerce = () => {
       ) : (
         <AppAnimate animation="transition.slideUpIn" delay={200}>
           <AppGridContainer>
+
+          {ecommerceData.reportData.map((data) => (
+              <Grid key={data.id} item xs={12} sm={6} lg={3}>
+                <ReportCard data={data} />
+              </Grid>
+            ))}
+
             {/* 1.Profit Focus Boxes: */}
             <Grid container spacing={4} style={{marginLeft:'10px'}}>
               {/* Main Grid Container */}
@@ -48,7 +55,7 @@ const ECommerce = () => {
 
               {/* State Cards Grid */}
               <Grid item xs={12} lg={4}>
-                <Grid container spacing={3} style={{marginTop:'7px'}}>
+                <Grid container spacing={3} sx={{mt:6}}>
                   {/* State Cards (Upper Row) */}
                   <Grid item xs={12}>
                     <Grid container spacing={6} direction="column">
@@ -62,11 +69,7 @@ const ECommerce = () => {
                 </Grid>
               </Grid>
             </Grid>
-            {ecommerceData.reportData.map((data) => (
-              <Grid key={data.id} item xs={12} sm={6} lg={3}>
-                <ReportCard data={data} />
-              </Grid>
-            ))}
+           
             {/* sales graph */}
             <Grid item xs={12} md={8} lg={8}>
               <SalesReport />
