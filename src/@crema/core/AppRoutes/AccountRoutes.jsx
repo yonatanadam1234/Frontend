@@ -4,6 +4,7 @@ import Shops from '../../components/Shops/Shops';
 import Account from '../../../modules/account/MyProfile'
 import Orders from '../../components/Orders';
 import ProductListing from '../../components/Inventory/Listing';
+import Exp from '../../components/Expenses/Exp';
 
 
 export const accountPagesConfigs = [
@@ -26,5 +27,10 @@ export const accountPagesConfigs = [
     permittedRole: RoutePermittedRole.User,
     path: '/dashboards/inventory',
     element: <ProductListing/> ,
+  },
+  {
+    permittedRole: RoutePermittedRole.User,
+    path: '/dashboards/expenses',
+    element: <Exp/> ,
   },
 ];

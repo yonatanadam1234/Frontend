@@ -24,7 +24,7 @@ const ECommerce = () => {
   const [{ apiData: ecommerceData, loading }] = useGetDataApi(
     "/dashboard/ecommerce"
   );
-  const [{ apiData: analyticsData }] = useGetDataApi("/dashboard/analytics");
+  // const [{ apiData: ecommerceData }] = useGetDataApi("/dashboard/analytics");
 
   return (
     <>
@@ -47,15 +47,15 @@ const ECommerce = () => {
                 {/* Sales State */}
                 <Grid item xs={12}>
                   <SalesState
-                    salesState={analyticsData.salesState}
-                    chartData={analyticsData.salesChartData}
+                    salesState={ecommerceData.salesState}
+                    chartData={ecommerceData.salesChartData}
                   />
                 </Grid>
               </Grid>
 
               {/* State Cards Grid */}
               <Grid item xs={12} lg={4}>
-                <Grid container spacing={3} sx={{mt:6}}>
+                <Grid container spacing={3} sx={{mt:12}}>
                   {/* State Cards (Upper Row) */}
                   <Grid item xs={12}>
                     <Grid container spacing={6} direction="column">
@@ -71,45 +71,48 @@ const ECommerce = () => {
             </Grid>
            
             {/* sales graph */}
-            <Grid item xs={12} md={8} lg={8}>
+            {/* <Grid item xs={12} md={8} lg={8}>
               <SalesReport />
-            </Grid>
-
-            {/* <Grid item xs={12} md={3} lg={3}>
-              <BudgetStatistic />
             </Grid> */}
 
-          
-
-            {/* <Grid item xs={12} md={6} lg={5} xl={4}>
-              <TopInquiries topInquiries={ecommerceData.topInquiries} />
-            </Grid> */}
-            <Grid item xs={12} md={6} lg={4} xl={4}>
+            
+            
+            {/* <Grid item xs={12} md={6} lg={4} xl={4}>
               <WeeklyBestSellers data={ecommerceData.bestSellers} />
-            </Grid>
+            </Grid> */}
             
 
             <Grid item xs={12} md={12} lg={12} xl={12}>
               <RecentOrders recentOrders={ecommerceData.recentOrders} />
             </Grid>
-           
-            {/* <Grid item xs={12} md={6} lg={6}>
+{/*            
+            <Grid item xs={12} md={6} lg={6}>
               <MarketingCampaign
                 marketingCampaign={ecommerceData.marketingCampaign}
               />
-            </Grid> */}
-            <Grid item xs={12} md={12} lg={5} xl={5}>
+            </Grid> */}  
+               <Grid item xs={12} md={6} lg={3}>
+              <RevenueGraph />
+            </Grid><Grid item xs={12} md={12} lg={5} xl={5}>
               <Revenue revenueData={ecommerceData.revenueData} />
             </Grid>
-            <Grid item xs={12} md={12} lg={7}>
+           
+
+          
+          
+            <Grid item xs={12} md={6} lg={5} xl={4} >
+              <TopInquiries topInquiries={ecommerceData.topInquiries} />
+            </Grid>
+            <Grid item xs={12} md={12} lg={8}>
               <PopularProducts
                 popularProducts={ecommerceData.popularProducts}
               />
             </Grid>
-            {/* <Grid item xs={12} md={6} lg={3}>
-              <RevenueGraph />
+         
+            <Grid item xs={12} md={4} lg={4}>
+              <BudgetStatistic />
             </Grid>
-            <Grid item xs={12} md={6} lg={6}>
+            {/* <Grid item xs={12} md={6} lg={6}>
               <NewCustomers newCustomers={ecommerceData.newCustomers} />
             </Grid>
             <Grid item xs={12} md={6} lg={3}>

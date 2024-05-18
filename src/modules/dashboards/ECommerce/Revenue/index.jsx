@@ -62,7 +62,7 @@ const Revenue = ({ revenueData }) => {
       action={messages['common.viewAll']}
       contentStyle={{ paddingLeft: 0, paddingRight: 0 }}
     >
-      <AppScrollbar style={{ maxHeight: 330 }}>
+      <AppScrollbar style={{ maxHeight: 290 }}>
         <AppList
           animation='transition.slideRightBigIn'
           data={revenueData}

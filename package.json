@@ -21,7 +21,7 @@
     "@mui/base": "^5.0.0-beta.33",
     "@mui/icons-material": "^5.14.1",
     "@mui/lab": "^5.0.0-alpha.162",
-    "@mui/material": "^5.15.16",
+    "@mui/material": "^5.15.18",
     "@mui/system": "^5.15.6",
     "@mui/x-data-grid": "^6.10.0",
     "@mui/x-data-grid-generator": "^6.10.0",
@@ -34,6 +34,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "axios-mock-adapter": "^1.22.0",
+    "chart.js": "^4.4.3",
     "clsx": "^2.1.0",
     "crypto": "^1.0.1",
     "css-mediaquery": "^0.1.2",
@@ -53,6 +54,7 @@
     "react-apexcharts": "^1.4.1",
     "react-big-calendar": "^1.8.1",
     "react-bottom-scroll-listener": "^5.1.0",
+    "react-chartjs-2": "^5.2.0",
     "react-code-input": "^3.10.1",
     "react-color": "^2.19.3",
     "react-content-loader": "^6.2.1",
@@ -85,6 +87,7 @@
     "uuid": "^9.0.1",
     "vercel": "^34.1.1",
     "web-vitals": "^3.4.0",
+    "xlsx": "^0.18.5",
     "yup": "^1.2.0"
   },
   "devDependencies": {

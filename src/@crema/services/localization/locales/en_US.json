@@ -398,6 +398,7 @@
   "sidebar.setting": "Settings",
   "sidebar.app.dashboard": "Dashboards",
   "sidebar.app.dashboard.order":"Order",
+  "sidebar.app.dashboard.expenses":"Expenses",
   "sidebar.app.dashboard.Inventory": "Inventory",
   "sidebar.app.dashboard.Productlisting": "Product Listing",
   "sidebar.app.dashboard.Productsetting": "Product Setting",

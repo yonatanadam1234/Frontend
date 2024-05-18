@@ -42,7 +42,7 @@ import { TbFileInvoice } from "react-icons/tb";
 import { MdOutlineInventory } from "react-icons/md";
 import { MdOutlineSettingsInputComponent } from "react-icons/md";
 import { MdOutlineChecklist } from "react-icons/md";
-
+import { ImCoinDollar } from "react-icons/im";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 const routesConfig = [
   {
@@ -69,6 +69,7 @@ const routesConfig = [
         icon: <FaOpencart />,
         url: "/dashboards/order",
       },
+      
 
       // {
       //   id: "crypto",
@@ -1593,6 +1594,15 @@ const routesConfig = [
             permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
             icon: <MdOutlineChecklist />,
             url: "/dashboards/inventory",
+          },
+          {
+            id: "Expenses",
+            title: "Expenses",
+            messageId: "sidebar.app.dashboard.expenses",
+            type: "item",
+            permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
+            icon: <ImCoinDollar />,
+            url: "/dashboards/expenses",
           },
           // {
           //   id:"product setting",

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { styled } from '@mui/material/styles';
 import AppList from '@crema/components/AppList';
+import { height } from '@mui/system';
 
 const TopInquiryRow = styled('div')(({ theme }) => {
   return {
@@ -107,7 +108,7 @@ const TopInquiries = ({ topInquiries }) => {
   };
 
   return (
-    <AppCard
+    <AppCard style={{ height:'360px' }}
       contentStyle={{
         display: 'flex',
         flexDirection: 'column',

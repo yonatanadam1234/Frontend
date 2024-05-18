@@ -8,6 +8,8 @@ import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FaEdit } from "react-icons/fa";
+import CurrencyExchangeSharpIcon from "@mui/icons-material/CurrencyExchangeSharp";
+
 const TableItem = ({ data, displayProductCost }) => {
   const [shippingGroup, setShippingGroup] = useState(data.shiping_group);
   const handleShippingGroupChange = (event) => {
@@ -117,8 +119,13 @@ const TableItem = ({ data, displayProductCost }) => {
       >
 
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          
-          <TableCell>
+          <TableCell
+            style={{
+              marginTop: "0px",
+              display: "flex",
+              justifyItems: "center",
+            }}
+          >
             <Select
               value={shippingGroup}
               onChange={handleShippingGroupChange}
@@ -130,6 +137,11 @@ const TableItem = ({ data, displayProductCost }) => {
                 </MenuItem>
               ))}
             </Select>
+
+            <TableCell>
+              {data.shiping_group}&nbsp;&nbsp;
+              <CurrencyExchangeSharpIcon />
+            </TableCell>
           </TableCell>
         </Box>
       </TableCell>

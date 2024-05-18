@@ -17,6 +17,7 @@ import { FaEdit } from "react-icons/fa";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { ellipsisLines } from "@crema/helpers/StringHelper";
+import CurrencyExchangeSharpIcon from '@mui/icons-material/CurrencyExchangeSharp';
 
 const StyledTableCell = styled(TableCell)(() => ({
   fontSize: 14,
@@ -169,8 +170,9 @@ const TableItem = ({ data }) => {
               </MenuItem>
             ))}
           </Select>
-          <StyledTableCell style={{ marginTop: "10px" }}>
-            {data.shiping_group}
+          <StyledTableCell style={{ marginTop: "5px" ,display:'flex',justifyItems:'center'}}>
+            {data.shiping_group}&nbsp;&nbsp;<CurrencyExchangeSharpIcon/>
+            
           </StyledTableCell>
         </StyledTableCell>
 

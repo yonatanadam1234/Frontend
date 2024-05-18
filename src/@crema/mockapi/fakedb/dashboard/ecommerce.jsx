@@ -112,6 +112,78 @@ const ecommerce = {
       mrp: 550,
     },
   ],
+  salesState: [
+    {
+      id: 1,
+
+      amount: '3510',
+      type: 'Turnover',
+      icon: '/assets/images/dashboard/auther_sales.svg',
+    },
+    {
+      id: 2,
+      amount: '3.2M',
+      type: 'Cost of Sales ',
+      icon: '/assets/images/dashboard/all_time_sales.svg',
+    },
+    {
+      id: 3,
+      amount: '390',
+      type: 'Revenue',
+      icon: '/assets/images/dashboard/commission_sale.svg',
+    },
+    // {
+    //   id: 5,
+    //   amount: '3510',
+    //   type: 'Invoices',
+    //   icon: '/assets/images/dashboard/icon_revenue.svg',
+    // },
+  ],
+
+  salesChartData: [
+    {
+      name: 'Mon',
+      AS: 8000,
+      Rev: 2000,
+      amt: 2400,
+    },
+    {
+      name: 'Tue',
+      AS: 6500,
+      Rev: 1398,
+      amt: 2600,
+    },
+    {
+      name: 'Web',
+      AS: 9800,
+      Rev: 2000,
+      amt: 2290,
+    },
+    {
+      name: 'Thu',
+      AS: 3908,
+      Rev: 1500,
+      amt: 2000,
+    },
+    {
+      name: 'Fri',
+      AS: 7000,
+      Rev: 3000,
+      amt: 2181,
+    },
+    {
+      name: 'Sat',
+      AS: 2390,
+      Rev: 3800,
+      amt: 2500,
+    },
+    {
+      name: 'Sun',
+      AS: 8000,
+      Rev: 3600,
+      amt: 2100,
+    },
+  ],
   reportData: [
     {
       id: 1,

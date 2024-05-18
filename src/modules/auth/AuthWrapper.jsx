@@ -74,15 +74,14 @@ const AuthWrapper = ({ children }) => {
               component='h2'
               sx={{
                 fontWeight: Fonts.BOLD,
-                fontSize: 30,
+                fontSize: 25 ,
                 mb: 4,
               }}
             >
-              Welcome to Crema!
+              Welcome to Any Profit
             </Typography>
             <Typography>
-              Crema is purely based on Material ui components and follows
-              Material ui guidelines.
+              Any Profit is purely based on Ecommerce Expenses & profit based Platform.
             </Typography>
           </Box>
         </Box>
