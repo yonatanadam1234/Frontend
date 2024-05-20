@@ -17,14 +17,20 @@ const MiniSidebar = ({ routes, routesConfig }) => {
   const { pathname } = useLocation();
   const [isCollapsed, setCollapsed] = useState(true);
   const [isNavCollapsed, setNavCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const { footer, layoutType, headerType, footerType } = useLayoutContext();
 
   const toggleNavCollapsed = () => {
     setNavCollapsed(!isNavCollapsed);
   };
+
   useEffect(() => {
     if (isNavCollapsed) setNavCollapsed(!isNavCollapsed);
   }, [pathname]);
+
+  useEffect(() => {
+    setIsSidebarCollapsed(!isCollapsed);
+  }, [isCollapsed]);
 
   return (
     <MiniSidebarContainer
@@ -51,6 +57,7 @@ const MiniSidebar = ({ routes, routesConfig }) => {
             setCollapsed={setCollapsed}
             isCollapsed={isCollapsed}
             toggleNavCollapsed={toggleNavCollapsed}
+            isSidebarCollapsed={isSidebarCollapsed}
           />
           <AppContentView routes={routes} />
           <AppFixedFooter />
@@ -62,6 +69,7 @@ const MiniSidebar = ({ routes, routesConfig }) => {
 };
 
 export default MiniSidebar;
+
 MiniSidebar.propTypes = {
   routes: PropsTypes.object.isRequired,
   routesConfig: PropsTypes.array.isRequired,

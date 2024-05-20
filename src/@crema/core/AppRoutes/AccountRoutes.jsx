@@ -5,6 +5,7 @@ import Account from '../../../modules/account/MyProfile'
 import Orders from '../../components/Orders';
 import ProductListing from '../../components/Inventory/Listing';
 import Exp from '../../components/Expenses/Exp';
+import Shipping_Setting from '../../components/Shipping_setting/Shipping_Setting';
 
 
 export const accountPagesConfigs = [
@@ -32,5 +33,10 @@ export const accountPagesConfigs = [
     permittedRole: RoutePermittedRole.User,
     path: '/dashboards/expenses',
     element: <Exp/> ,
+  },
+  {
+    permittedRole: RoutePermittedRole.User,
+    path: '/dashboards/shipping-setting',
+    element: <Shipping_Setting/> ,
   },
 ];

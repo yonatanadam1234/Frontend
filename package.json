@@ -19,7 +19,7 @@
     "@emotion/styled": "^11.11.5",
     "@googlemaps/js-api-loader": "^1.16.2",
     "@mui/base": "^5.0.0-beta.33",
-    "@mui/icons-material": "^5.14.1",
+    "@mui/icons-material": "^5.15.18",
     "@mui/lab": "^5.0.0-alpha.162",
     "@mui/material": "^5.15.18",
     "@mui/system": "^5.15.6",

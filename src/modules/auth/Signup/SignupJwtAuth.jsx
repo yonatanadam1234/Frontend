@@ -1,6 +1,6 @@
-import React from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
-import { Checkbox } from '@mui/material';
+import { Checkbox, IconButton } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -14,6 +14,9 @@ import { Link } from 'react-router-dom';
 import AuthWrapper from '../AuthWrapper';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const validationSchema = yup.object({
   name: yup.string().required(<IntlMessages id='validation.nameRequired' />),
@@ -28,6 +31,16 @@ const validationSchema = yup.object({
 
 const SignupJwtAuth = () => {
   const { handleSignup } = useAuthMethod();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <>
@@ -84,13 +97,27 @@ const SignupJwtAuth = () => {
                     <AppTextField
                       label={<IntlMessages id='common.password' />}
                       name='password'
-                      type='password'
+                      type={showPassword ? 'text' : 'password'}
                       variant='outlined'
                       sx={{
                         width: '100%',
                         '& .MuiInputBase-input': {
                           fontSize: 14,
                         },
+                      }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              aria-label='toggle password visibility'
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge='end'
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
                       }}
                     />
                   </Box>
@@ -131,7 +158,7 @@ const SignupJwtAuth = () => {
                         cursor: 'pointer',
                       }}
                     >
-                      <IntlMessages id='common.termConditions' />
+                     <IntlMessages id='common.termConditions' />
                     </Box>
                   </Box>
 

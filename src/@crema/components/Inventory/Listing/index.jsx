@@ -167,6 +167,9 @@ const ProductListing = () => {
             </AppCard>
           </Grid>
         </Slide>
+
+
+        
         <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer} fullWidth>
           <Box style={{
             width:'100%',

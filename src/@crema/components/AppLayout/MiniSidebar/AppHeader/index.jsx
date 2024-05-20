@@ -19,7 +19,8 @@ import AppLogo from "../../components/AppLogo";
 import { allowMultiLanguage } from "../../../../constants/AppConst";
 
 const AppHeader = (props) => {
-  const { isCollapsed, setCollapsed, toggleNavCollapsed } = props;
+  const { isCollapsed, setCollapsed, toggleNavCollapsed, isSidebarCollapsed } =
+    props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -95,22 +96,13 @@ const AppHeader = (props) => {
             },
           }}
         >
-          <AppLogo />
+          {isSidebarCollapsed ? (
+            <AppLogo logoType="collapsed" />
+          ) : (
+            <AppLogo logoType="expanded" />
+          )}
         </Box>
 
-        <Box
-          sx={{
-            minHeight: 40,
-            position: "relative",
-            "& .searchRoot": {
-              position: { xs: "absolute", sm: "relative" },
-              right: { xs: 0, sm: "auto" },
-              top: { xs: 0, sm: "auto" },
-            },
-          }}
-        >
-          <AppSearchBar iconPosition="right" placeholder="Search…" />
-        </Box>
         <Box
           sx={{
             flexGrow: 1,
@@ -219,4 +211,5 @@ AppHeader.propTypes = {
   isCollapsed: PropTypes.bool,
   setCollapsed: PropTypes.func,
   toggleNavCollapsed: PropTypes.func,
+  isSidebarCollapsed: PropTypes.bool,
 };

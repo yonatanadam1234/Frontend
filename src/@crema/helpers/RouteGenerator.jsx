@@ -1,8 +1,8 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { authRole } from '@crema/constants/AppConst';
-import { RoutePermittedRole } from '@crema/constants/AppEnums';
-import { checkPermission } from './RouteHelper';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { authRole } from "@crema/constants/AppConst";
+import { RoutePermittedRole } from "@crema/constants/AppEnums";
+import { checkPermission } from "./RouteHelper";
 
 /**
  * @param {Object} structure - The passed object that defines the routes.
@@ -29,7 +29,7 @@ const generateRoutes = (structure) => {
 
   if (anonymousStructure) {
     dynamicRoutes.push(
-      ...routesGenerator(isAuthenticated, anonymousStructure, 'anonymous'),
+      ...routesGenerator(isAuthenticated, anonymousStructure, "anonymous")
     );
   }
 
@@ -38,15 +38,15 @@ const generateRoutes = (structure) => {
       ...routesGenerator(
         isAuthenticated,
         authorizedStructure,
-        'authorized',
-        isAuthenticated ? userRole : null,
-      ),
+        "authorized",
+        isAuthenticated ? userRole : null
+      )
     );
   }
 
   if (publicStructure) {
     dynamicRoutes.push(
-      ...routesGenerator(isAuthenticated, publicStructure, 'public'),
+      ...routesGenerator(isAuthenticated, publicStructure, "public")
     );
   }
   return dynamicRoutes;
@@ -63,24 +63,24 @@ const generateRoutes = (structure) => {
 const routesGenerator = (
   isAuthenticated = false,
   routeSet = {},
-  type = 'anonymous',
-  userRole,
+  type = "anonymous",
+  userRole
 ) => {
   const generatedRoutes = [];
-  const { fallbackPath = '' } = routeSet || {};
+  const { fallbackPath = "" } = routeSet || {};
 
-  const isAnonymous = type === 'anonymous';
-  const isAuthorized = type === 'authorized';
+  const isAnonymous = type === "anonymous";
+  const isAuthorized = type === "authorized";
 
   if (routeSet?.routes) {
     const { routes } = routeSet;
     if (Array.isArray(routes) && routes.length > 0) {
       routes.forEach((route /* index */) => {
         const {
-          path = '',
+          path = "",
           permittedRole = RoutePermittedRole.Admin,
           // routeProps = {},
-          redirectPath = '',
+          redirectPath = "",
           showRouteIf = true,
         } = route || {};
         // Show Route only [ in The list ] if this prop is true
@@ -89,7 +89,7 @@ const routesGenerator = (
           if (!path) {
             console.log(
               `A [route] is skipped because one of the following, No valid [path] prop provided for the route`,
-              isAuthenticated,
+              isAuthenticated
             );
           } else {
             if (isAnonymous) {
@@ -122,7 +122,7 @@ const routesGenerator = (
                               replace
                             />
                           ),
-                        },
+                        }
                   );
                 });
               } else {
@@ -139,7 +139,7 @@ const routesGenerator = (
                         element: (
                           <Navigate to={redirectPath || fallbackPath} replace />
                         ),
-                      },
+                      }
                 );
               }
               return generatedRoutes;
@@ -161,7 +161,7 @@ const routesGenerator = (
                         element: (
                           <Navigate to={redirectPath || fallbackPath} replace />
                         ),
-                      },
+                      }
                 );
               });
             } else {
@@ -173,7 +173,7 @@ const routesGenerator = (
                       element: (
                         <Navigate to={redirectPath || fallbackPath} replace />
                       ),
-                    },
+                    }
               );
             }
             return generatedRoutes;

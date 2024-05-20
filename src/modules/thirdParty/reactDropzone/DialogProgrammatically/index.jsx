@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import UploadClassic from '../components/UploadClassic';
-import Box from '@mui/material/Box';
-import { useDropzone } from 'react-dropzone';
-import FileRow from '../components/FileRow';
-import AppList from '@crema/components/AppList';
+import React, { useEffect, useState } from "react";
+import UploadClassic from "../components/UploadClassic";
+import Box from "@mui/material/Box";
+import { useDropzone } from "react-dropzone";
+import FileRow from "../components/FileRow";
+import AppList from "@crema/components/AppList";
 
 const DialogProgrammatically = () => {
   const dropzone = useDropzone({
     accept: {
-      'image/png': ['.png', '.jpg', '.jpeg'],
+      "image/png": [".png", ".jpg", ".jpeg"],
     },
   });
   const { fileRejections, acceptedFiles } = dropzone;
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
-    setUploadedFiles(dropzone.acceptedFiles); 
+    setUploadedFiles(dropzone.acceptedFiles);
   }, [acceptedFiles]);
 
   const onDeleteUploadFile = (file) => {
@@ -26,7 +26,7 @@ const DialogProgrammatically = () => {
   return (
     <Box>
       <UploadClassic
-        uploadText='Drag your documents, photos or videos here to start uploading.'
+        uploadText="Drag your documents, photos or videos here to start uploading."
         dropzone={dropzone}
       />
       <aside>
@@ -41,22 +41,21 @@ const DialogProgrammatically = () => {
             />
           )}
         />
-        
+
         <h4 style={{ marginTop: 10 }}>Rejected files</h4>
 
         <AppList
           data={fileRejections}
-          renderRow={(file, index) => (
-            <FileRow
-              key={index + file.path}
-              file={file}
-              onDeleteUploadFile={() =>
-                fileRejections.splice(fileRejections.indexOf(file), 1)
-              }
-            />
+          renderRow={(file, index) => (    
+            <FileRow    
+              key={index + file.path}   
+              file={file}   
+              onDeleteUploadFile={() =>        
+                fileRejections.splice(fileRejections.indexOf(file), 1)  
+              }  
+            />  
           )}
         />
-        
       </aside>
     </Box>
   );
