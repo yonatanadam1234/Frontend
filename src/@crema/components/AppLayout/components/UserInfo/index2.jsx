@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useAuthMethod, useAuthUser } from "@crema/hooks/AuthHooks";
 
-const UserInfo = ({ color }) => {
+const UserInfo1 = ({ color }) => {
   const { logout } = useAuthMethod();
   const { user } = useAuthUser();
   const navigate = useNavigate();
@@ -98,28 +98,11 @@ const UserInfo = ({ color }) => {
               }}
               component="span"
             >
-              {user.displayName ? user.displayName : "Admin User "}
+             Welcome&nbsp;{user.displayName ? user.displayName : "Admin User "}...
             </Box>
-            <Box
-              sx={{
-                ml: 3,
-                color: "inherit",
-                display: "flex",
-              }}
-            >
-              <ExpandMoreIcon />
-            </Box>
+            
           </Box>
-          <Box
-            sx={{
-              mt: -0.5,
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              color: "inherit",
-            }}
-          >
-            System Manager
-          </Box>
+          
         </Box>
       </Box>
       <Menu
@@ -145,26 +128,18 @@ const UserInfo = ({ color }) => {
         >
           My account
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            navigate("/extra-pages/pricing-detail");
-          }}
-        >
-          Pricing Plan
-        </MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </>
   );
 };
 
-export default UserInfo;
+export default UserInfo1;
 
-UserInfo.defaultProps = {
+UserInfo1.defaultProps = {
   color: "text.secondary",
 };
 
-UserInfo.propTypes = {
+UserInfo1.propTypes = {
   color: PropTypes.string,
 };

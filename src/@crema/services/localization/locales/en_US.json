@@ -398,6 +398,7 @@
   "sidebar.setting": "Settings",
   "sidebar.app.dashboard.dashboard": "Dashboard",
   "sidebar.app.shipping.setting":"Shipping Setting",
+  "sidebar.app.dashboard.operation":"Operations",
   "sidebar.app.dashboard.order":"Order",
   "sidebar.app.dashboard.expenses":"Expenses",
   "sidebar.app.dashboard.Inventory": "Inventory",

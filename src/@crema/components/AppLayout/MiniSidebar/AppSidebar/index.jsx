@@ -8,8 +8,9 @@ import Drawer from '@mui/material/Drawer';
 import VerticalNav from '../../components/VerticalNav';
 import SidebarWrapper from './SidebarWrapper';
 import { useLayoutContext } from '@crema/context/AppContextProvider/LayoutContextProvider';
-import UserInfo from '../../components/UserInfo';
+// import UserInfo from '../../components/UserInfo';
 import { useSidebarContext } from '@crema/context/AppContextProvider/SidebarContextProvider';
+import UserInfo1 from '../../components/UserInfo/index2';
 
 const AppSidebar = (props) => {
   const { footer, footerType } = useLayoutContext();
@@ -31,7 +32,7 @@ const AppSidebar = (props) => {
         >
           <SidebarWrapper className='mini-sidebar'>
             <MainSidebar>
-              <UserInfo color={sidebarTextColor} />
+              <UserInfo1 color={sidebarTextColor} />
               <AppScrollbar
                 sx={{
                   py: 2,
@@ -48,7 +49,7 @@ const AppSidebar = (props) => {
       <Hidden lgDown>
         <SidebarWrapper className='mini-sidebar'>
           <MainSidebar>
-            <UserInfo color={sidebarTextColor} />
+            <UserInfo1 color={sidebarTextColor} />
             <AppScrollbar
               className={clsx({
                 'has-footer-fixed': footer && footerType === 'fixed',

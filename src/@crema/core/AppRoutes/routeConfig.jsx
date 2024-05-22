@@ -45,6 +45,9 @@ import { MdOutlineChecklist } from "react-icons/md";
 import { ImCoinDollar } from "react-icons/im";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import { FaShippingFast } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
+import { MdSettingsSuggest } from "react-icons/md";
+
 const routesConfig = [
 
       {
@@ -53,7 +56,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.dashboard",
         type: "item",
         permittedRole: [RoutePermittedRole.User],
-        icon: <BsCart4 />,
+        icon: <MdDashboard />,
         url: "/dashboards/e-commerce",
       },
       {
@@ -65,7 +68,24 @@ const routesConfig = [
         icon: <FaOpencart />,
         url: "/dashboards/order",
       },
-      
+      {
+        id: "Inventory",
+        title: "Inventory",
+        messageId: "sidebar.app.dashboard.Productlisting",
+        type: "item",
+        permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
+        icon: <MdOutlineChecklist />,
+        url: "/dashboards/inventory",
+      },
+      {
+        id: "shops",
+        title: "Shops",
+        messageId: "sidebar.app.dashboard.shops",
+        type: "item",
+        permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
+        icon: <AddBusinessIcon />,
+        url: "/shops",
+      },
 
       // {
       //   id: "crypto",
@@ -1291,30 +1311,13 @@ const routesConfig = [
   },
  
       {
-        id: "setting",
-        title: "Setting",
-        messageId: "sidebar.app.dashboard.setting",
+        id: "Expenses",
+        title: "Expenses",
+        messageId: "sidebar.app.dashboard.expenses",
         type: "collapse",
-        icon: <BsFillGearFill />,
         children: [
-          {
-            id: "shops",
-            title: "Shops",
-            messageId: "sidebar.app.dashboard.shops",
-            type: "item",
-            permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-            icon: <AddBusinessIcon />,
-            url: "/shops",
-          },
-          {
-            id: "Inventory",
-            title: "Inventory",
-            messageId: "sidebar.app.dashboard.Productlisting",
-            type: "item",
-            permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-            icon: <MdOutlineChecklist />,
-            url: "/dashboards/inventory",
-          },
+          
+     
           {
             id: "Shipping Settings",
             title: "Shipping Settings",
@@ -1327,10 +1330,10 @@ const routesConfig = [
           {
             id: "Expenses",
             title: "Expenses",
-            messageId: "sidebar.app.dashboard.expenses",
+            messageId: "sidebar.app.dashboard.operation",
             type: "item",
             permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-            icon: <ImCoinDollar />,
+            icon: <MdSettingsSuggest />,
             url: "/dashboards/expenses",
           },
           // {
@@ -1355,21 +1358,21 @@ const routesConfig = [
         ],
       },
   
-  {
-    id: "account",
-    title: "Account",
-    messageId: "sidebar.pages.extraPages.account",
-    type: "group",
-    children: [
-      {
-        id: "account",
-        title: "Account",
-        messageId: "sidebar.pages.extraPages.user",
-        type: "item",
-        permittedRole: [RoutePermittedRole.User, RoutePermittedRole.Admin],
-        icon: <MdOutlineManageAccounts />,
-        url: "/my-profile",
-      },
+  // {
+  //   id: "account",
+  //   title: "Account",
+  //   messageId: "sidebar.pages.extraPages.account",
+  //   type: "group",
+  //   children: [
+  //     {
+  //       id: "account",
+  //       title: "Account",
+  //       messageId: "sidebar.pages.extraPages.user",
+  //       type: "item",
+  //       permittedRole: [RoutePermittedRole.User, RoutePermittedRole.Admin],
+  //       icon: <MdOutlineManageAccounts />,
+  //       url: "/my-profile",
+  //     },
       // {
       //   id: "about-us",
       //   title: "About Us",
@@ -1406,33 +1409,33 @@ const routesConfig = [
       //   icon: <BsQuestionDiamond />,
       //   url: "/extra-pages/faq",
       // },
-      {
-        id: "Pricing Plans",
-        title: "Pricing Plans",
-        messageId: "sidebar.pages.extraPages.pricing",
-        type: "collapse",
-        permittedRole: [RoutePermittedRole.User],
-        icon: "attach_money",
-        url: "/extra-pages/pricing",
-        children: [
-          {
-            id: "pricingListing",
-            title: "Pricing Listing",
-            messageId: "sidebar.pages.extraPages.pricingListing",
-            type: "item",
-            permittedRole: [RoutePermittedRole.User],
-            url: "/extra-pages/pricing-listing",
-          },
-          {
-            id: "pricingDetail",
-            title: "Pricing Detail",
-            messageId: "sidebar.pages.extraPages.pricingDetail",
-            type: "item",
-            permittedRole: [RoutePermittedRole.User],
-            url: "/extra-pages/pricing-detail",
-          },
-        ],
-      },
+      // {
+      //   id: "Pricing Plans",
+      //   title: "Pricing Plans",
+      //   messageId: "sidebar.pages.extraPages.pricing",
+      //   type: "collapse",
+      //   permittedRole: [RoutePermittedRole.User],
+      //   icon: "attach_money",
+      //   url: "/extra-pages/pricing",
+      //   children: [
+      //     {
+      //       id: "pricingListing",
+      //       title: "Pricing Listing",
+      //       messageId: "sidebar.pages.extraPages.pricingListing",
+      //       type: "item",
+      //       permittedRole: [RoutePermittedRole.User],
+      //       url: "/extra-pages/pricing-listing",
+      //     },
+      //     {
+      //       id: "pricingDetail",
+      //       title: "Pricing Detail",
+      //       messageId: "sidebar.pages.extraPages.pricingDetail",
+      //       type: "item",
+      //       permittedRole: [RoutePermittedRole.User],
+      //       url: "/extra-pages/pricing-detail",
+      //     },
+      //   ],
+      // },
       // {
       //   id: "user",
       //   title: "User Pages",
@@ -1620,8 +1623,8 @@ const routesConfig = [
       //     },
       //   ],
       // },
-    ],
-  },
+//     ],
+//   },
 
   
 ];

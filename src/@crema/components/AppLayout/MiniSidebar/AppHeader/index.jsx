@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import AppLogo from "../../components/AppLogo";
 import { allowMultiLanguage } from "../../../../constants/AppConst";
+import UserInfo from "../../components/UserInfo";
 
 const AppHeader = (props) => {
   const { isCollapsed, setCollapsed, toggleNavCollapsed, isSidebarCollapsed } =
@@ -139,6 +140,7 @@ const AppHeader = (props) => {
               >
                 <AppMessages />
               </Box>
+              <UserInfo/>
             </Box>
           </Hidden>
 

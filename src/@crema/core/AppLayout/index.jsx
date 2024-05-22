@@ -22,6 +22,7 @@ const AppLayout = () => {
   const { navStyle } = useLayoutContext();
 
   const { user, isAuthenticated } = useAuthUser();
+  console.log("🚀 ~ AppLayout ~ user:", user)
   const { updateNavStyle } = useLayoutActionsContext();
   const { updateMenuStyle, setSidebarBgImage } = useSidebarActionsContext();
   const AppLayout = Layouts[navStyle];
@@ -36,9 +37,12 @@ const AppLayout = () => {
     authorizedStructure: authorizedStructure(loginUrl),
     publicStructure: publicStructure(initURL),
   });
+    console.log("🚀 ~ AppLayout ~ isAuthenticated:", isAuthenticated)
 
   const routes = useRoutes(generatedRoutes);
+  console.log("🚀 ~ AppLayout ~ routes:", routes)
   useEffect(() => {
+    console.log("🚀 ~ AppLayout ~ generatedRoutes:", generatedRoutes)
     if (params.layout) updateNavStyle(params.layout);
     if (params.menuStyle) updateMenuStyle(params.menuStyle);
     if (params.sidebarImage) setSidebarBgImage(true);

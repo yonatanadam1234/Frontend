@@ -18,7 +18,7 @@ const Layouts = {
   [NavStyle.DRAWER]: DrawerLayout,
   [NavStyle.MINI]: Default,
   [NavStyle.MINI_SIDEBAR_TOGGLE]: MiniSidebarToggle,
-  [NavStyle.HEADER_USER]: HeaderUserLayout,
+  [NavStyle.DEFAULT]: HeaderUserLayout,
   [NavStyle.HEADER_USER_MINI]: HeaderUserMiniLayout,
   [NavStyle.H_DEFAULT]: HorDefault,
   [NavStyle.HOR_HEADER_FIXED]: HorHeaderFixed,

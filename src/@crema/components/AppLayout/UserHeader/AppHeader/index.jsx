@@ -90,7 +90,7 @@ const AppHeader = ({ toggleNavCollapsed }) => {
             },
           }}
         >
-          <AppSearchBar iconPosition="right" placeholder="Search…" />
+          {/* <AppSearchBar iconPosition="right" placeholder="Searc" /> */}
         </Box>
         <Box
           sx={{
@@ -99,7 +99,7 @@ const AppHeader = ({ toggleNavCollapsed }) => {
         />
         {allowMultiLanguage && (
           <Box sx={{ ml: 4 }}>
-            <AppLngSwitcher iconOnly={true} tooltipPosition="bottom" />
+            {/* <AppLngSwitcher iconOnly={true} tooltipPosition="bottom" /> */}
           </Box>
         )}
 
@@ -125,14 +125,14 @@ const AppHeader = ({ toggleNavCollapsed }) => {
                   px: 1.85,
                 }}
               >
-                <AppNotifications />
+                {/* <AppNotifications /> */}
               </Box>
               <Box
                 sx={{
                   px: 1.85,
                 }}
               >
-                <AppMessages />
+                {/* <AppMessages /> */}
               </Box>
             </Box>
           </Hidden>

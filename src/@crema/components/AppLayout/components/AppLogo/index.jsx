@@ -2,8 +2,8 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useThemeContext } from '@crema/context/AppContextProvider/ThemeContextProvider';
 import { alpha } from '@mui/material/styles';
-import Logo from '../../../../../../public/assets/logo_only.png';
-import LogoText from '../../../../../../public/assets/logo.png';
+import Logo from '/assets/logo_only.png';
+import LogoText from '/assets/logo.png';
 
 const AppLogo = ({ logoType }) => {
   const { theme } = useThemeContext();

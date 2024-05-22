@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl';
 import IntlMessages from '@crema/helpers/IntlMessages';
 import Box from '@mui/material/Box';
 import AppTextField from '@crema/components/AppFormComponents/AppTextField';
-import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AppInfoView from '@crema/components/AppInfoView';
@@ -28,28 +27,22 @@ const validationSchema = yup.object({
 });
 
 const SigninFirebase = () => {
-  const [rememberMe, setRememberMe] = useState(false);
   const { logInWithEmailAndPassword, logInWithPopup } = useAuthMethod();
-  const [auth, setAuth]= useState({})
-
   const navigate = useNavigate();
-  const onGoToForgetPassword = () => {
-    navigate('/forget-password', { tab: 'firebase' });
-  };
 
   const { messages } = useIntl();
 
   useEffect(() => {
-    const email = localStorage.getItem('email')
-    const password = localStorage.getItem('password')
-    const data = {
-      email:email,
-      password:password
-    }
-    if(email && password) {
-      logInWithEmailAndPassword(data);
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+    if (email && password) {
+      logInWithEmailAndPassword({ email, password });
     }
   }, []);
+
+  const onGoToForgetPassword = () => {
+    navigate('/forget-password', { tab: 'firebase' });
+  };
 
   return (
     <AuthWrapper>
@@ -64,10 +57,8 @@ const SigninFirebase = () => {
             validationSchema={validationSchema}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
-              localStorage.setItem('email',data.email);
-              if (rememberMe) {
-                localStorage.setItem('password',data.password);
-              }
+              localStorage.setItem('email', data.email);
+              localStorage.setItem('password', data.password);
               logInWithEmailAndPassword(data);
               setSubmitting(false);
             }}
@@ -106,45 +97,19 @@ const SigninFirebase = () => {
                 </Box>
 
                 <Box
+                  component='span'
                   sx={{
+                    display: 'block',
+                    textAlign: 'right',
                     mb: { xs: 3, xl: 4 },
+                    mt: -2,
+                    color: (theme) => theme.palette.primary.main,
+                    fontWeight: Fonts.SEMI_BOLD,
+                    cursor: 'pointer',
                   }}
+                  onClick={onGoToForgetPassword}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Checkbox
-                      sx={{ ml: -3 }}
-                      id='rememberMe'
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <Box
-                      aria-labelledby='rememberMe'
-                      component='span'
-                      sx={{
-                        color: 'grey.700',
-                      }}
-                    >
-                      <IntlMessages id='common.rememberMe' />
-                    </Box>
-                  </Box>
-                  <Box
-                    component='span'
-                    sx={{
-                      color: (theme) => theme.palette.primary.main,
-                      fontWeight: Fonts.SEMI_BOLD,
-                      cursor: 'pointer',
-                      display: 'block',
-                      textAlign: 'right',
-                    }}
-                    onClick={onGoToForgetPassword}
-                  >
-                    <IntlMessages id='common.forgetPassword' />
-                  </Box>
+                  <IntlMessages id='common.forgetPassword' />
                 </Box>
 
                 <div>
@@ -158,7 +123,8 @@ const SigninFirebase = () => {
                       fontWeight: Fonts.REGULAR,
                       fontSize: 16,
                       textTransform: 'capitalize',
-                      padding: '4px 16px 8px',
+                      padding: '8px 16px',
+                      mt: 3,
                     }}
                   >
                     <IntlMessages id='common.login' />
