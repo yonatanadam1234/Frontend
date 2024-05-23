@@ -22,7 +22,7 @@ const JWTAuthAuthProvider = ({ children }) => {
     const getAuthUser = () => {
       fetchStart();
       const token = localStorage.getItem('token');
-
+      const email = localStorage.getItem('email');
       if (!token) {
         fetchSuccess();
         setJWTAuthData({
@@ -34,11 +34,11 @@ const JWTAuthAuthProvider = ({ children }) => {
       }
       setAuthToken(token);
       jwtAxios
-        .get('/auth')
+        .get(`/auth/${token}`)
         .then(({ data }) => {
           fetchSuccess();
           setJWTAuthData({
-            user: data,
+            user: data.user,
             isLoading: false,
             isAuthenticated: true,
           });
@@ -56,17 +56,16 @@ const JWTAuthAuthProvider = ({ children }) => {
     getAuthUser();
   }, []);
 
-  const signInUser = async ({ email, password }) => {
+  const logInWithEmailAndPassword = async ({ email, password }) => {
     fetchStart();
     try {
-      const { data } = await jwtAxios.post('auth', { email, password });
+      const { data } = await jwtAxios.post('login', { email, password });
       localStorage.setItem('token', data.token);
       setAuthToken(data.token);
-      const res = await jwtAxios.get('/auth');
       setJWTAuthData({
-        user: res.data,
+        user: data.user,
         isAuthenticated: true,
-        isLoading: false,
+        isLoading: false
       });
       fetchSuccess();
     } catch (error) {
@@ -75,21 +74,23 @@ const JWTAuthAuthProvider = ({ children }) => {
         isAuthenticated: false,
         isLoading: false,
       });
-      fetchError(error?.response?.data?.error || 'Something went wrong');
+      fetchError(error.response.data.message);
     }
   };
 
-  const signUpUser = async ({ name, email, password }) => {
+  const verifyUser = async ({
+    email,
+    otp,
+  }) => {
     fetchStart();
     try {
-      const { data } = await jwtAxios.post('users', { name, email, password });
+      const { data } = await jwtAxios.post('/otp/verify', { email, otp });
       localStorage.setItem('token', data.token);
       setAuthToken(data.token);
-      const res = await jwtAxios.get('/auth');
       setJWTAuthData({
-        user: res.data,
+        user: data.user,
         isAuthenticated: true,
-        isLoading: false,
+        isLoading: false
       });
       fetchSuccess();
     } catch (error) {
@@ -98,21 +99,30 @@ const JWTAuthAuthProvider = ({ children }) => {
         isAuthenticated: false,
         isLoading: false,
       });
-      console.log('error:', error.response.data.error);
-      fetchError(error?.response?.data?.error || 'Something went wrong');
+      fetchError(error.response.data.message);
     }
   };
 
   const logout = async () => {
-    localStorage.removeItem('token');
-    setAuthToken();
-    setJWTAuthData({
-      user: null,
-      isLoading: false,
-      isAuthenticated: false,
-    });
+    localStorage.clear()
+    setJWTAuthData({ ...authData, isLoading: true });
+    try {
+      await signOut(auth);
+      setJWTAuthData({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+      });
+      console.log("logout");
+    } catch (error) {
+      console.log("error", error);
+      setJWTAuthData({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+      });
+    }
   };
-
   return (
     <JWTAuthContext.Provider
       value={{
@@ -121,8 +131,8 @@ const JWTAuthAuthProvider = ({ children }) => {
     >
       <JWTAuthActionsContext.Provider
         value={{
-          signUpUser,
-          signInUser,
+          logInWithEmailAndPassword,
+          verifyUser,
           logout,
         }}
       >

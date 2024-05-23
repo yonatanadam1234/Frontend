@@ -1,7 +1,7 @@
 import axios from '@crema/services/axios';
 
 const jwtAxios = axios?.create({
-  baseURL: 'https://squid-app-oqakh.ondigitalocean.app/auth/',
+  baseURL: 'http://localhost:8080/auth/',
   headers: {
     'Content-Type': 'application/json',
   },

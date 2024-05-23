@@ -22,12 +22,10 @@ const OtpVerify = () => {
     const { handleVerifyOtp } = useAuthMethod();
 
     const [otp, setOtp] = useState('');
-    console.log("🚀 ~ OtpVerify ~ otp:", otp)
 
     return (
         <>
-            <Toast
-            Container />
+            <ToastContainer />
             <AuthWrapper>
                 <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', mb: 5 }}>

@@ -1,9 +1,9 @@
 import React from 'react';
-import FirebaseAuthProvider from '@crema/services/auth/firebase/FirebaseAuthProvider';
 import PropTypes from 'prop-types';
+import JWTAuthAuthProvider from '../../services/auth/jwt-auth/JWTAuthProvider';
 
 const AppAuthProvider = ({ children }) => {
-  return <FirebaseAuthProvider>{children}</FirebaseAuthProvider>;
+  return <JWTAuthAuthProvider>{children}</JWTAuthAuthProvider>;
 };
 
 AppAuthProvider.propTypes = {
