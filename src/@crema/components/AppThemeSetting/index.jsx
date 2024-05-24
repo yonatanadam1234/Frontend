@@ -50,14 +50,14 @@ const AppThemeSetting = () => {
           },
         }}
       >
-        <IconButton onClick={() => setSettingOpen(!isSettingOpen)}>
+        {/* <IconButton onClick={() => setSettingOpen(!isSettingOpen)}>
           <SettingsOutlinedIcon
             sx={{
               animation: "rotation 2s infinite linear",
               color: "white",
             }}
           />
-        </IconButton>
+        </IconButton> */}
       </Box>
       <Box
         sx={{
@@ -75,13 +75,13 @@ const AppThemeSetting = () => {
           },
         }}
       >
-        <IconButton onClick={() => setColorSettingOpen(!isSettingOpen)}>
+        {/* <IconButton onClick={() => setColorSettingOpen(!isSettingOpen)}>
           <ColorLensIcon
             sx={{
               color: "white",
             }}
           />
-        </IconButton>
+        </IconButton> */}
       </Box>
       <Drawer
         anchor="right"

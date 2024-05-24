@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AppTooltip from "../../../AppTooltip";
 import { alpha } from "@mui/material/styles";
-import AppLogo from "../../components/AppLogo";
+import Logo_1 from "/assets/logo_1.png";
 import UserInfo from "../../components/UserInfo";
 import { allowMultiLanguage } from "@crema/constants/AppConst.jsx";
 
@@ -75,7 +75,10 @@ const AppHeader = ({ toggleNavCollapsed }) => {
             },
           }}
         >
-          <AppLogo />
+          <img src={Logo_1} alt="" style={{
+            width:'45px',
+
+          }}/>
         </Box>
 
         <Box

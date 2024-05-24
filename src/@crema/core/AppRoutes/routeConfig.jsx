@@ -47,7 +47,8 @@ import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import { FaShippingFast } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { MdSettingsSuggest } from "react-icons/md";
-
+import { LuBoxes } from "react-icons/lu";
+import { GiExpense } from "react-icons/gi";
 const routesConfig = [
 
       {
@@ -65,12 +66,12 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.order",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <FaOpencart />,
+        icon: <LuBoxes />,
         url: "/dashboards/order",
       },
       {
-        id: "Inventory",
-        title: "Inventory",
+        id: "product",
+        title: "Product",
         messageId: "sidebar.app.dashboard.Productlisting",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
@@ -83,7 +84,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.shops",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <AddBusinessIcon />,
+        icon: <MdOutlineSettingsInputComponent  />,
         url: "/shops",
       },
 
@@ -1315,6 +1316,7 @@ const routesConfig = [
         title: "Expenses",
         messageId: "sidebar.app.dashboard.expenses",
         type: "collapse",
+        icon: <GiExpense />,
         children: [
           
      
@@ -1328,9 +1330,9 @@ const routesConfig = [
             url: "/dashboards/shipping-setting",
           },
           {
-            id: "Expenses",
-            title: "Expenses",
-            messageId: "sidebar.app.dashboard.operation",
+            id: "Operations",
+            title: "Operations",
+            messageId: "sidebar.app.dashboard.Inventory",
             type: "item",
             permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
             icon: <MdSettingsSuggest />,

@@ -1,23 +1,17 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-
-import CloseIcon from "@mui/icons-material/Close";
-
-import { useState } from "react";
 import {
+  Box,
+  Collapse,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
   Button,
   Dialog,
   DialogActions,
@@ -26,162 +20,190 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+  Close as CloseIcon,
+} from "@mui/icons-material";
+import { useState } from "react";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-function createData(name, calories, fat) {
-  return {
-    name,
-    calories,
-    fat,
-    history: [
-      {
-        date: "sharnam",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "virunika",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
+const createData = (name, calories) => ({
+  name,
+  calories,
+  enabled: true,
+  history: [
+    {
+      date: "sharnam",
+      customerId: "11091700",
+      amount: 3,
+    },
+    {
+      date: "virunika",
+      customerId: "Anonymous",
+      amount: 1,
+    },
+  ],
+});
 
-function Row(props) {
-  const { row, handleopen, platform, shops, setShops } = props;
+const Row = ({ row, handleopen, platform, shops, setShops }) => {
   const [hOpen, setHopen] = useState(false);
 
-  const handleHistory = () => {
-    setHopen(!hOpen);
+  const handleHistory = () => setHopen(!hOpen);
+
+  const handleDeleteShop = (index) => {
+    const updatedShops = { ...shops };
+    updatedShops[platform] = updatedShops[platform].filter(
+      (_, i) => i !== index
+    );
+    setShops(updatedShops);
+  };
+
+  const handleToggleShop = (index) => {
+    const updatedShops = { ...shops };
+    updatedShops[platform][index].enabled =
+      !updatedShops[platform][index].enabled;
+
+    setShops(updatedShops);
   };
 
   return (
-    <React.Fragment>
-      <TableRow sx={{ alignItems: "center" }}>
+    <>
+      <TableRow>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={handleHistory}
-          >
-            {hOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          {shops[platform]?.length > 0 && (
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={handleHistory}
+            >
+              {hOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          )}
         </TableCell>
         <TableCell
-          component="th"
-          scope="row"
           sx={{
             display: "flex",
             alignItems: "center",
-            border: "0",
-            height: "74px",
-            gap: "10px",
-            fontSize: "14px",
+            border: 0,
+            height: 74,
+            gap: 1,
+            fontSize: 14,
           }}
         >
           <img
             src={`assets/icon/${row.name}`}
             alt=""
             style={{
-              width: "40px",
-              height: "40px",
+              width: 40,
+              height: 40,
               border: "1px solid gray",
-              borderRadius: "50px",
-              padding: "5px",
+              borderRadius: "50%",
+              padding: 5,
             }}
           />
           {row.calories}
         </TableCell>
-        <TableCell align="right" style={{ fontSize: "14px" }}>
-          {shops[platform]?.length !== undefined ? shops[platform].length : "No"} Shops
+        <TableCell align="right" sx={{ fontSize: 14 }}>
+          {shops[platform]?.length ?? "No"} Shops
         </TableCell>
         <TableCell align="right">
           <Box
             onClick={() => handleopen(platform)}
             sx={{
               cursor: "pointer",
-              ":hover": { color: "black" },
               color: "blue",
-              fontSize: "14px",
+              fontSize: 14,
+              "&:hover": { color: "black" },
             }}
           >
-            + Add Shop
+            Add Shop
           </Box>
         </TableCell>
       </TableRow>
-
-
-
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={hOpen} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Shops
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Store Name</TableCell>
-                    <TableCell>URL</TableCell>
-                    <TableCell align="right">MarketPlace</TableCell>
-                    <TableCell align="right">TimeZone</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {(shops[platform] || []).map((historyRow, index) => (
-                    <TableRow key={index}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.storeName}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {historyRow.storefrontURL}
-                      </TableCell>
-                      <TableCell align="right">
-                        {historyRow.marketplace}
-                      </TableCell>
-                      <TableCell align="right">{historyRow.timezone}</TableCell>
+      {shops[platform]?.length > 0 && (
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={hOpen} timeout="auto" unmountOnExit>
+              <Box sx={{ margin: 1 }}>
+                <Table size="small" aria-label="purchases">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Store Name</TableCell>
+                      <TableCell>URL</TableCell>
+                      <TableCell align="right">MarketPlace</TableCell>
+                      <TableCell align="right">TimeZone</TableCell>
+                      <TableCell align="right">Delete</TableCell>
+                      <TableCell align="right">Enable/Disable Shop</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-
-
-      
-    </React.Fragment>
+                  </TableHead>
+                  <TableBody>
+                    {(shops[platform] || []).map((historyRow, index) => (
+                      <TableRow
+                        key={index}
+                        style={{ opacity: historyRow.enabled ? 1 : 0.5 }}
+                      >
+                        <TableCell>{historyRow.storeName}</TableCell>
+                        <TableCell>{historyRow.storefrontURL}</TableCell>
+                        <TableCell align="right">
+                          {historyRow.marketplace}
+                        </TableCell>
+                        <TableCell align="right">
+                          {historyRow.timezone}
+                        </TableCell>
+                        <TableCell align="right">
+                          <IconButton
+                            aria-label="delete shop"
+                            onClick={() => handleDeleteShop(index)}
+                          >
+                            <DeleteOutlineRoundedIcon />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell align="right">
+                          <ToggleButtonGroup
+                            sx={{ width: 140 }}
+                            value={historyRow.enabled ? "enable" : "disable"}
+                            exclusive
+                            onChange={() => handleToggleShop(index)}
+                          >
+                            <ToggleButton value="enable">Enable</ToggleButton>
+                            <ToggleButton value="disable">Disable</ToggleButton>
+                          </ToggleButtonGroup>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      )}
+    </>
   );
-}
+};
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
+    calories: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
   }).isRequired,
+  handleopen: PropTypes.func.isRequired,
+  platform: PropTypes.string.isRequired,
+  shops: PropTypes.object.isRequired,
+  setShops: PropTypes.func.isRequired,
 };
 
 const rows = [
-  createData("Amazon_icon.svg", "Amazon", "+ Add Shop"),
-  createData("shopify.svg", "Shopify", "+ Add Shop"),
-  createData("ebay.svg", "eBay", "+ Add Shop"),
-  createData("magento.svg", "Magento", "+ Add Shop"),
+  createData("Amazon_icon.svg", "Amazon"),
+  // createData("shopify.svg", "Shopify"),
+  // createData("ebay.svg", "eBay"),
+  // createData("magento.svg", "Magento"),
 ];
 
-export default function Shops() {
+const Shops = () => {
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
     Amazon: [],
@@ -200,7 +222,6 @@ export default function Shops() {
   const handleopen = (platform) => {
     setSelectedPlatform(platform);
     setOpen(true);
-    // Reset storefrontURL only if it's the first time opening this platform's form
     if (!shops[platform]?.length) {
       setNewShop((prevShop) => ({
         ...prevShop,
@@ -209,32 +230,19 @@ export default function Shops() {
     }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "storefrontURL") {
-      if (!value || !value.startsWith("https://")) {
-        setNewShop((prevShop) => ({
-          ...prevShop,
-          [name]: `${value}`,
-        }));
-      } else {
-        setNewShop((prevShop) => ({
-          ...prevShop,
-          [name]: value,
-        }));
-      }
-    } else {
-      setNewShop((prevShop) => ({
-        ...prevShop,
-        [name]: value,
-      }));
-    }
+    setNewShop((prevShop) => ({
+      ...prevShop,
+      [name]:
+        name === "storefrontURL" && !value.startsWith("https://")
+          ? `https://${value}`
+          : value,
+    }));
   };
-  
+
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setNewShop((prevShop) => ({ ...prevShop, [name]: value }));
@@ -242,7 +250,14 @@ export default function Shops() {
 
   const handleAddShop = () => {
     const updatedShops = { ...shops };
-    updatedShops[selectedPlatform] = [...updatedShops[selectedPlatform], newShop];
+    const newShopWithEnabled = {
+      ...newShop,
+      enabled: true,
+    };
+    updatedShops[selectedPlatform] = [
+      ...updatedShops[selectedPlatform],
+      newShopWithEnabled, 
+    ];
     setShops(updatedShops);
     setNewShop({
       storeName: "",
@@ -253,18 +268,17 @@ export default function Shops() {
     setOpen(false);
   };
 
+  
   const marketplaces = [
     { value: "amazon.com", label: "Amazon.com" },
     { value: "amazon.co.uk", label: "Amazon.co.uk" },
     { value: "amazon.de", label: "Amazon.de" },
-    // Add more marketplaces as needed
   ];
 
   const timezones = [
     { value: "GMT-12", label: "GMT-12" },
     { value: "GMT-11", label: "GMT-11" },
     { value: "GMT-10", label: "GMT-10" },
-    // Add more timezones as needed
   ];
 
   return (
@@ -274,14 +288,11 @@ export default function Shops() {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell style={{ fontSize: "17px" }}>Platforms</TableCell>
-              <TableCell style={{ fontSize: "17px" }} align="right">
+              <TableCell sx={{ fontSize: 17 }}>Platforms</TableCell>
+              <TableCell sx={{ fontSize: 17 }} align="right">
                 Subscribed Shops
               </TableCell>
-              <TableCell style={{ fontSize: "17px" }} align="right">
-                Add Shop
-              </TableCell>
-              <TableCell style={{ fontSize: "17px" }} align="right"></TableCell>
+              <TableCell sx={{ fontSize: 17 }} align="right" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -300,18 +311,17 @@ export default function Shops() {
       </TableContainer>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
-          style={{
+          sx={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: "18px",
+            fontSize: 18,
           }}
         >
           Add {selectedPlatform} Shop
-          <CloseIcon style={{ cursor: "pointer" }} onClick={handleClose} />
+          <CloseIcon sx={{ cursor: "pointer" }} onClick={handleClose} />
         </DialogTitle>
-
-        <DialogTitle style={{ fontSize: "14px" }}>
-          Fill in the following detail to connect to BeProfit with your{" "}
+        <DialogTitle sx={{ fontSize: 14 }}>
+          Fill in the following details to connect to BeProfit with your{" "}
           {selectedPlatform} store
         </DialogTitle>
         <DialogContent>
@@ -325,16 +335,15 @@ export default function Shops() {
             onChange={handleInputChange}
           />
           <Box
-            onClick={""}
             sx={{
               cursor: "pointer",
-              ":hover": { color: "black" },
               color: "blue",
-              marginLeft: "340px",
-              paddingTop: "15px",
+              marginLeft: "auto",
+              paddingTop: 2,
+              "&:hover": { color: "black" },
             }}
           >
-            Can't Find your storefront URL?
+            Can't find your storefront URL?
           </Box>
           <TextField
             margin="dense"
@@ -375,38 +384,30 @@ export default function Shops() {
             ))}
           </TextField>
         </DialogContent>
-
         <DialogActions
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            margin: "0 15px",
-            marginBottom: "10px",
+            mx: 2,
+            mb: 1,
           }}
         >
           <Button
-            style={{
+            sx={{
               cursor: "pointer",
-              ":hover": { color: "black" },
               color: "blue",
+              "&:hover": { color: "black" },
             }}
           >
             Need Help?
           </Button>
-          <Button
-            style={{
-              background: "green",
-              color: "#fff",
-              padding: "7px   13px",
-            }}
-            color="primary"
-            onClick={handleAddShop}
-          >
-            Continue{" "}
+          <Button sx={{ color: "#000" }} onClick={handleAddShop}>
+            Continue
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-}
+};
 
+export default Shops;

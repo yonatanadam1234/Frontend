@@ -34,7 +34,7 @@ const JWTAuthAuthProvider = ({ children }) => {
       }
       setAuthToken(token);
       jwtAxios
-        .get(`/auth/${token}`)
+        .get(`auth/${token}`)
         .then(({ data }) => {
           fetchSuccess();
           setJWTAuthData({

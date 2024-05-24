@@ -100,7 +100,7 @@ const ECommerce = () => {
 
           
           
-            <Grid item xs={12} md={6} lg={5} xl={4} >
+            <Grid item xs={12} md={6} lg={4} xl={4} >
               <TopInquiries topInquiries={ecommerceData.topInquiries} />
             </Grid>
             <Grid item xs={12} md={12} lg={8}>
