@@ -48,25 +48,38 @@ const createData = (name, calories) => ({
   ],
 });
 
-const Row = ({ row, handleopen, platform, shops, setShops }) => {
+const Row = ({ row, handleOpen, platform, shops, setShops }) => {
   const [hOpen, setHopen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleHistory = () => setHopen(!hOpen);
 
-  const handleDeleteShop = (index) => {
+  const handleDeleteShop = () => {
     const updatedShops = { ...shops };
     updatedShops[platform] = updatedShops[platform].filter(
-      (_, i) => i !== index
+      (_, i) => i !== deleteIndex
     );
     setShops(updatedShops);
+    setDeleteDialogOpen(false);
+    setDeleteIndex(null);
   };
 
   const handleToggleShop = (index) => {
     const updatedShops = { ...shops };
     updatedShops[platform][index].enabled =
       !updatedShops[platform][index].enabled;
-
     setShops(updatedShops);
+  };
+
+  const openDeleteDialog = (index) => {
+    setDeleteIndex(index);
+    setDeleteDialogOpen(true);
+  };
+
+  const closeDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setDeleteIndex(null);
   };
 
   return (
@@ -111,7 +124,7 @@ const Row = ({ row, handleopen, platform, shops, setShops }) => {
         </TableCell>
         <TableCell align="right">
           <Box
-            onClick={() => handleopen(platform)}
+            onClick={() => handleOpen(platform)}
             sx={{
               cursor: "pointer",
               color: "blue",
@@ -156,7 +169,7 @@ const Row = ({ row, handleopen, platform, shops, setShops }) => {
                         <TableCell align="right">
                           <IconButton
                             aria-label="delete shop"
-                            onClick={() => handleDeleteShop(index)}
+                            onClick={() => openDeleteDialog(index)}
                           >
                             <DeleteOutlineRoundedIcon />
                           </IconButton>
@@ -181,6 +194,42 @@ const Row = ({ row, handleopen, platform, shops, setShops }) => {
           </TableCell>
         </TableRow>
       )}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={closeDeleteDialog}
+        PaperProps={{
+          style: {
+            padding: "20px",
+            borderRadius: "10px",
+            minWidth: "400px",
+          },
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: "bold", fontSize: 20 }}>
+          Delete Shop❗
+        </DialogTitle>
+        <DialogContent>
+          <Typography sx={{fontSize: 16}}>
+            Are you sure you want to permanently delete this shop? This action
+            cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteDialog} sx={{ color: "#555" }}>
+            Cancel
+          </Button>
+          <Button
+            onClick={handleDeleteShop}
+            sx={{
+              backgroundColor: "#d32f2f",
+              color: "#fff",
+              "&:hover": { backgroundColor: "#c62828" },
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
@@ -190,7 +239,7 @@ Row.propTypes = {
     calories: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  handleopen: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
   platform: PropTypes.string.isRequired,
   shops: PropTypes.object.isRequired,
   setShops: PropTypes.func.isRequired,
@@ -219,7 +268,7 @@ const Shops = () => {
   });
   const [selectedPlatform, setSelectedPlatform] = useState("");
 
-  const handleopen = (platform) => {
+  const handleOpen = (platform) => {
     setSelectedPlatform(platform);
     setOpen(true);
     if (!shops[platform]?.length) {
@@ -256,7 +305,7 @@ const Shops = () => {
     };
     updatedShops[selectedPlatform] = [
       ...updatedShops[selectedPlatform],
-      newShopWithEnabled, 
+      newShopWithEnabled,
     ];
     setShops(updatedShops);
     setNewShop({
@@ -265,20 +314,44 @@ const Shops = () => {
       marketplace: "",
       timezone: "",
     });
-    setOpen(false);
+    handleClose();
   };
 
-  
   const marketplaces = [
     { value: "amazon.com", label: "Amazon.com" },
     { value: "amazon.co.uk", label: "Amazon.co.uk" },
     { value: "amazon.de", label: "Amazon.de" },
+    { value: "shopify.com", label: "Shopify" },
+    { value: "ebay.com", label: "eBay" },
+    { value: "magento.com", label: "Magento" },
   ];
 
   const timezones = [
     { value: "GMT-12", label: "GMT-12" },
     { value: "GMT-11", label: "GMT-11" },
     { value: "GMT-10", label: "GMT-10" },
+    { value: "GMT-9", label: "GMT-9" },
+    { value: "GMT-8", label: "GMT-8" },
+    { value: "GMT-7", label: "GMT-7" },
+    { value: "GMT-6", label: "GMT-6" },
+    { value: "GMT-5", label: "GMT-5" },
+    { value: "GMT-4", label: "GMT-4" },
+    { value: "GMT-3", label: "GMT-3" },
+    { value: "GMT-2", label: "GMT-2" },
+    { value: "GMT-1", label: "GMT-1" },
+    { value: "GMT", label: "GMT" },
+    { value: "GMT+1", label: "GMT+1" },
+    { value: "GMT+2", label: "GMT+2" },
+    { value: "GMT+3", label: "GMT+3" },
+    { value: "GMT+4", label: "GMT+4" },
+    { value: "GMT+5", label: "GMT+5" },
+    { value: "GMT+6", label: "GMT+6" },
+    { value: "GMT+7", label: "GMT+7" },
+    { value: "GMT+8", label: "GMT+8" },
+    { value: "GMT+9", label: "GMT+9" },
+    { value: "GMT+10", label: "GMT+10" },
+    { value: "GMT+11", label: "GMT+11" },
+    { value: "GMT+12", label: "GMT+12" },
   ];
 
   return (
@@ -295,12 +368,12 @@ const Shops = () => {
               <TableCell sx={{ fontSize: 17 }} align="right" />
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
             {rows.map((row) => (
               <Row
                 key={row.name}
                 row={row}
-                handleopen={handleopen}
+                handleOpen={handleOpen}
                 platform={row.calories}
                 shops={shops}
                 setShops={setShops}
@@ -338,7 +411,7 @@ const Shops = () => {
             sx={{
               cursor: "pointer",
               color: "blue",
-              marginLeft: "auto",
+              marginLeft: 70,
               paddingTop: 2,
               "&:hover": { color: "black" },
             }}
@@ -362,11 +435,16 @@ const Shops = () => {
             value={newShop.marketplace}
             onChange={handleSelectChange}
           >
-            {marketplaces.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
+            {marketplaces
+              .filter(
+                (option) =>
+                  option.value.includes(selectedPlatform.toLowerCase())
+              )
+              .map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
           </TextField>
           <TextField
             select
@@ -402,7 +480,7 @@ const Shops = () => {
             Need Help?
           </Button>
           <Button sx={{ color: "#000" }} onClick={handleAddShop}>
-            Continue
+            Add Shop
           </Button>
         </DialogActions>
       </Dialog>

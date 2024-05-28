@@ -4,8 +4,8 @@ import Shops from '../../components/Shops/Shops';
 import Account from '../../../modules/account/MyProfile'
 import Orders from '../../components/Orders';
 import ProductListing from '../../components/Inventory/Listing';
-import Exp from '../../components/Expenses/Exp';
 import Shipping_Setting from '../../components/Shipping_setting/Shipping_Setting';
+import OperationExpenses from '../../components/Expenses/Operational Expenses/OperationExpenses';
 
 
 export const accountPagesConfigs = [
@@ -32,7 +32,7 @@ export const accountPagesConfigs = [
   {
     permittedRole: RoutePermittedRole.User,
     path: '/dashboards/expenses',
-    element: <Exp/> ,
+    element: <OperationExpenses/> ,
   },
   {
     permittedRole: RoutePermittedRole.User,
