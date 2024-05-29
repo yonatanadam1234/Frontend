@@ -198,6 +198,8 @@ const TableItem = ({ data }) => {
         </StyledTableCell>
 
         <StyledTableCell align="left">{data.Product_Category}</StyledTableCell>
+
+
         <StyledTableCell align="left">
           {editingProductWeight ? (
             <TextField
@@ -212,6 +214,9 @@ const TableItem = ({ data }) => {
             </Box>
           )}
         </StyledTableCell>
+
+
+        
         <StyledTableCell align="left">
           <Box
             sx={{
