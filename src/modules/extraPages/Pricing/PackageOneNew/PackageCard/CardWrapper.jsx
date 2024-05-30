@@ -7,7 +7,8 @@ const CardWrapper = ({ children, ...rest }) => {
     <Card
       sx={{
         px: 7.5,
-        py: 5,
+        py: 7,
+        minHeight:1350,
         borderRadius: (theme) => theme.cardRadius / 4,
         // backgroundColor: (theme) => theme.palette.common.white,
         overflow: "visible",
@@ -33,7 +34,7 @@ const CardWrapper = ({ children, ...rest }) => {
             bottom: -30,
             zIndex: -1,
             width: 200,
-            height: 200,
+            minHeight: 200,
             borderRadius: "50%",
           },
         },

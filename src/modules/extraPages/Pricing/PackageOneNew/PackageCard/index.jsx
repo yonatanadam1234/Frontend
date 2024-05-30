@@ -1,19 +1,23 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import CardWrapper from "./CardWrapper";
 import { Fonts } from "@crema/constants/AppEnums";
+import CardWrapper from "./CardWrapper";
 import PackageWrapper from "./PackageWrapper";
+import { FaBoxOpen } from "react-icons/fa";
+import { BiSolidShoppingBagAlt } from "react-icons/bi";
+import { GiFlatPlatform } from "react-icons/gi";
 
 const PackageCard = ({ billingFormat, pricing }) => {
-  console.log("PackageCard: billingFormat:", pricing);
   return (
     <PackageWrapper>
       <Box
@@ -25,6 +29,7 @@ const PackageCard = ({ billingFormat, pricing }) => {
       >
         {pricing.tag}
       </Box>
+
       <CardWrapper>
         <Box
           sx={{
@@ -59,6 +64,7 @@ const PackageCard = ({ billingFormat, pricing }) => {
             </Box>
             /{billingFormat}
           </Typography>
+
           {pricing.popular ? (
             <Box className="popular">
               <img src="/assets/images/arrowleft.svg" alt="arrowleft" />
@@ -73,7 +79,69 @@ const PackageCard = ({ billingFormat, pricing }) => {
             </Box>
           ) : null}
         </Box>
-        <Box sx={{ mb: 7.5 }}>
+
+        <Box sx={{ minHeight: 40 }}>
+          <ListItemIcon
+            sx={{
+              minWidth: 10,
+              mr: 2.5,
+            }}
+          >
+            <FaBoxOpen
+              style={{
+                fontSize: "18px",
+              }}
+              sx={{
+                mt: 1,
+                mb: 3.5,
+                color: (theme) => theme.palette.text.primary,
+              }}
+            />
+            &nbsp;{pricing.order}
+          </ListItemIcon>
+
+          {pricing.shop ? (
+            <ListItemIcon
+              sx={{
+                minWidth: 10,
+                mr: 2.5,
+              }}
+            >
+              <BiSolidShoppingBagAlt
+                style={{
+                  fontSize: "18px",
+                }}
+                sx={{
+                  mt: 0,
+                  mb: 3.5,
+                  color: (theme) => theme.palette.text.primary,
+                }}
+              />
+              &nbsp;{pricing.shop}
+            </ListItemIcon>
+          ) : null}
+
+          {/* <ListItemIcon
+            sx={{
+              minWidth: 10,
+              mr: 2.5,
+            }}
+          >
+            <GiFlatPlatform
+              style={{
+                fontSize: "18px",
+              }}
+              sx={{
+                mt: 1,
+                mb: 3.5,
+                color: (theme) => theme.palette.text.primary,
+              }}
+            />
+            &nbsp;{pricing.platform}
+          </ListItemIcon> */}
+        </Box>
+
+        <Box sx={{ mb: 7.5, mt: 7 }}>
           <Button
             variant="outlined"
             sx={{
@@ -94,40 +162,59 @@ const PackageCard = ({ billingFormat, pricing }) => {
             {pricing.btnText}
           </Button>
         </Box>
-        <List
-          sx={{
-            py: 0,
-          }}
-        >
-          {pricing.pricingList.map((data, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                p: 0,
-                mb: 2.5,
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 10, mr: 3.5 }}>
-                <CheckOutlinedIcon
-                  sx={{
-                    fontSize: 16,
-                    mt: 1,
-                    color: (theme) => theme.palette.text.primary,
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText primary={data.title} />
+        <Box>{pricing.Ofee}</Box>
+        <hr color="#0A8FDC" style={{marginTop:'30px'}}/>
+
+
+        {pricing.pricingList.map((data, index) => (
+          <List key={index}>
+            <ListItem sx={{ display: "block", m: 0 }}>
+              <Box
+                sx={{
+                  color: "#0A8FDC",
+                  mb: 5,
+                  fontSize: "16px",
+                  fontWeight: 1000,
+                }}
+              >
+                {data.title}
+              </Box>
+              {data.allData.map((item) => (
+                <Box
+                  key={item.id}
+                  sx={{ display: "flex", alignItems: "center", ml: -3, p: -7 }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 10,
+                      mr: 2.5,
+                    }}
+                  >
+                    <CheckOutlinedIcon
+                      sx={{
+                        fontSize: 16,
+                        mt: 1,
+                        mb: 3.5,
+                        color: (theme) => theme.palette.text.primary,
+                      }}
+                    />
+                  </ListItemIcon>
+                  <Box sx={{ display: "block", width: "100%", mb: 3.5 }}>
+                    {item.title}
+                  </Box>
+                </Box>
+              ))}
             </ListItem>
-          ))}
-        </List>
+          </List>
+        ))}
       </CardWrapper>
     </PackageWrapper>
   );
 };
 
-export default PackageCard;
-
 PackageCard.propTypes = {
   billingFormat: PropTypes.string,
-  pricing: PropTypes.object,
+  pricing: PropTypes.object.isRequired,
 };
+
+export default PackageCard;

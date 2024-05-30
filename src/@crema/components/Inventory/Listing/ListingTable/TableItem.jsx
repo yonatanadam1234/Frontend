@@ -210,13 +210,13 @@ const TableItem = ({ data }) => {
           ) : (
             <Box onClick={() => setEditingProductWeight(true)}>
               {data.product_weight}
-              <FaEdit style={{ marginLeft: "8px" }} />
+              <FaEdit style={{ marginLeft: "8px" }}/>
             </Box>
           )}
         </StyledTableCell>
 
 
-        
+
         <StyledTableCell align="left">
           <Box
             sx={{

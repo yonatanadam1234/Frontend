@@ -13,7 +13,6 @@ import {
   Box,
   InputAdornment,
   IconButton,
-  Typography,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -23,7 +22,6 @@ import {
   InputLabel,
   FormControl,
   Grid,
-  Menu,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -40,7 +38,6 @@ const ExpensesTable = () => {
   const [editRowIndex, setEditRowIndex] = useState(null);
   const [amount, setAmount] = useState("");
   const [tableData, setTableData] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const [customExpense, setCustomExpense] = useState({
     recurrence: "",
@@ -206,8 +203,8 @@ const ExpensesTable = () => {
       firstPayment: "",
     });
     if (openCustomPopup) {
-      setOpenCustomPopup(false); // Close the current popup
-      setOpenCustomPopup(true); // Open a new one
+      setOpenCustomPopup(false); 
+      setOpenCustomPopup(true); 
     }
   };
 
@@ -234,8 +231,8 @@ const ExpensesTable = () => {
       firstPayment: "",
     });
     if (openContraPopup) {
-      setOpenContraPopup(false); // Close the current popup
-      setOpenContraPopup(true); // Open a new one
+      setOpenContraPopup(false); 
+      setOpenContraPopup(true); 
     }
   };
 
@@ -262,8 +259,8 @@ const ExpensesTable = () => {
       firstPayment: "",
     });
     if (openVariablePopup) {
-      setOpenVariablePopup(false); // Close the current popup
-      setOpenVariablePopup(true); // Open a new one
+      setOpenVariablePopup(false); 
+      setOpenVariablePopup(true); 
     }
   };
 
@@ -296,10 +293,6 @@ const ExpensesTable = () => {
     setTableData(updatedTableData);
     setEditRowIndex(null);
     setAmount("");
-  };
-
-  const handleEditExpense = (id) => {
-    // handle edit expense logic here
   };
 
   const handleDeleteExpense = (index) => {
@@ -634,7 +627,6 @@ const ExpensesTable = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Contra Variable Expense Popup */}
       <Dialog open={openContraPopup} onClose={handleCloseContraPopup}>
         <DialogTitle sx={{ fontSize: 20 }}>
           Add Contra Variable Expense
@@ -817,7 +809,6 @@ const ExpensesTable = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Variable Expense Popup */}
 
       <Dialog open={openVariablePopup} onClose={handleCloseVariablePopup}>
         <DialogTitle sx={{ fontSize: 20 }}>Add Variable Expense</DialogTitle>

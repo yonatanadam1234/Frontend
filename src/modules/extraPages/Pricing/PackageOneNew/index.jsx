@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import AppGridContainer from '@crema/components/AppGridContainer';
 import Grid from '@mui/material/Grid';
 import PackageCard from './PackageCard';
+import pricingData from '@crema/mockapi/fakedb/extraPages/pricing';
 
-const PackageOne = ({ billingFormat, pricing }) => {
+const PackageOne = ({ billingFormat }) => {
   return (
     <AppGridContainer>
-      {pricing.map((data, index) => (
-        <Grid item xs={12} sm={6} md={3} key={index}>
+      {pricingData.pricingOneNew.map((data, index) => (
+        <Grid item xs={12} sm={6} md={3} key={data.id} >
           <PackageCard billingFormat={billingFormat} pricing={data} />
         </Grid>
       ))}
@@ -16,9 +17,8 @@ const PackageOne = ({ billingFormat, pricing }) => {
   );
 };
 
-export default PackageOne;
-
 PackageOne.propTypes = {
-  billingFormat: PropTypes.string,
-  pricing: PropTypes.array,
+  billingFormat: PropTypes.string.isRequired,
 };
+
+export default PackageOne;
