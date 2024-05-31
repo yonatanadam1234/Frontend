@@ -22,11 +22,8 @@ const ThemeModes = () => {
   const { updateTheme, updateThemeMode } = useThemeActionsContext();
   const { updateSidebarColorSet } = useSidebarActionsContext();
   const { themeMode, theme } = useThemeContext();
-  console.log("themeMode: ", themeMode);
 
   const onModeChange = (event, themeMode) => {
-    console.log("themeMode: ", themeMode);
-    console.log("event: ", event);
     if (themeMode) {
       updateThemeMode(themeMode);
       if (themeMode === ThemeMode.LIGHT) {

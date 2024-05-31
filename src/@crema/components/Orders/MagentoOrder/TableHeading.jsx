@@ -4,7 +4,6 @@ import TableCell from "@mui/material/TableCell";
 import { BsFillGearFill } from "react-icons/bs";
 
 const TableHeading = ({ displayProductCost }) => {
-  console.log("data",displayProductCost)
   return (
     
     <TableRow>

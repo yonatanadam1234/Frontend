@@ -15,10 +15,12 @@ import CardWrapper from "./CardWrapper";
 import PackageWrapper from "./PackageWrapper";
 import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
-import { GiFlatPlatform } from "react-icons/gi";
 
-const PackageCard = ({ billingFormat, pricing }) => {
+const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
+  console.log(currentPricing);
   return (
+
+    
     <PackageWrapper>
       <Box
         component="span"
@@ -60,9 +62,9 @@ const PackageCard = ({ billingFormat, pricing }) => {
                 fontWeight: Fonts.BOLD,
               }}
             >
-              ${pricing.price}
+              ${currentPricing}
             </Box>
-            /{billingFormat}
+            /{billingFormat === "month" ? "Month" : "Year"}
           </Typography>
 
           {pricing.popular ? (
@@ -120,25 +122,6 @@ const PackageCard = ({ billingFormat, pricing }) => {
               &nbsp;{pricing.shop}
             </ListItemIcon>
           ) : null}
-
-          {/* <ListItemIcon
-            sx={{
-              minWidth: 10,
-              mr: 2.5,
-            }}
-          >
-            <GiFlatPlatform
-              style={{
-                fontSize: "18px",
-              }}
-              sx={{
-                mt: 1,
-                mb: 3.5,
-                color: (theme) => theme.palette.text.primary,
-              }}
-            />
-            &nbsp;{pricing.platform}
-          </ListItemIcon> */}
         </Box>
 
         <Box sx={{ mb: 7.5, mt: 7 }}>
@@ -163,8 +146,7 @@ const PackageCard = ({ billingFormat, pricing }) => {
           </Button>
         </Box>
         <Box>{pricing.Ofee}</Box>
-        <hr color="#0A8FDC" style={{marginTop:'30px'}}/>
-
+        <hr color="#0A8FDC" style={{ marginTop: '30px' }} />
 
         {pricing.pricingList.map((data, index) => (
           <List key={index}>
@@ -215,6 +197,7 @@ const PackageCard = ({ billingFormat, pricing }) => {
 PackageCard.propTypes = {
   billingFormat: PropTypes.string,
   pricing: PropTypes.object.isRequired,
+  currentPricing: PropTypes.number.isRequired,
 };
 
 export default PackageCard;

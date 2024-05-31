@@ -1,26 +1,15 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, List, Typography } from "@mui/material";
 import AppGridContainer from "@crema/components/AppGridContainer";
 import PackageOneNew from "./PackageOneNew";
 import PricingFaq from "./Faq";
 import { pricingData, pricingFaq } from "@crema/mockapi/fakedb/extraPages";
 
-const yearlyPricingData = pricingData.pricingOneNew.map(plan => ({
-  ...plan,
-  price: plan.price === "00" ? "00" : (parseInt(plan.price, 10) * 12 * 0.8).toFixed(2) // Apply 20% discount for yearly plan
-}));
-
 const PricingDetail = () => {
   const [billingFormat, setBillingFormat] = React.useState("month");
-  const [currentPricing, setCurrentPricing] = React.useState(pricingData.pricingOneNew);
 
   const handleBillingFormatChange = (format) => {
     setBillingFormat(format);
-    if (format === "year") {
-      setCurrentPricing(yearlyPricingData);
-    } else {
-      setCurrentPricing(pricingData.pricingOneNew);
-    }
   };
 
   return (
@@ -42,8 +31,10 @@ const PricingDetail = () => {
           mb: 6,
         }}
       >
-        Simple, transparent pricing that grows with you. Try any plan free for 30 days.
+        Simple, transparent pricing that grows with you. Try any plan free for
+        30 days.
       </Typography>
+
       <Box
         sx={{
           width: "fit-content",
@@ -54,7 +45,8 @@ const PricingDetail = () => {
           display: "flex",
           alignItems: "center",
           ".active": {
-            boxShadow: "0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06)",
+            boxShadow:
+              "0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06)",
           },
         }}
       >
@@ -72,18 +64,16 @@ const PricingDetail = () => {
         >
           Yearly billing
         </Box>
-        <Box
-          sx={{ borderRadius: "20px", bgcolor: "#F2F4F7", ml: 3, p: "4px 8px" }}
-        >
-          Save 20%
-        </Box>
       </Box>
-      <Grid item xs={12}>
-        <PackageOneNew
-          billingFormat={billingFormat}
-          pricing={currentPricing}
-        />
-      </Grid>
+
+      
+          <Grid item xs={12}>
+            <PackageOneNew
+              billingFormat={billingFormat}
+            />
+          </Grid>
+     
+
       <Grid item xs={12} sx={{ mt: 7 }}>
         <PricingFaq pricingFaq={pricingFaq} />
       </Grid>

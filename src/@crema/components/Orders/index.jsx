@@ -231,7 +231,7 @@ const Orders = () => {
         <Hidden smUp>
           <AppsPagination
             rowsPerPage={10}
-            count={apiData?.count}
+            count={apiData?.count} 
             page={page}
             onPageChange={onPageChange}
           />

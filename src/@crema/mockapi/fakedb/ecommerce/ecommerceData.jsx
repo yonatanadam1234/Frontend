@@ -262,7 +262,7 @@ const productSpec = [
 
 const ecommerceData = [
   {
-    id: 2,
+    id: 1,
     createdAt: "19 Dec 2022",
     inStock: true,
     category: 1,
@@ -310,7 +310,7 @@ const ecommerceData = [
     Item_Volume: "-",
   },
   {
-    id: 3,
+    id: 2,
     createdAt: "19 Dec 2022",
     inStock: true,
     category: 2,
@@ -358,7 +358,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 4,
+    id: 3,
     title:
       "SONY WH-CH510 Google Assistant enabled Bluetooth Headset  (Black, On the Ear)",
     description:
@@ -408,7 +408,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 5,
+    id: 4,
     title: "APPLE iPhone 12 (Blue, 64 GB)",
     description:
       "Super Retina XDR Display, 6.1 inch (Diagonal) All Screen OLED Display, HDR Display, True Tone, Wide Colour (P3), Haptic Touch, 2000000:1 Contrast Ratio (Typical)",
@@ -457,7 +457,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 2,
+    id: 5,
     createdAt: "19 Dec 2022",
     inStock: true,
     category: 1,
@@ -653,7 +653,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 2,
+    id: 9,
     createdAt: "19 Dec 2022",
     inStock: true,
     category: 1,
@@ -702,7 +702,7 @@ const ecommerceData = [
   },
 
   {
-    id: 9,
+    id: 10,
     title: "APPLE iPhone 12 (Blue, 64 GB)",
     description:
       "Super Retina XDR Display, 6.1 inch (Diagonal) All Screen OLED Display, HDR Display, True Tone, Wide Colour (P3), Haptic Touch, 2000000:1 Contrast Ratio (Typical)",
@@ -752,7 +752,7 @@ const ecommerceData = [
   },
 
   {
-    id: 10,
+    id: 11,
     title: "Mens's Exclusive Watch",
     description:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
@@ -801,7 +801,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 10,
+    id: 12,
     title: "HP Pavilion Gaming Ryzen 7 Octa Core 4800H",
     description:
       "Microsoft Office 2019 Home and Student, HP Documentation, HP e-service, HP BIOS Recovery, HP SSRM, HP Smart, HP Jumpstarts, Dropbox, HP Audio Switch, HP Audio Boost",
@@ -850,7 +850,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 2,
+    id: 13,
     createdAt: "19 Dec 2022",
     inStock: true,
     category: 1,
@@ -898,7 +898,7 @@ const ecommerceData = [
     Item_Volume: "-",
   },
   {
-    id: 11,
+    id: 14,
     title: "NIKON Z6 II Body Mirrorless Camera with 64GB SD Card",
     description:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",
@@ -947,7 +947,7 @@ const ecommerceData = [
     productSpec,
   },
   {
-    id: 12,
+    id: 15,
     title:
       "SONY WH-CH510 Google Assistant enabled Bluetooth Headset  (Black, On the Ear)",
     description:
