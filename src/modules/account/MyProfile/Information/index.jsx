@@ -29,7 +29,7 @@ const Information = () => {
           mb: { xs: 3, lg: 5 },
         }}
       >
-        <IntlMessages id='common.information' />
+        <IntlMessages id='Your Subscription' />
       </Typography>
       <Formik
         validateOnChange={false}

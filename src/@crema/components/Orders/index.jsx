@@ -156,6 +156,7 @@ const Orders = () => {
           </Typography>
           Select Platforms : &nbsp;
         </InputLabel>
+
         <Select
           value={selectedPlatform}
           onChange={(event) => setSelectedPlatform(event.target.value)}
@@ -169,6 +170,8 @@ const Orders = () => {
           <MenuItem value="Ebay">eBay</MenuItem>
           <MenuItem value="Magento">Magento</MenuItem>
         </Select>
+
+        
       </Box>
       <AppsContainer fullView>
         <AppsHeader>

@@ -109,12 +109,11 @@ export const pricingData = {
       tagColor: "#0A8FDC",
       title: "Free",
       btnText: "Try Now",
-      price: '00',
-      yearlyprice:'00',
+      price: "00",
+      yearlyprice: "00",
       order: " Up to 200 Orders",
-      shop:"2 Shop",
-      // platform:"1 Platform connection",
-      Ofee:'Extra Order fee : $0.3 per order',
+      shop: "2 Shop",
+      Ofee: "Extra Order fee : $0.3 per order",
       pricingList: [
         {
           title: "Free Plan Included :",
@@ -176,11 +175,11 @@ export const pricingData = {
       title: "Basic",
       btnText: "Buy Now",
       price: 29,
-      yearlyprice:300,
+      yearlyprice: 310,
+      productId: "pro_01hzexrm11ve9tey0y6ccer6cg", // Basic Plan Product ID
       order: " Up to 600 Orders",
-      shop:"2 Shop",
-      // platform:"2 Platform connection",
-      Ofee:'Extra Order fee : $0.3 per order',
+      shop: "2 Shop",
+      Ofee: "Extra Order fee : $0.3 per order",
       pricingList: [
         {
           title: "Basic Plan Included  :",
@@ -251,11 +250,11 @@ export const pricingData = {
       title: "Pro",
       btnText: "Buy Now",
       price: 49,
-      yearlyprice:500,
+      yearlyprice: 520,
+      productId: "pro_01hzexsjwknykwdje8p596zz8b", // Pro Plan Product ID
       popular: "Most popular!",
       order: " Up to 1200 Orders",
-      // platform:"2 Platform connection",
-      Ofee:'Extra Order fee : $0.1 per order',
+      Ofee: "Extra Order fee : $0.1 per order",
       pricingList: [
         {
           title: "Pro Plan Included  :",
@@ -327,18 +326,17 @@ export const pricingData = {
       ],
     },
 
-    
     {
       id: 4,
       tag: "Premium",
-      tagColor: "#F77568",
+      tagColor: "#F04F47",
       title: "Premium",
       btnText: "Buy Now",
       price: 69,
-      yearlyprice:700,
-      order: "Unlimited Order Processing",
-      // platform:"Unlimited Platform Connection",
-      Ofee:'No Additional Fees',
+      yearlyprice: 730,
+      productId: "pro_01hzexv1q0kksfqzk2cd07d911", // Premium Plan Product ID
+      order: " Unlimited Orders",
+      Ofee: "Extra Order fee : No extra order fee",
       pricingList: [
         {
           title: "Premium Plan Included   :",
@@ -434,10 +432,6 @@ export const pricingData = {
       ],
     },
   ],
-
-
-
-
 
   pricingFour: [
     {

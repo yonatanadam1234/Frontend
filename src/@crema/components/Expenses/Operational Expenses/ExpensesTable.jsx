@@ -917,6 +917,7 @@ const ExpensesTable = () => {
                     })
                   }
                 >
+                   
                   <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
                   <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
                 </Select>

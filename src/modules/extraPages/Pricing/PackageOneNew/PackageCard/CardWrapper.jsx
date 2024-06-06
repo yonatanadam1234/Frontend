@@ -8,9 +8,8 @@ const CardWrapper = ({ children, ...rest }) => {
       sx={{
         px: 7.5,
         py: 7,
-        minHeight:1350,
+        minHeight:1455,
         borderRadius: (theme) => theme.cardRadius / 4,
-        // backgroundColor: (theme) => theme.palette.common.white,
         overflow: "visible",
         boxShadow:
           "0px 4.00784px 8.01569px -2.00392px rgba(16, 24, 40, 0.1), 0px 2.00392px 4.00784px -2.00392px rgba(16, 24, 40, 0.06)",

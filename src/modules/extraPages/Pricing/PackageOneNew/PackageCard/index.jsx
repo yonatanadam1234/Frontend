@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Typography,
-  Box,
-  Button,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Typography, Box, Button, List, ListItem, ListItemIcon } from "@mui/material";
 import PropTypes from "prop-types";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { Fonts } from "@crema/constants/AppEnums";
@@ -17,10 +9,36 @@ import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 
 const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
-  console.log(currentPricing);
-  return (
 
-    
+
+  Paddle.Environment.set("sandbox");
+  Paddle.Initialize({
+    token: "live_1bc6cf442aa74adbab7ffae494d" // replace with a client-side token
+  });
+  
+  // define items
+  let itemsList = [
+    {
+      priceId: "pri_01gsz8ntc6z7npqqp6j4ys0w1w",
+      quantity: 5
+    },
+    {
+      priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
+      quantity: 1
+    }
+  ];
+  
+  // define customer details
+
+  // open checkout
+  function openCheckout(items, customer){
+    Paddle.Checkout.open({
+      items: items,
+      customer: customer
+    });
+  }
+
+  return (
     <PackageWrapper>
       <Box
         component="span"
@@ -31,7 +49,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
       >
         {pricing.tag}
       </Box>
-
       <CardWrapper>
         <Box
           sx={{
@@ -48,7 +65,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
           >
             {pricing.title}
           </Typography>
-
           <Typography
             component="h4"
             sx={{
@@ -66,7 +82,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
             </Box>
             /{billingFormat === "month" ? "Month" : "Year"}
           </Typography>
-
           {pricing.popular ? (
             <Box className="popular">
               <img src="/assets/images/arrowleft.svg" alt="arrowleft" />
@@ -81,7 +96,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
             </Box>
           ) : null}
         </Box>
-
         <Box sx={{ minHeight: 40 }}>
           <ListItemIcon
             sx={{
@@ -101,7 +115,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
             />
             &nbsp;{pricing.order}
           </ListItemIcon>
-
           {pricing.shop ? (
             <ListItemIcon
               sx={{
@@ -123,7 +136,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
             </ListItemIcon>
           ) : null}
         </Box>
-
         <Box sx={{ mb: 7.5, mt: 7 }}>
           <Button
             variant="outlined"
@@ -141,13 +153,14 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
                 borderWidth: 2,
               },
             }}
+            onClick={() => openCheckout(itemsList)}
           >
             {pricing.btnText}
           </Button>
+
         </Box>
         <Box>{pricing.Ofee}</Box>
-        <hr color="#0A8FDC" style={{ marginTop: '30px' }} />
-
+        <hr color="#0A8FDC" style={{ marginTop: "30px" }} />
         {pricing.pricingList.map((data, index) => (
           <List key={index}>
             <ListItem sx={{ display: "block", m: 0 }}>

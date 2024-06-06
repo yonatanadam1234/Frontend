@@ -15,7 +15,11 @@ import { countries } from '@crema/mockapi';
 const InfoForm = ({ values, setFieldValue }) => {
   return (
     <Form autoComplete='off'>
-      <AppGridContainer spacing={4}>
+      <h1>Subscription plan Show Hear
+
+
+      </h1>
+      {/* <AppGridContainer spacing={4}>
         <Grid item xs={12} md={12}>
           <AppTextField
             multiline
@@ -128,7 +132,7 @@ const InfoForm = ({ values, setFieldValue }) => {
             </Button>
           </Box>
         </Grid>
-      </AppGridContainer>
+      </AppGridContainer> */}
     </Form>
   );
 };
