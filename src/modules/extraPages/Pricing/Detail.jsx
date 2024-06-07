@@ -18,7 +18,7 @@ const PricingDetail = () => {
         variant="h1"
         sx={{ mt: 8, width: "100%", fontSize: 48, textAlign: "center" }}
       >
-        Plans that fit your scale
+        
       </Typography>
       <Typography
         variant="body1"

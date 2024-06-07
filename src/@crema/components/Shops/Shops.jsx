@@ -246,7 +246,7 @@ Row.propTypes = {
 };
 
 const rows = [
-  // createData("Amazon_icon.svg", "Amazon"),
+  createData("Amazon_icon.svg", "Amazon"),
   // createData("shopify.svg", "Shopify"),
   createData("ebay.svg", "eBay"),
   // createData("magento.svg", "Magento"),
@@ -254,8 +254,8 @@ const rows = [
 
 const Shops = () => {
   const [open, setOpen] = useState(false);
-  const [shops, setShops] = useState({
-    Amazon: [],
+    const [shops, setShops] = useState({
+      Amazon: [],
     Shopify: [],
     eBay: [],
     Magento: [],
