@@ -246,9 +246,9 @@ Row.propTypes = {
 };
 
 const rows = [
-  createData("Amazon_icon.svg", "Amazon"),
+  // createData("Amazon_icon.svg", "Amazon"),
   // createData("shopify.svg", "Shopify"),
-  // createData("ebay.svg", "eBay"),
+  createData("ebay.svg", "eBay"),
   // createData("magento.svg", "Magento"),
 ];
 
