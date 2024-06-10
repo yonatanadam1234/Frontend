@@ -29,6 +29,8 @@ import { useState } from "react";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const createData = (name, calories) => ({
   name,
@@ -254,68 +256,53 @@ const rows = [
 
 const Shops = () => {
   const [open, setOpen] = useState(false);
-    const [shops, setShops] = useState({
-      Amazon: [],
+  const [shops, setShops] = useState({
+    Amazon: [],
     Shopify: [],
     eBay: [],
     Magento: [],
-  });
-  const [newShop, setNewShop] = useState({
-    storeName: "",
-    storefrontURL: "https://",
-    marketplace: "",
-    timezone: "",
   });
   const [selectedPlatform, setSelectedPlatform] = useState("");
 
   const handleOpen = (platform) => {
     setSelectedPlatform(platform);
     setOpen(true);
-    if (!shops[platform]?.length) {
-      setNewShop((prevShop) => ({
-        ...prevShop,
-        storefrontURL: "https://",
-      }));
-    }
   };
 
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewShop((prevShop) => ({
-      ...prevShop,
-      [name]:
-        name === "storefrontURL" && !value.startsWith("https://")
-          ? `https://${value}`
-          : value,
-    }));
-  };
+  const validationSchema = Yup.object().shape({
+    storeName: Yup.string().required("Store Name is required"),
+    storefrontURL: Yup.string()
+      .url("Invalid URL format")
+      .required("Storefront URL is required"),
+    marketplace: Yup.string().required("Marketplace is required"),
+    timezone: Yup.string().required("Timezone is required"),
+  });
 
-  const handleSelectChange = (e) => {
-    const { name, value } = e.target;
-    setNewShop((prevShop) => ({ ...prevShop, [name]: value }));
-  };
-
-  const handleAddShop = () => {
-    const updatedShops = { ...shops };
-    const newShopWithEnabled = {
-      ...newShop,
-      enabled: true,
-    };
-    updatedShops[selectedPlatform] = [
-      ...updatedShops[selectedPlatform],
-      newShopWithEnabled,
-    ];
-    setShops(updatedShops);
-    setNewShop({
+  const formik = useFormik({
+    initialValues: {
       storeName: "",
       storefrontURL: "https://",
       marketplace: "",
       timezone: "",
-    });
-    handleClose();
-  };
+    },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      const updatedShops = { ...shops };
+      const newShopWithEnabled = {
+        ...values,
+        enabled: true,
+      };
+      updatedShops[selectedPlatform] = [
+        ...updatedShops[selectedPlatform],
+        newShopWithEnabled,
+      ];
+      setShops(updatedShops);
+      resetForm();
+      handleClose();
+    },
+  });
 
   const marketplaces = [
     { value: "amazon.com", label: "Amazon.com" },
@@ -368,7 +355,7 @@ const Shops = () => {
               <TableCell sx={{ fontSize: 17 }} align="right" />
             </TableRow>
           </TableHead>
-          <TableBody >
+          <TableBody>
             {rows.map((row) => (
               <Row
                 key={row.name}
@@ -397,92 +384,106 @@ const Shops = () => {
           Fill in the following details to connect to BeProfit with your{" "}
           {selectedPlatform} store
         </DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Store Name"
-            fullWidth
-            name="storeName"
-            value={newShop.storeName}
-            onChange={handleInputChange}
-          />
-          <Box
-            sx={{
-              cursor: "pointer",
-              color: "blue",
-              marginLeft: 70,
-              paddingTop: 2,
-              "&:hover": { color: "black" },
-            }}
-          >
-            Can't find your storefront URL?
-          </Box>
-          <TextField
-            margin="dense"
-            label="Storefront URL"
-            fullWidth
-            name="storefrontURL"
-            value={newShop.storefrontURL}
-            onChange={handleInputChange}
-          />
-          <TextField
-            select
-            margin="dense"
-            label={`${selectedPlatform} Marketplace`}
-            fullWidth
-            name="marketplace"
-            value={newShop.marketplace}
-            onChange={handleSelectChange}
-          >
-            {marketplaces
-              .filter(
-                (option) =>
-                  option.value.includes(selectedPlatform.toLowerCase())
-              )
-              .map((option) => (
+        <form onSubmit={formik.handleSubmit}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Store Name"
+              fullWidth
+              name="storeName"
+              value={formik.values.storeName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.storeName && Boolean(formik.errors.storeName)}
+              helperText={formik.touched.storeName && formik.errors.storeName}
+            />
+            <Box
+              sx={{
+                cursor: "pointer",
+                color: "blue",
+                marginLeft: 70,
+                paddingTop: 2,
+                "&:hover": { color: "black" },
+              }}
+            >
+              Can't find your storefront URL?
+            </Box>
+            <TextField
+              margin="dense"
+              label="Storefront URL"
+              fullWidth
+              name="storefrontURL"
+              value={formik.values.storefrontURL}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.storefrontURL && Boolean(formik.errors.storefrontURL)}
+              helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
+            />
+            <TextField
+              select
+              margin="dense"
+              label={`${selectedPlatform} Marketplace`}
+              fullWidth
+              name="marketplace"
+              value={formik.values.marketplace}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.marketplace && Boolean(formik.errors.marketplace)}
+              helperText={formik.touched.marketplace && formik.errors.marketplace}
+            >
+              {marketplaces
+                .filter(
+                  (option) =>
+                    option.value.includes(selectedPlatform.toLowerCase())
+                )
+                .map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+            </TextField>
+            <TextField
+              select
+              margin="dense"
+              label="Timezone"
+              fullWidth
+              name="timezone"
+              value={formik.values.timezone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.timezone && Boolean(formik.errors.timezone)}
+              helperText={formik.touched.timezone && formik.errors.timezone}
+            >
+              {timezones.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
               ))}
-          </TextField>
-          <TextField
-            select
-            margin="dense"
-            label="Timezone"
-            fullWidth
-            name="timezone"
-            value={newShop.timezone}
-            onChange={handleSelectChange}
-          >
-            {timezones.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </DialogContent>
-        <DialogActions
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mx: 2,
-            mb: 1,
-          }}
-        >
-          <Button
+            </TextField>
+          </DialogContent>
+          <DialogActions
             sx={{
-              cursor: "pointer",
-              color: "blue",
-              "&:hover": { color: "black" },
+              display: "flex",
+              justifyContent: "space-between",
+              mx: 2,
+              mb: 1,
             }}
           >
-            Need Help?
-          </Button>
-          <Button sx={{ color: "#000" }} onClick={handleAddShop}>
-            Add Shop
-          </Button>
-        </DialogActions>
+            <Button
+              sx={{
+                cursor: "pointer",
+                color: "blue",
+                "&:hover": { color: "black" },
+              }}
+            >
+              Need Help?
+            </Button>
+            <Button type="submit" sx={{ color: "#000" }}>
+              Add Shop
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );

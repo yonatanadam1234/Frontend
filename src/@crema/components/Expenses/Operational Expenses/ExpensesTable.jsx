@@ -1,269 +1,72 @@
 import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  TextField,
-  TablePagination,
-  Box,
-  InputAdornment,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  Grid,
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,TextField,TablePagination,Box,InputAdornment,IconButton,Dialog,DialogTitle,DialogContent,DialogActions,MenuItem,Select,InputLabel,FormControl,Grid,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { FaEdit } from "react-icons/fa";
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 const ExpensesTable = () => {
-  const row = [];
+  // const row = [];
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [openCustomPopup, setOpenCustomPopup] = useState(false);
-  const [openContraPopup, setOpenContraPopup] = useState(false);
   const [openVariablePopup, setOpenVariablePopup] = useState(false);
   const [editRowIndex, setEditRowIndex] = useState(null);
   const [amount, setAmount] = useState("");
   const [tableData, setTableData] = useState([]);
-
-  const [customExpense, setCustomExpense] = useState({
-    recurrence: "",
-    expenseStatus: "",
-    expenseLabel: "",
-    category: "",
-    metricAllocation: "",
-    expenseAmount: "",
-    currency: "USD",
-    firstPayment: "",
+  const validationSchema = Yup.object().shape({
+    recurrence: Yup.string().required('Recurrence is required'),
+    expenseStatus: Yup.string().required('Expense Status is required'),
+    expenseLabel: Yup.string().required('Expense Label is required'),
+    category: Yup.string().required('Category is required'),
+    metricAllocation: Yup.string().required('Metric Allocation is required'),
+    expenseAmount: Yup.number().required('Expense Amount is required'),
+    firstPayment: Yup.date().required('First Payment is required'),
+    calculatedPer: Yup.string().required('calculatedPer is required'),
   });
-
-  const [contraExpense, setContraExpense] = useState({
-    recurrence: "",
-    expenseStatus: "",
-    expenseLabel: "",
-    category: "",
-    metricAllocation: "",
-    expenseAmount: "",
-    currency: "USD",
-    firstPayment: "",
+  const formikVariableExpense = useFormik({
+    initialValues: {
+      recurrence: "",
+      expenseStatus: "",
+      expenseLabel: "",
+      calculatedPer: "",
+      category: "",
+      metricAllocation: "",
+      expenseAmount: "",
+      currency: "USD",
+      firstPayment: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      setTableData([
+        ...tableData,
+        {
+          ...values,
+          type: "Variable",
+          title: values.expenseLabel || "N/A",
+          status: values.expenseStatus || "N/A",
+          amount: values.expenseAmount || "N/A",
+          firstPaymentDate: values.firstPayment || "N/A",
+        },
+      ]);
+      resetForm();
+      handleCloseVariablePopup();
+    },
   });
-
-  const [variableExpense, setVariableExpense] = useState({
-    recurrence: "",
-    expenseStatus: "",
-    expenseLabel: "",
-    category: "",
-    metricAllocation: "",
-    expenseAmount: "",
-    currency: "USD",
-    firstPayment: "",
-  });
-
-  const handleOpenCustomPopup = () => {
-    setOpenCustomPopup(true);
-  };
-
-  const handleCloseCustomPopup = () => {
-    setOpenCustomPopup(false);
-  };
-
-  const handleOpenContraPopup = () => {
-    setOpenContraPopup(true);
-  };
-
-  const handleCloseContraPopup = () => {
-    setOpenContraPopup(false);
-  };
-
   const handleOpenVariablePopup = () => {
     setOpenVariablePopup(true);
   };
-
   const handleCloseVariablePopup = () => {
     setOpenVariablePopup(false);
   };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const handleSaveCustomExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...customExpense,
-        type: "Custom",
-        title: customExpense.expenseLabel || "N/A",
-        status: customExpense.expenseStatus || "N/A",
-        amount: customExpense.expenseAmount || "N/A",
-        firstPaymentDate: customExpense.firstPayment || "N/A",
-      },
-    ]);
-    setCustomExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    handleCloseCustomPopup();
-  };
-
-  const handleSaveContraExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...contraExpense,
-        type: "Contra Variable",
-        title: contraExpense.expenseLabel || "N/A",
-        status: contraExpense.expenseStatus || "N/A",
-        amount: contraExpense.expenseAmount || "N/A",
-        firstPaymentDate: contraExpense.firstPayment || "N/A",
-      },
-    ]);
-    setContraExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    handleCloseContraPopup();
-  };
-
-  const handleSaveVariableExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...variableExpense,
-        type: "Variable",
-        title: variableExpense.expenseLabel || "N/A",
-        status: variableExpense.expenseStatus || "N/A",
-        amount: variableExpense.expenseAmount || "N/A",
-        firstPaymentDate: variableExpense.firstPayment || "N/A",
-      },
-    ]);
-    setVariableExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    handleCloseVariablePopup();
-  };
-
-  const handleSaveaddCustomExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...customExpense,
-        type: "Custom",
-        title: customExpense.expenseLabel || "N/A",
-        status: customExpense.expenseStatus || "N/A",
-        amount: customExpense.expenseAmount || "N/A",
-        firstPaymentDate: customExpense.firstPayment || "N/A",
-      },
-    ]);
-    setCustomExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    if (openCustomPopup) {
-      setOpenCustomPopup(false); 
-      setOpenCustomPopup(true); 
-    }
-  };
-
-  const handleSaveaddContraExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...contraExpense,
-        type: "Contra Variable",
-        title: contraExpense.expenseLabel || "N/A",
-        status: contraExpense.expenseStatus || "N/A",
-        amount: contraExpense.expenseAmount || "N/A",
-        firstPaymentDate: contraExpense.firstPayment || "N/A",
-      },
-    ]);
-    setContraExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    if (openContraPopup) {
-      setOpenContraPopup(false); 
-      setOpenContraPopup(true); 
-    }
-  };
-
-  const handleSaveaddVariableExpense = () => {
-    setTableData([
-      ...tableData,
-      {
-        ...variableExpense,
-        type: "Variable",
-        title: variableExpense.expenseLabel || "N/A",
-        status: variableExpense.expenseStatus || "N/A",
-        amount: variableExpense.expenseAmount || "N/A",
-        firstPaymentDate: variableExpense.firstPayment || "N/A",
-      },
-    ]);
-    setVariableExpense({
-      recurrence: "",
-      expenseStatus: "",
-      expenseLabel: "",
-      category: "",
-      metricAllocation: "",
-      expenseAmount: "",
-      currency: "USD",
-      firstPayment: "",
-    });
-    if (openVariablePopup) {
-      setOpenVariablePopup(false); 
-      setOpenVariablePopup(true); 
-    }
-  };
-
   const currencies = [
     {
       value: "USD",
@@ -282,11 +85,9 @@ const ExpensesTable = () => {
       label: "¥",
     },
   ];
-
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
   };
-
   const handleAmountBlur = () => {
     const updatedTableData = [...tableData];
     updatedTableData[editRowIndex].amount = amount;
@@ -298,7 +99,6 @@ const ExpensesTable = () => {
   const handleDeleteExpense = (index) => {
     setTableData(tableData.filter((_, i) => i !== index));
   };
-
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -321,25 +121,9 @@ const ExpensesTable = () => {
                     variant="contained"
                     color="primary"
                     sx={{ marginRight: 1 }}
-                    onClick={handleOpenCustomPopup}
-                  >
-                    + Custom Expense
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginRight: 1 }}
-                    onClick={handleOpenContraPopup}
-                  >
-                    + Contra Variable Expense
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginRight: 1 }}
                     onClick={handleOpenVariablePopup}
                   >
-                    + Variable Expense
+                    + Add Variable Expense
                   </Button>
                 </Box>
               </Box>
@@ -445,572 +229,186 @@ const ExpensesTable = () => {
             ))}
         </TableBody>
       </Table>
-
-      {/* Custom Expense Popup */}
-      <Dialog open={openCustomPopup} onClose={handleCloseCustomPopup}>
-        <DialogTitle sx={{ fontSize: 20 }}>Add Custom Expense</DialogTitle>
-        <hr style={{ opacity: "0.2" }} />
-
-        <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Recurrence</InputLabel>
-                <Select
-                  label="Recurrence"
-                  value={customExpense.recurrence}
-                  onChange={(e) =>
-                    setCustomExpense({
-                      ...customExpense,
-                      recurrence: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Daily"}>Daily</MenuItem>
-                  <MenuItem value={"Weekly"}>Weekly</MenuItem>
-                  <MenuItem value={"Monthly"}>Monthly</MenuItem>
-                  <MenuItem value={"Yearly"}>Yearly</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Expense Status</InputLabel>
-                <Select
-                  label="Expense Status"
-                  value={customExpense.expenseStatus}
-                  onChange={(e) =>
-                    setCustomExpense({
-                      ...customExpense,
-                      expenseStatus: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Active"}>Active</MenuItem>
-                  <MenuItem value={"Inactive"}>Inactive</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Expense Label"
-                value={customExpense.expenseLabel}
-                onChange={(e) =>
-                  setCustomExpense({
-                    ...customExpense,
-                    expenseLabel: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Category</InputLabel>
-                <Select
-                  label="Category"
-                  value={customExpense.category}
-                  onChange={(e) =>
-                    setCustomExpense({
-                      ...customExpense,
-                      category: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Category 1"}>Category 1</MenuItem>
-                  <MenuItem value={"Category 2"}>Category 2</MenuItem>
-                  <MenuItem value={"Category 3"}>Category 3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Metric Allocation</InputLabel>
-            <Select
-              label="Metric Allocation"
-              value={customExpense.metricAllocation}
-              onChange={(e) =>
-                setCustomExpense({
-                  ...customExpense,
-                  metricAllocation: e.target.value,
-                })
-              }
-            >
-              <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
-              <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Expense Amount"
-            value={customExpense.expenseAmount}
-            onChange={(e) =>
-              setCustomExpense({
-                ...customExpense,
-                expenseAmount: e.target.value,
-              })
-            }
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <TextField
-                    style={{ padding: "0px 5px" }}
-                    id="standard-select-currency"
-                    select
-                    label="Currency"
-                    defaultValue="EUR"
-                    variant="standard"
-                  >
-                    {currencies.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="First Payment"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={customExpense.firstPayment}
-            onChange={(e) =>
-              setCustomExpense({
-                ...customExpense,
-                firstPayment: e.target.value,
-              })
-            }
-          />
-        </DialogContent>
-        <DialogActions sx={{ padding: 3 }}>
-          <Button
-            onClick={handleSaveaddCustomExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Add Another
-          </Button>
-          <Button
-            onClick={handleSaveCustomExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Done
-          </Button>
-
-          <Button
-            onClick={handleCloseCustomPopup}
-            color="primary"
-            style={{
-              background: "#707070",
-              color: "#fff",
-
-              padding: "8px 18px",
-            }}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openContraPopup} onClose={handleCloseContraPopup}>
-        <DialogTitle sx={{ fontSize: 20 }}>
-          Add Contra Variable Expense
-        </DialogTitle>
-        <hr style={{ opacity: "0.2" }} />
-
-        <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Recurrence</InputLabel>
-                <Select
-                  label="Recurrence"
-                  value={contraExpense.recurrence}
-                  onChange={(e) =>
-                    setContraExpense({
-                      ...contraExpense,
-                      recurrence: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Daily"}>Daily</MenuItem>
-                  <MenuItem value={"Weekly"}>Weekly</MenuItem>
-                  <MenuItem value={"Monthly"}>Monthly</MenuItem>
-                  <MenuItem value={"Yearly"}>Yearly</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Expense Status</InputLabel>
-                <Select
-                  label="Expense Status"
-                  value={contraExpense.expenseStatus}
-                  onChange={(e) =>
-                    setContraExpense({
-                      ...contraExpense,
-                      expenseStatus: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Active"}>Active</MenuItem>
-                  <MenuItem value={"Inactive"}>Inactive</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Expense Label"
-                value={contraExpense.expenseLabel}
-                onChange={(e) =>
-                  setContraExpense({
-                    ...contraExpense,
-                    expenseLabel: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Category</InputLabel>
-                <Select
-                  label="Category"
-                  value={contraExpense.category}
-                  onChange={(e) =>
-                    setContraExpense({
-                      ...contraExpense,
-                      category: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Category 1"}>Category 1</MenuItem>
-                  <MenuItem value={"Category 2"}>Category 2</MenuItem>
-                  <MenuItem value={"Category 3"}>Category 3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Metric Allocation</InputLabel>
-            <Select
-              label="Metric Allocation"
-              value={contraExpense.metricAllocation}
-              onChange={(e) =>
-                setContraExpense({
-                  ...contraExpense,
-                  metricAllocation: e.target.value,
-                })
-              }
-            >
-              <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
-              <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Expense Amount"
-            value={contraExpense.expenseAmount}
-            onChange={(e) =>
-              setContraExpense({
-                ...contraExpense,
-                expenseAmount: e.target.value,
-              })
-            }
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <TextField
-                    style={{ padding: "0px 5px" }}
-                    id="standard-select-currency"
-                    select
-                    label="Currency"
-                    defaultValue="EUR"
-                    variant="standard"
-                  >
-                    {currencies.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="First Payment"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={contraExpense.firstPayment}
-            onChange={(e) =>
-              setContraExpense({
-                ...contraExpense,
-                firstPayment: e.target.value,
-              })
-            }
-          />
-        </DialogContent>
-
-        <DialogActions sx={{ padding: 3 }}>
-          <Button
-            onClick={handleSaveaddContraExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Add Another
-          </Button>
-          <Button
-            onClick={handleSaveContraExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Done
-          </Button>
-
-          <Button
-            onClick={handleCloseContraPopup}
-            color="primary"
-            style={{
-              background: "#707070",
-              color: "#fff",
-
-              padding: "8px 18px",
-            }}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-
       <Dialog open={openVariablePopup} onClose={handleCloseVariablePopup}>
         <DialogTitle sx={{ fontSize: 20 }}>Add Variable Expense</DialogTitle>
         <hr style={{ opacity: "0.2" }} />
-        <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Recurrence</InputLabel>
-                <Select
-                  label="Recurrence"
-                  value={variableExpense.recurrence}
-                  onChange={(e) =>
-                    setVariableExpense({
-                      ...variableExpense,
-                      recurrence: e.target.value,
-                    })
-                  }
+        <form onSubmit={formikVariableExpense.handleSubmit}>
+          <DialogContent>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel>Recurrence</InputLabel>
+                  <Select
+                    label="Recurrence"
+                    {...formikVariableExpense.getFieldProps('recurrence')}
+                  >
+                    <MenuItem value={"Daily"}>Daily</MenuItem>
+                    <MenuItem value={"Weekly"}>Weekly</MenuItem>
+                    <MenuItem value={"Monthly"}>Monthly</MenuItem>
+                    <MenuItem value={"Yearly"}>Yearly</MenuItem>
+                  </Select>
+                  {formikVariableExpense.touched.recurrence && formikVariableExpense.errors.recurrence ? (
+                    <div style={{ color: 'red' }}>{formikVariableExpense.errors.recurrence}</div>
+                  ) : null}
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel>Expense Status</InputLabel>
+                  <Select
+                    label="Expense Status"
+                    {...formikVariableExpense.getFieldProps('expenseStatus')}
+                  >
+                    <MenuItem value={"Active"}>Active</MenuItem>
+                    <MenuItem value={"Inactive"}>Inactive</MenuItem>
+                  </Select>
+                  {formikVariableExpense.touched.expenseStatus && formikVariableExpense.errors.expenseStatus ? (
+                    <div style={{ color: 'red' }}>{formikVariableExpense.errors.expenseStatus}</div>
+                  ) : null}
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Expense Label"
+                  {...formikVariableExpense.getFieldProps('expenseLabel')}
+                />
+                {formikVariableExpense.touched.expenseLabel && formikVariableExpense.errors.expenseLabel ? (
+                  <div style={{ color: 'red' }}>{formikVariableExpense.errors.expenseLabel}</div>
+                ) : null}
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Calculated Per"
+                  select
+                  {...formikVariableExpense.getFieldProps('calculatedPer')}
                 >
-                  <MenuItem value={"Daily"}>Daily</MenuItem>
-                  <MenuItem value={"Weekly"}>Weekly</MenuItem>
-                  <MenuItem value={"Monthly"}>Monthly</MenuItem>
-                  <MenuItem value={"Yearly"}>Yearly</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Expense Status</InputLabel>
-                <Select
-                  label="Expense Status"
-                  value={variableExpense.expenseStatus}
-                  onChange={(e) =>
-                    setVariableExpense({
-                      ...variableExpense,
-                      expenseStatus: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Active"}>Active</MenuItem>
-                  <MenuItem value={"Inactive"}>Inactive</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Expense Label"
-                value={variableExpense.expenseLabel}
-                onChange={(e) =>
-                  setVariableExpense({
-                    ...variableExpense,
-                    expenseLabel: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Calculated Per"
-                select
-                value={variableExpense.calculatedPer}
-                onChange={(e) =>
-                  setVariableExpense({
-                    ...variableExpense,
-                    calculatedPer: e.target.value,
-                  })
-                }
-              >
-                <MenuItem value={"Order"}>Order</MenuItem>
-                <MenuItem value={"Custom"}>Custom</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Category</InputLabel>
-                <Select
-                  label="Category"
-                  value={variableExpense.category}
-                  onChange={(e) =>
-                    setVariableExpense({
-                      ...variableExpense,
-                      category: e.target.value,
-                    })
-                  }
-                >
-                  <MenuItem value={"Category 1"}>Category 1</MenuItem>
-                  <MenuItem value={"Category 2"}>Category 2</MenuItem>
-                  <MenuItem value={"Category 3"}>Category 3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Metric Allocation</InputLabel>
-                <Select
-                  label="Metric Allocation"
-                  value={variableExpense.metricAllocation}
-                  onChange={(e) =>
-                    setVariableExpense({
-                      ...variableExpense,
-                      metricAllocation: e.target.value,
-                    })
-                  }
-                >
-                   
-                  <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
-                  <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Expense Amount"
-                value={variableExpense.expenseAmount}
-                onChange={(e) =>
-                  setVariableExpense({
-                    ...variableExpense,
-                    expenseAmount: e.target.value,
-                  })
-                }
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <TextField
-                        style={{ padding: "0px 5px" }}
-                        id="standard-select-currency"
-                        select
-                        label="Currency"
-                        defaultValue="EUR"
-                        variant="standard"
-                      >
-                        {currencies.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                margin="normal"
-                label="First Payment"
-                type="date"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                value={variableExpense.firstPayment}
-                onChange={(e) =>
-                  setVariableExpense({
-                    ...variableExpense,
-                    firstPayment: e.target.value,
-                  })
-                }
-              />
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions sx={{ padding: 3 }}>
-          <Button
-            onClick={handleSaveaddVariableExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Add Another
-          </Button>
-          <Button
-            onClick={handleSaveVariableExpense}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 1 }}
-          >
-            Save and Done
-          </Button>
+                  <MenuItem value={"Order"}>Order</MenuItem>
+                  <MenuItem value={"Custom"}>Custom</MenuItem>
+                </TextField>
+                {formikVariableExpense.touched.calculatedPer && formikVariableExpense.errors.calculatedPer ? (
+                  <div style={{ color: 'red' }}>{formikVariableExpense.errors.calculatedPer}</div>
+                ) : null}
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    label="Category"
+                    {...formikVariableExpense.getFieldProps('category')}
+                  >
+                    <MenuItem value={"Category 1"}>Category 1</MenuItem>
+                    <MenuItem value={"Category 2"}>Category 2</MenuItem>
+                    <MenuItem value={"Category 3"}>Category 3</MenuItem>
+                  </Select>
+                  {formikVariableExpense.touched.category && formikVariableExpense.errors.category ? (
+                    <div style={{ color: 'red' }}>{formikVariableExpense.errors.category}</div>
+                  ) : null}
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel>Metric Allocation</InputLabel>
+                  <Select
+                    label="Metric Allocation"
+                    {...formikVariableExpense.getFieldProps('metricAllocation')}
+                  >
+                    <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
+                    <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
+                  </Select>
+                  {formikVariableExpense.touched.metricAllocation && formikVariableExpense.errors.metricAllocation ? (
+                    <div style={{ color: 'red' }}>{formikVariableExpense.errors.metricAllocation}</div>
+                  ) : null}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Expense Amount"
+                  {...formikVariableExpense.getFieldProps('expenseAmount')}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <TextField
+                          style={{ padding: "0px 5px" }}
+                          id="standard-select-currency"
+                          select
+                          label="Currency"
+                          defaultValue="EUR"
+                          variant="standard"
+                          {...formikVariableExpense.getFieldProps('currency')}
+                        >
+                          {currencies.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                {formikVariableExpense.touched.expenseAmount && formikVariableExpense.errors.expenseAmount ? (
+                  <div style={{ color: 'red' }}>{formikVariableExpense.errors.expenseAmount}</div>
+                ) : null}
+              </Grid>
 
-          <Button
-            onClick={handleCloseVariablePopup}
-            color="primary"
-            style={{
-              background: "#707070",
-              color: "#fff",
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="First Payment"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...formikVariableExpense.getFieldProps('firstPayment')}
+                />
+                {formikVariableExpense.touched.firstPayment && formikVariableExpense.errors.firstPayment ? (
+                  <div style={{ color: 'red' }}>{formikVariableExpense.errors.firstPayment}</div>
+                ) : null}
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions sx={{ padding: 3 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ marginRight: 1 }}
+            >
+              Save and Add Another
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ marginRight: 1 }}
+            >
+              Save and Done
+            </Button>
 
-              padding: "8px 18px",
-            }}
-          >
-            Cancel
-          </Button>
-        </DialogActions>
+            <Button
+              onClick={handleCloseVariablePopup}
+              color="primary"
+              style={{
+                background: "#707070",
+                color: "#fff",
+
+                padding: "8px 18px",
+              }}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </form>
+
       </Dialog>
     </TableContainer>
   );
 };
-
 export default ExpensesTable;

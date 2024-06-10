@@ -21,9 +21,9 @@ import PropTypes from 'prop-types';
 
 const AddInvoice = ({
   selectedInv,
-  totalCount,
+  totalCount,           
   clientsList,
-  invoiceSettings,
+  invoiceSettings,  
   onSave,
 }) => {
   const [currencyData, setCurrencyData] = useState(currencyList[0]);
