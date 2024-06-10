@@ -24,6 +24,7 @@ export const getUserFromFirebase = (user) => {
         ? user.photoURL
         : "/assets/images/avatar/user.png",
       role: user.role,
+      subscriptionPlan: user.subscriptionPlan || 0
     };
   return user;
 };

@@ -104,7 +104,7 @@ export const pricingData = {
 
   pricingOneNew: [
     {
-      id: 1,
+      id: 0,
       tag: "Free",
       tagColor: "#0A8FDC",
       title: "Free",
@@ -169,7 +169,7 @@ export const pricingData = {
     },
 
     {
-      id: 2,
+      id: 1,
       tag: "Basic",
       tagColor: "#11C15B",
       title: "Basic",
@@ -244,7 +244,7 @@ export const pricingData = {
     },
 
     {
-      id: 3,
+      id: 2,
       tag: "Pro",
       tagColor: "#FF8B26",
       title: "Pro",
@@ -327,7 +327,7 @@ export const pricingData = {
     },
 
     {
-      id: 4,
+      id: 3,
       tag: "Premium",
       tagColor: "#F04F47",
       title: "Premium",

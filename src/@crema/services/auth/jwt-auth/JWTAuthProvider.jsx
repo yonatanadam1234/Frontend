@@ -17,7 +17,6 @@ const JWTAuthAuthProvider = ({ children }) => {
     isAuthenticated: false,
     isLoading: true,
   });
-
   useEffect(() => {
     const getAuthUser = () => {
       fetchStart();
@@ -126,11 +125,12 @@ const JWTAuthAuthProvider = ({ children }) => {
   return (
     <JWTAuthContext.Provider
       value={{
-        ...authData,
+        ...authData
       }}
     >
       <JWTAuthActionsContext.Provider
         value={{
+          setJWTAuthData,
           logInWithEmailAndPassword,
           verifyUser,
           logout,
