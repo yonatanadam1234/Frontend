@@ -111,6 +111,8 @@ export const pricingData = {
       btnText: "Try Now",
       price: 0,
       yearlyprice: 0,
+      annualplan:'Annual Plan',
+      monthplan:'Monthly Plan',
       order: " Up to 200 Orders",
       shop: "2 Shop",
       Ofee: "Extra Order fee : $0.3 per order",
@@ -176,6 +178,8 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 29,
       yearlyprice: 310,
+      annualplan:'Annual Plan',
+      monthplan:'Monthly Plan',
       productId: "pro_01hzexrm11ve9tey0y6ccer6cg", // Basic Plan Product ID
       order: " Up to 600 Orders",
       shop: "2 Shop",
@@ -251,6 +255,8 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 49,
       yearlyprice: 520,
+      annualplan:'Annual Plan',
+      monthplan:'Monthly Plan',
       productId: "pro_01hzexsjwknykwdje8p596zz8b", // Pro Plan Product ID
       popular: "Most popular!",
       order: " Up to 1200 Orders",
@@ -334,6 +340,8 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 69,
       yearlyprice: 730,
+      annualplan:'Annual Plan',
+      monthplan:'Monthly Plan',
       productId: "pro_01hzexv1q0kksfqzk2cd07d911", // Premium Plan Product ID
       order: " Unlimited Orders",
       Ofee: "Extra Order fee : No extra order fee",

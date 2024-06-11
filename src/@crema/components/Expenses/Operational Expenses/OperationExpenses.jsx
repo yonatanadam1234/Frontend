@@ -1,6 +1,7 @@
 import React from 'react'
-
 import ExpensesTable from './ExpensesTable'
+
+
 
 const OperationExpenses = () => {
   return (
@@ -10,4 +11,4 @@ const OperationExpenses = () => {
   )
 }
 
-export default OperationExpenses
+export default OperationExpenses  
