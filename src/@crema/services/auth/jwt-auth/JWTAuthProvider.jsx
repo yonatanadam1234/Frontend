@@ -58,7 +58,7 @@ const JWTAuthAuthProvider = ({ children }) => {
   const logInWithEmailAndPassword = async ({ email, password }) => {
     fetchStart();
     try {
-      const { data } = await jwtAxios.post('login', { email, password });
+      const { data } = await jwtAxios.post('auth/login', { email, password });
       localStorage.setItem('token', data.token);
       setAuthToken(data.token);
       setJWTAuthData({
@@ -83,7 +83,7 @@ const JWTAuthAuthProvider = ({ children }) => {
   }) => {
     fetchStart();
     try {
-      const { data } = await jwtAxios.post('/otp/verify', { email, otp });
+      const { data } = await jwtAxios.post('auth/otp/verify', { email, otp });
       localStorage.setItem('token', data.token);
       setAuthToken(data.token);
       setJWTAuthData({

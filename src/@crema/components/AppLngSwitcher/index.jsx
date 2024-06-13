@@ -34,7 +34,7 @@ const AppLngSwitcher = ({ iconOnly, tooltipPosition }) => {
         flexDirection: 'column',
       }}
     >
-      {!iconOnly ? (
+      {/* {!iconOnly ? (
         <IconButton
           sx={{
             height: 40,
@@ -112,7 +112,7 @@ const AppLngSwitcher = ({ iconOnly, tooltipPosition }) => {
             <TranslateOutlinedIcon />
           </IconButton>
         </AppTooltip>
-      )}
+      )} */}
       <Menu
         anchorEl={anchorElLng}
         id='language-switcher'

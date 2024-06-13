@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {
   Box,
   Collapse,
@@ -23,14 +22,12 @@ import {
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
-  Close as CloseIcon,
 } from "@mui/icons-material";
 import { useState } from "react";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import AddShopDialog from "./AddShopDialog"; 
 
 const createData = (name, calories) => ({
   name,
@@ -54,7 +51,6 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
   const [hOpen, setHopen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
-
   const handleHistory = () => setHopen(!hOpen);
 
   const handleDeleteShop = () => {
@@ -211,7 +207,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
           Delete Shop❗
         </DialogTitle>
         <DialogContent>
-          <Typography sx={{fontSize: 16}}>
+          <Typography sx={{ fontSize: 16 }}>
             Are you sure you want to permanently delete this shop? This action
             cannot be undone.
           </Typography>
@@ -236,31 +232,20 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
   );
 };
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  handleOpen: PropTypes.func.isRequired,
-  platform: PropTypes.string.isRequired,
-  shops: PropTypes.object.isRequired,
-  setShops: PropTypes.func.isRequired,
-};
-
 const rows = [
-  createData("Amazon_icon.svg", "Amazon"),
-  // createData("shopify.svg", "Shopify"),
-  createData("ebay.svg", "eBay"),
-  // createData("magento.svg", "Magento"),
+  createData("Amazon_icon.svg", "amazon"),
+  // createData("shopify.svg", "shopify"),
+  createData("ebay.svg", "ebay"),
+  // createData("magento.svg", "magento"),
 ];
 
 const Shops = () => {
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
-    Amazon: [],
-    Shopify: [],
-    eBay: [],
-    Magento: [],
+    amazon: [],
+    shopify: [],
+    ebay: [],
+    magento: [],
   });
   const [selectedPlatform, setSelectedPlatform] = useState("");
 
@@ -271,75 +256,6 @@ const Shops = () => {
 
   const handleClose = () => setOpen(false);
 
-  const validationSchema = Yup.object().shape({
-    storeName: Yup.string().required("Store Name is required"),
-    storefrontURL: Yup.string()
-      .url("Invalid URL format")
-      .required("Storefront URL is required"),
-    marketplace: Yup.string().required("Marketplace is required"),
-    timezone: Yup.string().required("Timezone is required"),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      storeName: "",
-      storefrontURL: "https://",
-      marketplace: "",
-      timezone: "",
-    },
-    validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      const updatedShops = { ...shops };
-      const newShopWithEnabled = {
-        ...values,
-        enabled: true,
-      };
-      updatedShops[selectedPlatform] = [
-        ...updatedShops[selectedPlatform],
-        newShopWithEnabled,
-      ];
-      setShops(updatedShops);
-      resetForm();
-      handleClose();
-    },
-  });
-
-  const marketplaces = [
-    { value: "amazon.com", label: "Amazon.com" },
-    { value: "amazon.co.uk", label: "Amazon.co.uk" },
-    { value: "amazon.de", label: "Amazon.de" },
-    { value: "shopify.com", label: "Shopify" },
-    { value: "ebay.com", label: "eBay" },
-    { value: "magento.com", label: "Magento" },
-  ];
-
-  const timezones = [
-    { value: "GMT-12", label: "GMT-12" },
-    { value: "GMT-11", label: "GMT-11" },
-    { value: "GMT-10", label: "GMT-10" },
-    { value: "GMT-9", label: "GMT-9" },
-    { value: "GMT-8", label: "GMT-8" },
-    { value: "GMT-7", label: "GMT-7" },
-    { value: "GMT-6", label: "GMT-6" },
-    { value: "GMT-5", label: "GMT-5" },
-    { value: "GMT-4", label: "GMT-4" },
-    { value: "GMT-3", label: "GMT-3" },
-    { value: "GMT-2", label: "GMT-2" },
-    { value: "GMT-1", label: "GMT-1" },
-    { value: "GMT", label: "GMT" },
-    { value: "GMT+1", label: "GMT+1" },
-    { value: "GMT+2", label: "GMT+2" },
-    { value: "GMT+3", label: "GMT+3" },
-    { value: "GMT+4", label: "GMT+4" },
-    { value: "GMT+5", label: "GMT+5" },
-    { value: "GMT+6", label: "GMT+6" },
-    { value: "GMT+7", label: "GMT+7" },
-    { value: "GMT+8", label: "GMT+8" },
-    { value: "GMT+9", label: "GMT+9" },
-    { value: "GMT+10", label: "GMT+10" },
-    { value: "GMT+11", label: "GMT+11" },
-    { value: "GMT+12", label: "GMT+12" },
-  ];
 
   return (
     <>
@@ -369,122 +285,13 @@ const Shops = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 18,
-          }}
-        >
-          Add {selectedPlatform} Shop
-          <CloseIcon sx={{ cursor: "pointer" }} onClick={handleClose} />
-        </DialogTitle>
-        <DialogTitle sx={{ fontSize: 14 }}>
-          Fill in the following details to connect to BeProfit with your{" "}
-          {selectedPlatform} store
-        </DialogTitle>
-        <form onSubmit={formik.handleSubmit}>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Store Name"
-              fullWidth
-              name="storeName"
-              value={formik.values.storeName}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.storeName && Boolean(formik.errors.storeName)}
-              helperText={formik.touched.storeName && formik.errors.storeName}
-            />
-            <Box
-              sx={{
-                cursor: "pointer",
-                color: "blue",
-                marginLeft: 70,
-                paddingTop: 2,
-                "&:hover": { color: "black" },
-              }}
-            >
-              Can't find your storefront URL?
-            </Box>
-            <TextField
-              margin="dense"
-              label="Storefront URL"
-              fullWidth
-              name="storefrontURL"
-              value={formik.values.storefrontURL}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.storefrontURL && Boolean(formik.errors.storefrontURL)}
-              helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
-            />
-            <TextField
-              select
-              margin="dense"
-              label={`${selectedPlatform} Marketplace`}
-              fullWidth
-              name="marketplace"
-              value={formik.values.marketplace}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.marketplace && Boolean(formik.errors.marketplace)}
-              helperText={formik.touched.marketplace && formik.errors.marketplace}
-            >
-              {marketplaces
-                .filter(
-                  (option) =>
-                    option.value.includes(selectedPlatform.toLowerCase())
-                )
-                .map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-            </TextField>
-            <TextField
-              select
-              margin="dense"
-              label="Timezone"
-              fullWidth
-              name="timezone"
-              value={formik.values.timezone}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.timezone && Boolean(formik.errors.timezone)}
-              helperText={formik.touched.timezone && formik.errors.timezone}
-            >
-              {timezones.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mx: 2,
-              mb: 1,
-            }}
-          >
-            <Button
-              sx={{
-                cursor: "pointer",
-                color: "blue",
-                "&:hover": { color: "black" },
-              }}
-            >
-              Need Help?
-            </Button>
-            <Button type="submit" sx={{ color: "#000" }}>
-              Add Shop
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <AddShopDialog
+        open={open}
+        onClose={handleClose}
+        platform={selectedPlatform}
+        shops={shops}
+        setShops={setShops}
+      />
     </>
   );
 };

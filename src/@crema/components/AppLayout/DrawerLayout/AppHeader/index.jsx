@@ -12,7 +12,7 @@ import AppMessages from "../../../AppMessages";
 import AppNotifications from "../../../AppNotifications";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AppTooltip from "../../../AppTooltip";
 import { alpha } from "@mui/material/styles";
 import AppLogo from "../../components/AppLogo";
@@ -117,14 +117,14 @@ const AppHeader = ({ toggleNavCollapsed }) => {
                   px: 1.85,
                 }}
               >
-                <AppNotifications />
+                {/* <AppNotifications /> */}
               </Box>
               <Box
                 sx={{
                   px: 1.85,
                 }}
               >
-                <AppMessages />
+                {/* <AppMessages /> */}
               </Box>
             </Box>
           </Hidden>
@@ -166,7 +166,7 @@ const AppHeader = ({ toggleNavCollapsed }) => {
                     onClick={handleClick}
                     size="large"
                   >
-                    <MoreVertIcon />
+                    {/* <MoreVertIcon /> */}
                   </IconButton>
                 </AppTooltip>
               </Box>

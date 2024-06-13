@@ -138,14 +138,14 @@ const AppHeader = (props) => {
                   px: 1.85,
                 }}
               >
-                <AppNotifications />
+                {/* <AppNotifications /> */}
               </Box>
               <Box
                 sx={{
                   px: 1.85,
                 }}
               >
-                <AppMessages />
+                {/* <AppMessages /> */}
               </Box>
             </Box>
           </Hidden>

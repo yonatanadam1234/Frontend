@@ -65,14 +65,14 @@ const InfoForm = () => {
       ) : (
         <>
           <Grid item xs={12} md={12}>
-            <Box
+            <Box    
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-              }}
+              }}  
             >
               <Button
-                style={{ padding: '10px', borderRadius: '8%', margin: '15px 0px', background: '#0A8FDC', border: 'none', color: '#fff', fontSize: '14px' }}
+                style={{ padding: '10px', borderRadius: '8%', margin: '15px 0px', background: '#0A8FDC', border: 'none', color: '#fff', fontSize: '14px', cursor:'pointer' }}
                 color='primary'
                 variant='contained'
                 type='submit'

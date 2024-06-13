@@ -6,4 +6,7 @@ const apiConfig = axios.create({
     'Access-Control-Allow-Origin': '*',
   },
 });
+
+
+
 export default apiConfig;

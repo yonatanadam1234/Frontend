@@ -27,7 +27,7 @@ export const useAuthMethod = () => {
 
   const handleSignup = (data) => {
     try {
-      jwtAxios.post('register', data).then((res) => {
+      jwtAxios.post('auth/register', data).then((res) => {
         if (res.status === 200) {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('email', res.data.user.email);
@@ -48,7 +48,7 @@ export const useAuthMethod = () => {
 
   const handleforgetpassword = (data) => {
     try {
-      jwtAxios.post('forgotPassword', data).then((res) => {
+      jwtAxios.post('auth/forgotPassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
           localStorage.setItem('email', data.email);
@@ -70,7 +70,7 @@ export const useAuthMethod = () => {
         email: localStorage.getItem('email'),
         otp: otp
       }
-      jwtAxios.post('verifyForgotPassword', data).then((res) => {
+      jwtAxios.post('auth/verifyForgotPassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
           navigate('/setNewPassword');
@@ -91,7 +91,7 @@ export const useAuthMethod = () => {
         email: localStorage.getItem('email'),
         password: password.password
       }
-      jwtAxios.post('updatePassword', data).then((res) => {
+      jwtAxios.post('auth/updatePassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
           navigate('/');
@@ -113,7 +113,7 @@ export const useAuthMethod = () => {
         oldpassword: data.oldPassword,
         newpassword: data.newPassword
       }
-      jwtAxios.post('changepassword', newdata).then((res) => {
+      jwtAxios.post('auth/changepassword', newdata).then((res) => {
         if (res.status === 200) {
           toast.success(res.data.message);
         }
