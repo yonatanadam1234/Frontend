@@ -27,7 +27,9 @@ import { useState } from "react";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import AddShopDialog from "./AddShopDialog"; 
+import AddShopDialog from "./AddShopDialog";
+import { getDataApi } from "../../hooks/APIHooks";
+import { useInfoViewActionsContext } from "../../context/AppContextProvider/InfoViewContextProvider";
 
 const createData = (name, calories) => ({
   name,
@@ -156,10 +158,10 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
                         key={index}
                         style={{ opacity: historyRow.enabled ? 1 : 0.5 }}
                       >
-                        <TableCell>{historyRow.storeName}</TableCell>
+                        <TableCell>{historyRow.shopId}</TableCell>
                         <TableCell>{historyRow.storefrontURL}</TableCell>
                         <TableCell align="right">
-                          {historyRow.marketplace}
+                          {historyRow.region}
                         </TableCell>
                         <TableCell align="right">
                           {historyRow.timezone}
@@ -240,6 +242,8 @@ const rows = [
 ];
 
 const Shops = () => {
+  const infoViewActionsContext = useInfoViewActionsContext();
+
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
     amazon: [],
@@ -253,9 +257,37 @@ const Shops = () => {
     setSelectedPlatform(platform);
     setOpen(true);
   };
+  console.log("🚀 ~ Shops ~ shops:", shops)
+
+  React.useEffect(() => {
+    getAllShop()
+  }, [])
 
   const handleClose = () => setOpen(false);
 
+  const getAllShop = async () => {
+    const JWTtoken = localStorage.getItem("token");
+    const result = await getDataApi('shop/findeshop', infoViewActionsContext, null, true, JWTtoken);
+  
+    const updatedShops = { ...shops };
+  
+    if (result && result.shope.length > 0) {
+      result.shope.forEach(shop => {
+        const { shopType, _id } = shop;
+        if (updatedShops[shopType]) {
+          const exists = updatedShops[shopType].some(existingShop => existingShop._id === _id);
+          if (!exists) {
+            updatedShops[shopType].push(shop);
+          }
+        } else {
+          updatedShops[shopType] = [shop];
+        }
+      });
+    }
+  
+    setShops(updatedShops);
+  };
+  
 
   return (
     <>
@@ -291,6 +323,7 @@ const Shops = () => {
         platform={selectedPlatform}
         shops={shops}
         setShops={setShops}
+        getAllShop={getAllShop}
       />
     </>
   );

@@ -14,14 +14,19 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getShopAuthorizeUrl, getAccessToken, CreateShop } from './services/AxiosHelper';
+import { getShopAuthorizeUrl, getAccessToken } from './services/AxiosHelper';
 import StoreFronturl from './StoreFronturl';
-import { postDataApi, putDataApi, useGetDataApi } from '@crema/hooks/APIHooks';
+import { postDataApi } from '@crema/hooks/APIHooks';
+import { useInfoViewActionsContext } from "../../context/AppContextProvider/InfoViewContextProvider";
 
 
-const AddShopDialog = ({ open, onClose, platform, shops, setShops }) => {
+const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop }) => {
+    const infoViewActionsContext = useInfoViewActionsContext();
+
     const [openstorefronturl, setOpenStorefrontUrl] = useState(false);
     const [accessToken, setAccessToken] = useState("");
+    const [shopValues, setShopValues] = useState({})
+
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("Email is required"),
@@ -44,7 +49,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops }) => {
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-
+                setShopValues(values)
                 const response = await getShopAuthorizeUrl(
                     values.email,
                     platform,
@@ -64,84 +69,64 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops }) => {
             }
 
 
-            const updatedShops = { ...shops };
-            const newShopWithEnabled = {
-                ...values,
-                enabled: true,
-            };
-            updatedShops[platform] = [...updatedShops[platform], newShopWithEnabled];
-            setShops(updatedShops);
+            // const updatedShops = { ...shops };
+            // const newShopWithEnabled = {
+            //     ...values,
+            //     enabled: true,
+            // };
+            // updatedShops[platform] = [...updatedShops[platform], newShopWithEnabled];
+            // setShops(updatedShops);
             resetForm();
             onClose();
         },
     });
 
-
-    const fetchAccessToken = async () => {
+    const fetchAccessToken = async (state) => {
         try {
-            const state = getStateFromUrl();
             const response = await getAccessToken(state);
-            setAccessToken(response.data.accessToken);
+            setAccessToken(response.data.access_token);
+            if (response.data.access_token) {
+                createShop(response.data.access_token, state)
+            }
         } catch (error) {
             console.error('Error fetching access token:', error);
         }
     };
 
 
-    const createShop = async () => {
+    const createShop = async (shopToken, state) => {
         try {
-            if (!accessToken) {
-                throw new Error('Access token not available.');
-            }
-
-            const state = getStateFromUrl();
             const JWTtoken = localStorage.getItem("token");
-
-            const response = await CreateShop(platform, state, JWTtoken, accessToken);
-            postDataApi('/api/contactApp/delete/contact', infoViewActionsContext, {
-                type: path[path.length - 2],
-                name: path[path.length - 1],
-                contactIds: toDeleteContacts,
-                page,
-            })
-                .then((data) => {
-                    setContactData(data);
-                    infoViewActionsContext.showMessage('Contact Deleted Successfully');
-                })
-                .catch((error) => {
-                    infoViewActionsContext.fetchError(error.message);
-                });
-            console.log('Response from CreateShop:', response);
-
-
-            const updatedShops = { ...shops };
-            const newShopWithEnabled = {
-                ...formik.values,
-                enabled: true,
-            };
-            updatedShops[platform] = [...updatedShops[platform], newShopWithEnabled];
-            setShops(updatedShops);
+            shopValues
+            const dataObje = {
+                shopType: 'amazon',
+                shopId: state,
+                shopToken: shopToken,
+                storeName: shopValues.storeName,
+                region: shopValues.region,
+                timezone: shopValues.timezone,
+            }
+            postDataApi('/shop/create', infoViewActionsContext, dataObje, true, JWTtoken)
+            getAllShop()
             onClose();
+
         } catch (error) {
             console.error('Error creating shop:', error);
         }
     };
-
     useEffect(() => {
-
         const state = getStateFromUrl();
         if (state) {
-            fetchAccessToken();
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("state")) {
+                params.delete("state");
+                const newSearch = params.toString();
+                const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ""}`;
+                window.history.replaceState(null, '', newUrl);
+            }
+            fetchAccessToken(state);
         }
     }, []);
-
-    useEffect(() => {
-
-        if (accessToken) {
-            createShop();
-        }
-        console.log('createdata called succ')
-    }, [accessToken]);
 
     const getStateFromUrl = () => {
         const params = new URLSearchParams(window.location.search);
@@ -165,8 +150,28 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops }) => {
         setOpenStorefrontUrl(false);
     };
 
+    const onHandle = () => {
+        const JWTtoken = localStorage.getItem("token");
+        const dataObje = {
+            shopType: 'amazon',
+            shopId: 'state',
+            shopToken: 'shopToken',
+            storeName: shopValues.storeName,
+            region: shopValues.region,
+            timezone: shopValues.timezone,
+        }
+
+        postDataApi('/shop/create', infoViewActionsContext, dataObje, true, JWTtoken)
+        getAllShop()
+    }
+
+
+
     return (
         <>
+            <button onClick={onHandle}>
+                ADDD
+            </button>
             <Dialog open={open} onClose={onClose}>
                 <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 18 }}>
                     Add {platform} Shop

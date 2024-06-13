@@ -125,7 +125,6 @@ const handleApiResponse = (url, fetchSuccess, data, resolve, reject) => {
 };
 
 const handleAPIError = (url, fetchSuccess, error, reject) => {
-  console.log(url, error.response.data.message);
   fetchSuccess();
   if (error?.response?.data?.message) {
     return reject(error.response.data);
@@ -139,13 +138,22 @@ export const postDataApi = (
   infoViewContext,
   payload,
   isHideLoader = false,
-  headers,
+  token = null,
 ) => {
   const { fetchStart, fetchSuccess } = infoViewContext;
   return new Promise((resolve, reject) => {
     if (!isHideLoader) fetchStart();
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     jwtAxios
-      .post(url, sanitizeData(payload), headers ? { headers } : {})
+      .post(url, sanitizeData(payload), { headers })
       .then((data) => {
         return handleApiResponse(url, fetchSuccess, data, resolve, reject);
       })
@@ -182,11 +190,20 @@ export const getDataApi = (
   infoViewContext,
   params = {},
   isHideLoader = false,
-  headers,
+  token = null,
 ) => {
   const { fetchStart, fetchSuccess } = infoViewContext;
   return new Promise((resolve, reject) => {
     if (!isHideLoader) fetchStart();
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     jwtAxios
       .get(url, { params: sanitizeData(params), headers })
       .then((data) => {

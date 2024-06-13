@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-const apiConfig = axios.create({
+const apiConfig = axios?.create({
+  baseURL: 'https://squid-app-oqakh.ondigitalocean.app/',
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
 });
-
-
 
 export default apiConfig;
