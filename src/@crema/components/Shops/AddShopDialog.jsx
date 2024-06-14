@@ -10,14 +10,17 @@ import {
     MenuItem,
     Box,
     IconButton,
+    Snackbar,
+    Alert,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import StoreFronturl from './StoreFronturl';
-import { useInfoViewActionsContext } from "../../context/AppContextProvider/InfoViewContextProvider";
 import { getAccessToken, getShopAuthorizeUrl, getShopData } from "./services/shop.service";
 import { useAuthUser } from "../../hooks/AuthHooks";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) => {
 
@@ -26,7 +29,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
     const [accessToken, setAccessToken] = useState("");
     const [shopValues, setShopValues] = useState({})
     const { user } = useAuthUser();
-    console.log("🚀 ~ AddShopDialog ~ user:", user)
+
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("Email is required"),
         storeName: Yup.string().required("Store Name is required"),
@@ -47,29 +50,31 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-                setShopValues(values);
                 const obj = {
                     email: values.email,
                     region: values.region,
-                    platform:platform,
+                    platform: platform,
                     store_name: values.storeName,
                     store_url: values.storefrontURL,
                     time_zone: values.timezone,
                     userId: user.id
                 }
                 const response = await getShopAuthorizeUrl(obj);
-                console.log('response', response);
-                //amazone redirect url
                 if (response.data.success) {
                     const redirectUrl = response.data.url;
                     window.location.href = redirectUrl;
                 } else {
                     console.error('Error:', response.data);
+                    if (response.data.errors && response.data.errors.email && response.data.errors.email.includes("The email has already been taken.")) {
+                        toast.error('The Email Entered is Already Taken.');
+                    } else {
+                        toast.error('Failed to add shop. Please try again later.');
+                    }
                 }
             } catch (error) {
-                console.error(error);
+                console.error('Error:', error);
+                toast.error('Failed to add shop. Please try again later.');
             }
-
             resetForm();
             onClose();
         },
@@ -95,7 +100,6 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
             if (response.data.access_token) {
                 fetchShops();
             }
-            console.log("🚀 ~ fetchAccessToken ~ response.data.access_token:", response.data.access_token);
         } catch (error) {
             console.error('Error fetching access token:', error);
         }
@@ -246,10 +250,12 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                     </DialogActions>
                 </form>
             </Dialog>
+            <ToastContainer />
             <StoreFronturl
                 open={openstorefronturl}
                 onClose={handleStorefrontUrlClose}
             />
+
         </>
     );
 };
