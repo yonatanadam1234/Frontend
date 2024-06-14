@@ -45,10 +45,12 @@ const AppSidebar = (props) => {
           </SidebarWrapper>
         </Drawer>
       </Hidden>
+
       <Hidden lgDown>
         <SidebarWrapper className='mini-toggle-sidebar'>
           <MainSidebar>
-            <UserInfo color={sidebarTextColor} />
+          {/* <UserInfo color={sidebarTextColor} /> */}
+
             <AppScrollbar
               className={clsx({
                 'has-footer-fixed': footer && footerType === 'fixed',

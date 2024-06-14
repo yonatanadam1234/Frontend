@@ -17,8 +17,9 @@ import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import AppLogo from "../../components/AppLogo";
 import { allowMultiLanguage } from "@crema/constants/AppConst.jsx";
+import UserInfo from "../../components/UserInfo";
 
-const AppHeader = (props) => {
+const AppHeader = (props,sidebarTextColor) => {
   const { isCollapsed, setCollapsed, toggleNavCollapsed } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -138,6 +139,7 @@ const AppHeader = (props) => {
                   px: 1.85,
                 }}
               >
+                <UserInfo color={sidebarTextColor} />
                 {/* <AppNotifications /> */}
               </Box>
               <Box

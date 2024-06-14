@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Collapse,
@@ -16,40 +16,20 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  MenuItem,
-  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import {
   KeyboardArrowDown as KeyboardArrowDownIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
-import { useState } from "react";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import AddShopDialog from "./AddShopDialog";
-import { getDataApi } from "../../hooks/APIHooks";
-import { useInfoViewActionsContext } from "../../context/AppContextProvider/InfoViewContextProvider";
-
-const createData = (name, calories) => ({
-  name,
-  calories,
-  enabled: true,
-  history: [
-    {
-      date: "sharnam",
-      customerId: "11091700",
-      amount: 3,
-    },
-    {
-      date: "virunika",
-      customerId: "Anonymous",
-      amount: 1,
-    },
-  ],
-});
+import { getShopData } from "./services/shop.service";
+import { useAuthUser } from "../../hooks/AuthHooks";
 
 const Row = ({ row, handleOpen, platform, shops, setShops }) => {
+  console.log("🚀 ~ Row ~ shops:", shops)
   const [hOpen, setHopen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
@@ -71,6 +51,8 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
       !updatedShops[platform][index].enabled;
     setShops(updatedShops);
   };
+
+
 
   const openDeleteDialog = (index) => {
     setDeleteIndex(index);
@@ -117,14 +99,14 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
               padding: 5,
             }}
           />
-          {row.calories}
+          {row.platform}
         </TableCell>
         <TableCell align="right" sx={{ fontSize: 14 }}>
           {shops[platform]?.length ?? "No"} Shops
         </TableCell>
         <TableCell align="right">
           <Box
-            onClick={() => handleOpen(platform)}
+            onClick={() => handleOpen(row.platform)}
             sx={{
               cursor: "pointer",
               color: "blue",
@@ -153,18 +135,26 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {(shops[platform] || []).map((historyRow, index) => (
+                    {shops[platform].map((shop, index) => (
                       <TableRow
                         key={index}
-                        style={{ opacity: historyRow.enabled ? 1 : 0.5 }}
+                        style={{ opacity: shop.enabled ? 1 : 0.5 }}
                       >
-                        <TableCell>{historyRow.shopId}</TableCell>
-                        <TableCell>{historyRow.storefrontURL}</TableCell>
-                        <TableCell align="right">
-                          {historyRow.region}
+                        <TableCell>{shop.seller_info.store_name}</TableCell>
+                        <TableCell>
+                          <a
+                            href={shop.seller_info.store_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {shop.seller_info.store_url}
+                          </a>
                         </TableCell>
                         <TableCell align="right">
-                          {historyRow.timezone}
+                          {shop.seller_info.region}
+                        </TableCell>
+                        <TableCell align="right">
+                          {shop.seller_info.time_zone}
                         </TableCell>
                         <TableCell align="right">
                           <IconButton
@@ -177,7 +167,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
                         <TableCell align="right">
                           <ToggleButtonGroup
                             sx={{ width: 140 }}
-                            value={historyRow.enabled ? "enable" : "disable"}
+                            value={shop.enabled ? "enable" : "disable"}
                             exclusive
                             onChange={() => handleToggleShop(index)}
                           >
@@ -234,16 +224,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
   );
 };
 
-const rows = [
-  createData("Amazon_icon.svg", "amazon"),
-  // createData("shopify.svg", "shopify"),
-  createData("ebay.svg", "ebay"),
-  // createData("magento.svg", "magento"),
-];
-
 const Shops = () => {
-  const infoViewActionsContext = useInfoViewActionsContext();
-
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
     amazon: [],
@@ -251,43 +232,46 @@ const Shops = () => {
     ebay: [],
     magento: [],
   });
+
   const [selectedPlatform, setSelectedPlatform] = useState("");
+  const { user } = useAuthUser();
+  console.log("🚀 ~ Sszfdsdfsdasdgsdhops ~ user:", user.id)
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getShopData(user.id);
+  
+        if (response.data) {
+          const amazonShops = response.data.filter((shop) => shop.platform_connection.platform_name === "amazon");
+          const ebayShops = response.data.filter((shop) => shop.platform_connection.platform_name === "ebay");
+  
+          setShops((prevShops) => ({ ...prevShops, amazon: amazonShops, ebay: ebayShops }));
+        } else {
+          console.error("Error:", response.data ? response.data.message : "No data");
+        }
+      } catch (error) {
+        console.error("Error fetching shop data:", error);
+      }
+    };
+    fetchData();
+  }, [user.id]);
 
   const handleOpen = (platform) => {
     setSelectedPlatform(platform);
     setOpen(true);
   };
-  console.log("🚀 ~ Shops ~ shops:", shops)
-
-  React.useEffect(() => {
-    getAllShop()
-  }, [])
 
   const handleClose = () => setOpen(false);
 
-  const getAllShop = async () => {
-    const JWTtoken = localStorage.getItem("token");
-    const result = await getDataApi('shop/findeshop', infoViewActionsContext, null, true, JWTtoken);
-  
-    const updatedShops = { ...shops };
-  
-    if (result && result.shope.length > 0) {
-      result.shope.forEach(shop => {
-        const { shopType, _id } = shop;
-        if (updatedShops[shopType]) {
-          const exists = updatedShops[shopType].some(existingShop => existingShop._id === _id);
-          if (!exists) {
-            updatedShops[shopType].push(shop);
-          }
-        } else {
-          updatedShops[shopType] = [shop];
-        }
-      });
-    }
-  
-    setShops(updatedShops);
-  };
-  
+  const rows = [
+    { name: "Amazon_icon.svg", platform: "amazon" },
+    // { name: "shopify.svg", platform: "shopify" },
+    { name: "ebay.svg", platform: "ebay" },
+    // { name: "magento.svg", platform: "magento" },
+  ];
 
   return (
     <>
@@ -309,7 +293,7 @@ const Shops = () => {
                 key={row.name}
                 row={row}
                 handleOpen={handleOpen}
-                platform={row.calories}
+                platform={row.platform}
                 shops={shops}
                 setShops={setShops}
               />
@@ -323,7 +307,7 @@ const Shops = () => {
         platform={selectedPlatform}
         shops={shops}
         setShops={setShops}
-        getAllShop={getAllShop}
+        // fetchData={fetchData}
       />
     </>
   );

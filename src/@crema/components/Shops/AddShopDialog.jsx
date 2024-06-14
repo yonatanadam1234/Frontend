@@ -14,20 +14,19 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getShopAuthorizeUrl, getAccessToken } from './services/AxiosHelper';
 import StoreFronturl from './StoreFronturl';
-import { postDataApi } from '@crema/hooks/APIHooks';
 import { useInfoViewActionsContext } from "../../context/AppContextProvider/InfoViewContextProvider";
+import { getAccessToken, getShopAuthorizeUrl, getShopData } from "./services/shop.service";
+import { useAuthUser } from "../../hooks/AuthHooks";
 
+const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) => {
 
-const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop }) => {
-    const infoViewActionsContext = useInfoViewActionsContext();
-
+    // const infoViewActionsContext = useInfoViewActionsContext();
     const [openstorefronturl, setOpenStorefrontUrl] = useState(false);
     const [accessToken, setAccessToken] = useState("");
     const [shopValues, setShopValues] = useState({})
-
-
+    const { user } = useAuthUser();
+    console.log("🚀 ~ AddShopDialog ~ user:", user)
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("Email is required"),
         storeName: Yup.string().required("Store Name is required"),
@@ -37,27 +36,29 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop })
         region: Yup.string().required("Region is required"),
         timezone: Yup.string().required("Timezone is required"),
     });
-
     const formik = useFormik({
         initialValues: {
             email: "",
             storeName: "",
             storefrontURL: "https://",
             region: "",
-            timezone: "",
+            timezone: ""
         },
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-                setShopValues(values)
+                setShopValues(values);
                 const response = await getShopAuthorizeUrl(
                     values.email,
+                    values.region,
                     platform,
                     values.storeName,
                     values.storefrontURL,
-                    values.region,
-                    values.timezone
+                    values.timezone,
+                    user.id
                 );
+                console.log('response', response);
+                //amazone redirect url
                 if (response.data.success) {
                     const redirectUrl = response.data.url;
                     window.location.href = redirectUrl;
@@ -68,52 +69,38 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop })
                 console.error(error);
             }
 
-
-            // const updatedShops = { ...shops };
-            // const newShopWithEnabled = {
-            //     ...values,
-            //     enabled: true,
-            // };
-            // updatedShops[platform] = [...updatedShops[platform], newShopWithEnabled];
-            // setShops(updatedShops);
             resetForm();
             onClose();
         },
     });
+
+    const fetchShops = async () => {
+        try {
+          const response = await getShopData(user.id);
+          if (response.data.success) {
+            setShops(response.data.shops);
+          } else {
+            console.error('Error:', response.data.message);
+          }
+        } catch (error) {
+          console.error('Error fetching shop data:', error);
+        }
+      };
 
     const fetchAccessToken = async (state) => {
         try {
             const response = await getAccessToken(state);
             setAccessToken(response.data.access_token);
             if (response.data.access_token) {
-                createShop(response.data.access_token, state)
+                fetchShops();
             }
+            console.log("🚀 ~ fetchAccessToken ~ response.data.access_token:", response.data.access_token);
         } catch (error) {
             console.error('Error fetching access token:', error);
         }
     };
 
 
-    const createShop = async (shopToken, state) => {
-        try {
-            const JWTtoken = localStorage.getItem("token");
-            shopValues
-            const dataObje = {
-                shopType: 'amazon',
-                shopId: state,
-                shopToken: shopToken,
-                storeName: shopValues.storeName,
-                region: shopValues.region,
-                timezone: shopValues.timezone,
-            }
-            postDataApi('/shop/create', infoViewActionsContext, dataObje, true, JWTtoken)
-            getAllShop()
-            onClose();
-
-        } catch (error) {
-            console.error('Error creating shop:', error);
-        }
-    };
     useEffect(() => {
         const state = getStateFromUrl();
         if (state) {
@@ -127,6 +114,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop })
             fetchAccessToken(state);
         }
     }, []);
+
 
     const getStateFromUrl = () => {
         const params = new URLSearchParams(window.location.search);
@@ -149,29 +137,8 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop })
     const handleStorefrontUrlClose = () => {
         setOpenStorefrontUrl(false);
     };
-
-    const onHandle = () => {
-        const JWTtoken = localStorage.getItem("token");
-        const dataObje = {
-            shopType: 'amazon',
-            shopId: 'state',
-            shopToken: 'shopToken',
-            storeName: shopValues.storeName,
-            region: shopValues.region,
-            timezone: shopValues.timezone,
-        }
-
-        postDataApi('/shop/create', infoViewActionsContext, dataObje, true, JWTtoken)
-        getAllShop()
-    }
-
-
-
     return (
         <>
-            <button onClick={onHandle}>
-                ADDD
-            </button>
             <Dialog open={open} onClose={onClose}>
                 <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 18 }}>
                     Add {platform} Shop
@@ -182,7 +149,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, getAllShop })
                 <DialogTitle sx={{ fontSize: 14 }}>
                     Fill in the following details to connect to BeProfit with your {platform} store
                 </DialogTitle>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={(e) => formik.handleSubmit(e)}>
                     <DialogContent>
                         <TextField
                             autoFocus
@@ -292,6 +259,8 @@ AddShopDialog.propTypes = {
     platform: PropTypes.string.isRequired,
     shops: PropTypes.object.isRequired,
     setShops: PropTypes.func.isRequired,
+    getAllShop: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
 };
 
 export default AddShopDialog;
