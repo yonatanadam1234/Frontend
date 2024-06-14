@@ -9,16 +9,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export const getShopAuthorizeUrl = (email, region, platform, storeName, storefrontURL, timezone, userId) => {
-  return axiosInstance.post('/get-authorize-url', {
-    email,
-    region,
-    platform,
-    store_name: storeName,
-    store_url: storefrontURL,
-    time_zone: timezone,
-    user_id: userId
-  });
+export const getShopAuthorizeUrl = (data) => {
+  return axiosInstance.post('/get-authorize-url', data);
 };
 
 export const getAccessToken = (state) => {

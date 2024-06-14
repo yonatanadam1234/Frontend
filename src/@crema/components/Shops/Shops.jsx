@@ -243,6 +243,7 @@ const Shops = () => {
     const fetchData = async () => {
       try {
         const response = await getShopData(user.id);
+        console.log("🚀 ~ fetchData ~ response:", response)
   
         if (response.data) {
           const amazonShops = response.data.filter((shop) => shop.platform_connection.platform_name === "amazon");

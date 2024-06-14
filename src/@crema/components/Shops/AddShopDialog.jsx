@@ -48,15 +48,16 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
         onSubmit: async (values, { resetForm }) => {
             try {
                 setShopValues(values);
-                const response = await getShopAuthorizeUrl(
-                    values.email,
-                    values.region,
-                    platform,
-                    values.storeName,
-                    values.storefrontURL,
-                    values.timezone,
-                    user.id
-                );
+                const obj = {
+                    email: values.email,
+                    region: values.region,
+                    platform:platform,
+                    store_name: values.storeName,
+                    store_url: values.storefrontURL,
+                    time_zone: values.timezone,
+                    userId: user.id
+                }
+                const response = await getShopAuthorizeUrl(obj);
                 console.log('response', response);
                 //amazone redirect url
                 if (response.data.success) {
@@ -76,16 +77,16 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
 
     const fetchShops = async () => {
         try {
-          const response = await getShopData(user.id);
-          if (response.data.success) {
-            setShops(response.data.shops);
-          } else {
-            console.error('Error:', response.data.message);
-          }
+            const response = await getShopData(user.id);
+            if (response.data.success) {
+                setShops(response.data.shops);
+            } else {
+                console.error('Error:', response.data.message);
+            }
         } catch (error) {
-          console.error('Error fetching shop data:', error);
+            console.error('Error fetching shop data:', error);
         }
-      };
+    };
 
     const fetchAccessToken = async (state) => {
         try {
