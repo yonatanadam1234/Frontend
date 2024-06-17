@@ -34,9 +34,11 @@ const TableItem = ({ data, displayProductCost }) => {
       }
     }
   };
+
   const { user } = useAuthUser();
   const [productCost, setProductCost] = useState(data.product_cost);
   const [isEditing, setIsEditing] = useState(false);
+  const [verificationState, setVerificationState] = useState(null);
 
   const handleProductCostChange = (event) => {
     const newProductCost = event.target.value;
@@ -52,25 +54,21 @@ const TableItem = ({ data, displayProductCost }) => {
     setIsEditing(true);
   };
 
-
-
   const fetchData = useCallback(async () => {
     try {
       const response = await getShopData(user.id);
       console.log("Fetched shops data:", response.data);
 
       if (response.data) {
-        const amazonShops = response.data.filter(
-          (shop) => shop.platform_connection.platform_name === "amazon"
-        );
         const ebayShops = response.data.filter(
           (shop) => shop.platform_connection.platform_name === "ebay"
         );
-        setShops((prevShops) => ({
-          ...prevShops,
-          amazon: amazonShops,
-          ebay: ebayShops,
-        }));
+        
+        if (ebayShops.length > 0) {
+          setVerificationState(ebayShops[0].seller_info.verification_state);
+        } else {
+          console.error("No eBay shops found");
+        }
       } else {
         console.error("Error:", response.data ? response.data.message : "No data");
       }
@@ -83,20 +81,16 @@ const TableItem = ({ data, displayProductCost }) => {
     fetchData();
   }, [fetchData]);
 
-
-
-  
   useEffect(() => {
-
     const fetchebayData = async () => {
-      const { user } = useAuthUser();
+      if (!verificationState) return;
 
       try {
         const obj = {
           platform: 'ebay',
           userId: user.id,
           page: 1,
-          state: 'GoPnbsdCNdmwL6KgEwV8XsiLvkxsms'
+          state: verificationState
         }
         const response = await getEbayOrderData(obj);
         if (response.data) {
@@ -105,13 +99,11 @@ const TableItem = ({ data, displayProductCost }) => {
           console.error("Error:", response.data ? response.data.message : "No data");
         }
       } catch (error) {
-        console.error("Error fetching shop data:", error);
+        console.error("Error fetching ebay order data:", error);
       }
     };
     fetchebayData();
-  }, [user.id]);
-
-
+  }, [user.id, verificationState]);
 
   return (
     <TableRow key={data.id} className="item-hover">

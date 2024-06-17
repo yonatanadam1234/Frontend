@@ -7,6 +7,8 @@ const SidebarWrapper = ({ children, ...rest }) => {
     <Box
       sx={{
         width: 280,
+        maxHeight:1000,
+        height:900,
         display: 'flex',
         flexDirection: 'column',
         transition: 'all 0.5s ease',
