@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import PropTypes from "prop-types";
@@ -9,13 +9,15 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FaEdit } from "react-icons/fa";
 import CurrencyExchangeSharpIcon from "@mui/icons-material/CurrencyExchangeSharp";
+import { useAuthUser } from "../../../hooks/AuthHooks";
+import { getEbayOrderData } from "../orders.service";
+import { getShopData } from "../../Shops/services/shop.service";
 
 const TableItem = ({ data, displayProductCost }) => {
   const [shippingGroup, setShippingGroup] = useState(data.shiping_group);
   const handleShippingGroupChange = (event) => {
     const newShippingGroup = event.target.value;
     setShippingGroup(newShippingGroup);
-    // You can add logic here to update the shipping group in your data source
   };
 
   const shippingGroupOptions = [1, 2, 3, 4];
@@ -32,13 +34,12 @@ const TableItem = ({ data, displayProductCost }) => {
       }
     }
   };
-
+  const { user } = useAuthUser();
   const [productCost, setProductCost] = useState(data.product_cost);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleProductCostChange = (event) => {
     const newProductCost = event.target.value;
-    // Update the original data.product_cost value here
     data.product_cost = newProductCost;
     setProductCost(newProductCost);
   };
@@ -51,9 +52,69 @@ const TableItem = ({ data, displayProductCost }) => {
     setIsEditing(true);
   };
 
+
+
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await getShopData(user.id);
+      console.log("Fetched shops data:", response.data);
+
+      if (response.data) {
+        const amazonShops = response.data.filter(
+          (shop) => shop.platform_connection.platform_name === "amazon"
+        );
+        const ebayShops = response.data.filter(
+          (shop) => shop.platform_connection.platform_name === "ebay"
+        );
+        setShops((prevShops) => ({
+          ...prevShops,
+          amazon: amazonShops,
+          ebay: ebayShops,
+        }));
+      } else {
+        console.error("Error:", response.data ? response.data.message : "No data");
+      }
+    } catch (error) {
+      console.error("Error fetching shop data:", error);
+    }
+  }, [user.id]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+
+
+  
+  useEffect(() => {
+
+    const fetchebayData = async () => {
+      const { user } = useAuthUser();
+
+      try {
+        const obj = {
+          platform: 'ebay',
+          userId: user.id,
+          page: 1,
+          state: 'GoPnbsdCNdmwL6KgEwV8XsiLvkxsms'
+        }
+        const response = await getEbayOrderData(obj);
+        if (response.data) {
+          console.log("order data is :-", response.data)
+        } else {
+          console.error("Error:", response.data ? response.data.message : "No data");
+        }
+      } catch (error) {
+        console.error("Error fetching shop data:", error);
+      }
+    };
+    fetchebayData();
+  }, [user.id]);
+
+
+
   return (
     <TableRow key={data.id} className="item-hover">
-      {/* Render other columns */}
       <TableCell>
         <Box
           sx={{

@@ -21,6 +21,15 @@ export const getAccessToken = (state) => {
 
 export const getShopData = (userId) => {
   return axiosInstance.get(`/get-seller-data?userId=${userId}`);
+};  
+
+export const deleteShopData = (userId,state) => { 
+  return axiosInstance.post(`/remove-store`,{
+   userId,
+   state
+  });
 };
+
+
 
 export default { apiBaseUrl };

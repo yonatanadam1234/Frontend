@@ -24,10 +24,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) => {
 
-    // const infoViewActionsContext = useInfoViewActionsContext();
     const [openstorefronturl, setOpenStorefrontUrl] = useState(false);
     const [accessToken, setAccessToken] = useState("");
-    const [shopValues, setShopValues] = useState({})
     const { user } = useAuthUser();
 
     const validationSchema = Yup.object().shape({
@@ -65,7 +63,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                     window.location.href = redirectUrl;
                 } else {
                     console.error('Error:', response.data);
-                    if (response.data.errors && response.data.errors.email && response.data.errors.email.includes("The email has already been taken.")) {
+                    if (response.data.errors && response.data.errors.email && response.data.errors.email.includes("The email has already been taken.")){
                         toast.error('The Email Entered is Already Taken.');
                     } else {
                         toast.error('Failed to add shop. Please try again later.');
@@ -128,11 +126,35 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
 
     const region = [
         { value: "US", label: "United States" },
+        { value: "Uk", label: "United Kingdom" },
     ];
 
     const timezones = [
+        // UK Timezones
+        { value: "Europe/London", label: "Europe/London" },
+        { value: "Europe/Belfast", label: "Europe/Belfast" },
+        { value: "Europe/Glasgow", label: "Europe/Glasgow" },
+        { value: "Europe/Dublin", label: "Europe/Dublin" },
+        { value: "Europe/Lisbon", label: "Europe/Lisbon" },
+        { value: "Europe/Paris", label: "Europe/Paris" },
+        { value: "Europe/Berlin", label: "Europe/Berlin" },
+        { value: "Europe/Rome", label: "Europe/Rome" },
+        { value: "Europe/Madrid", label: "Europe/Madrid" },
+        { value: "Europe/Amsterdam", label: "Europe/Amsterdam" },
+        { value: "Europe/Stockholm", label: "Europe/Stockholm" },
+        { value: "Europe/Copenhagen", label: "Europe/Copenhagen" },
+        { value: "Europe/Athens", label: "Europe/Athens" },
+        { value: "Europe/Istanbul", label: "Europe/Istanbul" },
         { value: "America/Mexico_City", label: "America/Mexico_City" },
         { value: "America/Monterrey", label: "America/Monterrey" },
+        { value: "America/New_York", label: "America/New_York" },
+        { value: "America/Chicago", label: "America/Chicago" },
+        { value: "America/Denver", label: "America/Denver" },
+        { value: "America/Los_Angeles", label: "America/Los_Angeles" },
+        { value: "America/Anchorage", label: "America/Anchorage" },
+        { value: "America/Honolulu", label: "America/Honolulu" },
+        { value: "America/Phoenix", label: "America/Phoenix" },
+        { value: "America/Indianapolis", label: "America/Indianapolis" },
     ];
 
     const handleStorefront = () => {
@@ -184,7 +206,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                             sx={{
                                 cursor: "pointer",
                                 color: "blue",
-                                marginLeft: 70,
+                                marginLeft: 80,
                                 paddingTop: 2,
                                 "&:hover": { color: "black" },
                             }}

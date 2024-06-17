@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Box,
   Collapse,
@@ -25,24 +25,40 @@ import {
 } from "@mui/icons-material";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import AddShopDialog from "./AddShopDialog";
-import { getShopData } from "./services/shop.service";
+import { getShopData, deleteShopData } from "./services/shop.service";
 import { useAuthUser } from "../../hooks/AuthHooks";
+import { ToastContainer, toast } from "react-toastify";
 
-const Row = ({ row, handleOpen, platform, shops, setShops }) => {
-  console.log("🚀 ~ Row ~ shops:", shops)
+const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
   const [hOpen, setHopen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+
   const handleHistory = () => setHopen(!hOpen);
 
-  const handleDeleteShop = () => {
-    const updatedShops = { ...shops };
-    updatedShops[platform] = updatedShops[platform].filter(
-      (_, i) => i !== deleteIndex
-    );
-    setShops(updatedShops);
-    setDeleteDialogOpen(false);
-    setDeleteIndex(null);
+  const handleDeleteShop = async () => {
+    try {
+      const verificationState = deleteIndex;
+      console.log("Deleting shop with verification state:", verificationState);
+      const response = await deleteShopData(user.id, verificationState);
+      console.log("Delete response:", response);
+      if (response.data.success) {
+        const updatedShops = { ...shops };
+        updatedShops[platform] = updatedShops[platform].filter(
+          (shop) => shop.seller_info.verification_state !== verificationState
+        );
+        setShops(updatedShops);
+        toast.success('Shop Deleted Successfully');
+      } else {
+        toast.error("Error deleting shop");
+      }
+    } catch (error) {
+      toast.error("Error deleting shop");
+      console.error("Error deleting shop:", error);
+    } finally {
+      setDeleteDialogOpen(false);
+      setDeleteIndex(null);
+    }
   };
 
   const handleToggleShop = (index) => {
@@ -52,10 +68,8 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
     setShops(updatedShops);
   };
 
-
-
-  const openDeleteDialog = (index) => {
-    setDeleteIndex(index);
+  const openDeleteDialog = (shop) => {
+    setDeleteIndex(shop.seller_info.verification_state);
     setDeleteDialogOpen(true);
   };
 
@@ -159,7 +173,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops }) => {
                         <TableCell align="right">
                           <IconButton
                             aria-label="delete shop"
-                            onClick={() => openDeleteDialog(index)}
+                            onClick={() => openDeleteDialog(shop)}
                           >
                             <DeleteOutlineRoundedIcon />
                           </IconButton>
@@ -235,30 +249,35 @@ const Shops = () => {
 
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const { user } = useAuthUser();
-  console.log("🚀 ~ Sszfdsdfsdasdgsdhops ~ user:", user.id)
 
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await getShopData(user.id);
+      console.log("Fetched shops data:", response.data);
 
+      if (response.data) {
+        const amazonShops = response.data.filter(
+          (shop) => shop.platform_connection.platform_name === "amazon"
+        );
+        const ebayShops = response.data.filter(
+          (shop) => shop.platform_connection.platform_name === "ebay"
+        );
+        setShops((prevShops) => ({
+          ...prevShops,
+          amazon: amazonShops,
+          ebay: ebayShops,
+        }));
+      } else {
+        console.error("Error:", response.data ? response.data.message : "No data");
+      }
+    } catch (error) {
+      console.error("Error fetching shop data:", error);
+    }
+  }, [user.id]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getShopData(user.id);
-        console.log("🚀 ~ fetchData ~ response:", response)
-  
-        if (response.data) {
-          const amazonShops = response.data.filter((shop) => shop.platform_connection.platform_name === "amazon");
-          const ebayShops = response.data.filter((shop) => shop.platform_connection.platform_name === "ebay");
-  
-          setShops((prevShops) => ({ ...prevShops, amazon: amazonShops, ebay: ebayShops }));
-        } else {
-          console.error("Error:", response.data ? response.data.message : "No data");
-        }
-      } catch (error) {
-        console.error("Error fetching shop data:", error);
-      }
-    };
     fetchData();
-  }, [user.id]);
+  }, [fetchData]);
 
   const handleOpen = (platform) => {
     setSelectedPlatform(platform);
@@ -297,6 +316,7 @@ const Shops = () => {
                 platform={row.platform}
                 shops={shops}
                 setShops={setShops}
+                user={user}
               />
             ))}
           </TableBody>
@@ -308,8 +328,9 @@ const Shops = () => {
         platform={selectedPlatform}
         shops={shops}
         setShops={setShops}
-        // fetchData={fetchData}
+        fetchData={fetchData}
       />
+      <ToastContainer />
     </>
   );
 };
