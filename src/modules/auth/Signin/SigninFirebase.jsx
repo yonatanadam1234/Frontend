@@ -15,6 +15,8 @@ import { AiOutlineGoogle, AiOutlineTwitter } from 'react-icons/ai';
 import { FaFacebookF } from 'react-icons/fa';
 import { BsGithub } from 'react-icons/bs';
 import AuthWrapper from '../AuthWrapper';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { InputAdornment } from '@mui/material';
 
 const validationSchema = yup.object({
   email: yup
@@ -29,6 +31,7 @@ const validationSchema = yup.object({
 const SigninFirebase = () => {
   const { logInWithEmailAndPassword, logInWithPopup } = useAuthMethod();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const { messages } = useIntl();
 
@@ -43,7 +46,13 @@ const SigninFirebase = () => {
   const onGoToForgetPassword = () => {
     navigate('/forget-password', { tab: 'firebase' });
   };
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   return (
     <AuthWrapper>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -68,6 +77,7 @@ const SigninFirebase = () => {
                 <Box sx={{ mb: { xs: 5, xl: 8 } }}>
                   <AppTextField
                     placeholder={messages['common.email']}
+                    InputLabelProps={{ shrink: true }}
                     name='email'
                     label={<IntlMessages id='common.email' />}
                     variant='outlined'
@@ -82,8 +92,9 @@ const SigninFirebase = () => {
 
                 <Box sx={{ mb: { xs: 3, xl: 4 } }}>
                   <AppTextField
-                    type='password'
+                    type={showPassword ? "text" : "password"}
                     placeholder={messages['common.password']}
+                    InputLabelProps={{ shrink: true }}
                     label={<IntlMessages id='common.password' />}
                     name='password'
                     variant='outlined'
@@ -92,6 +103,24 @@ const SigninFirebase = () => {
                       '& .MuiInputBase-input': {
                         fontSize: 14,
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                   />
                 </Box>

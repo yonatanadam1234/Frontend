@@ -7,7 +7,7 @@ const TableHeading = ({ displayProductCost }) => {
   return (
     
     <TableRow>
-      <TableCell>Amazon Order Id</TableCell>
+      <TableCell>Ebay Order Id</TableCell>
       <TableCell>Customer Name</TableCell>
       {displayProductCost && <TableCell>Product Cost</TableCell>}
       <TableCell>Purchase Date</TableCell>
@@ -33,7 +33,6 @@ const TableHeading = ({ displayProductCost }) => {
       <TableCell>Is Iba</TableCell>
       <TableCell>Selling Fees</TableCell>
       <TableCell>Fba Fees</TableCell>
-      {/* Conditionally render the Product Cost column */}
 
       <TableCell
         align="left"

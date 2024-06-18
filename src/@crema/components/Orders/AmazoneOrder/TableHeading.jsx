@@ -33,7 +33,6 @@ const TableHeading = ({ displayProductCost }) => {
       <TableCell>Is Iba</TableCell>
       <TableCell>Selling Fees</TableCell>
       <TableCell>Fba Fees</TableCell>
-      {/* Conditionally render the Product Cost column */}
 
       <TableCell
         align="left"

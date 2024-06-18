@@ -33,12 +33,7 @@ import { display, margin, width } from "@mui/system";
 
 const Orders = () => {
   const { messages } = useIntl();
-  const [{ apiData, loading }, { setQueryParams }] = useGetDataApi(
-    "/api/ecommerce/orders",
-    {},
-    {},
-    false
-  );
+
   const [page, setPage] = useState(0);
   const [search, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -66,20 +61,17 @@ const Orders = () => {
     orderSource: "",
   });
 
-  // State to hold the selected platform
   const [selectedPlatform, setSelectedPlatform] = useState("Amazon");
-  // State to manage whether to display product cost column
   const [displayProductCost, setDisplayProductCost] = useState(false);
 
   const onPageChange = (event, value) => {
     setPage(value);
   };
 
-  useEffect(() => {
-    // Check if search query is empty
-    const queryParams = search ? { search, page } : { page };
-    setQueryParams(queryParams);
-  }, [search, page]);
+  // useEffect(() => {
+  //   const queryParams = search ? { search, page } : { page };
+  //   setQueryParams(queryParams);
+  // }, [search, page]);
 
   const toggleFilterDrawer = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -106,37 +98,29 @@ const Orders = () => {
       case "Amazon":
         return (
           <AmazoneOrderTable
-            orderData={apiData?.data || []}
-            loading={loading}
             filters={filters}
-            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
+            displayProductCost={displayProductCost} 
           />
         );
       case "Shopify":
         return (
           <ShopifyOrderTabel
-            orderData={apiData?.data || []}
-            loading={loading}
             filters={filters}
-            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
+            displayProductCost={displayProductCost} 
           />
         );
       case "Ebay":
         return (
           <EbayOrderTabel
-            orderData={apiData?.data || []}
-            loading={loading}
             filters={filters}
-            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
+            displayProductCost={displayProductCost} 
           />
         );
       case "Magento":
         return (
           <MagentoOrderTabel
-            orderData={apiData?.data || []}
-            loading={loading}
             filters={filters}
-            displayProductCost={displayProductCost} // Pass displayProductCost state to the table
+            displayProductCost={displayProductCost}
           />
         );
       default:
@@ -188,7 +172,6 @@ const Orders = () => {
               onChange={(event) => onSearchOrder(event.target.value)}
               placeholder={messages["common.searchHere"]}
             />
-            {/* Checkbox for displaying product cost */}
             <Box  alignItems="right" >
               <label >
                 <input
@@ -212,7 +195,6 @@ const Orders = () => {
               <Hidden smDown>
                 <AppsPagination
                   rowsPerPage={10}
-                  count={apiData?.count}
                   page={page} 
                   onPageChange={onPageChange}
                 />
@@ -225,7 +207,7 @@ const Orders = () => {
           sx={{
             paddingTop: 2.5,
             paddingBottom: 2.5,
-            overflowX: "auto", // Add horizontal scroll
+            overflowX: "auto", 
           }}
         >
           {renderOrderComponent()}
@@ -234,7 +216,6 @@ const Orders = () => {
         <Hidden smUp>
           <AppsPagination
             rowsPerPage={10}
-            count={apiData?.count} 
             page={page}
             onPageChange={onPageChange}
           />
@@ -488,7 +469,6 @@ const Orders = () => {
                 </Box>
               </Select>
             </FormControl>
-            {/* Add more filter options */}
             <Button
               onClick={applyFilters}
               variant="contained"
