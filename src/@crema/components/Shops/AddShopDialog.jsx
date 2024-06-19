@@ -198,7 +198,7 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                             error={formik.touched.storeName && Boolean(formik.errors.storeName)}
                             helperText={formik.touched.storeName && formik.errors.storeName}
                         />
-                        {/* {platform === 'amazon' ? ( */}
+                        {platform === 'amazon' ? (
                             <>
                                 <Box
                                     sx={{
@@ -224,9 +224,9 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                                     helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
                                 />
                             </>
-                        {/* ) : (
+                         ) : (
                             <></>
-                        )} */}
+                        )} 
 
                         <TextField
                             select
