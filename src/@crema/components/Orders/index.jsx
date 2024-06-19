@@ -22,18 +22,14 @@ import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";
 import AppsPagination from "@crema/components/AppsPagination";
 import AppSearchBar from "@crema/components/AppSearchBar";
-import { useGetDataApi } from "@crema/hooks/APIHooks";
 import FilterListIcon from "@mui/icons-material/FilterList";
-
 import AmazoneOrderTable from "./AmazoneOrder";
 import ShopifyOrderTabel from "./ShopifyOrder";
 import EbayOrderTabel from "./EbayOrder";
 import MagentoOrderTabel from "./MagentoOrder";
-import { display, margin, width } from "@mui/system";
 
 const Orders = () => {
   const { messages } = useIntl();
-
   const [page, setPage] = useState(0);
   const [search, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -67,32 +63,22 @@ const Orders = () => {
   const onPageChange = (event, value) => {
     setPage(value);
   };
-
-  // useEffect(() => {
-  //   const queryParams = search ? { search, page } : { page };
-  //   setQueryParams(queryParams);
-  // }, [search, page]);
-
   const toggleFilterDrawer = () => {
     setIsFilterOpen(!isFilterOpen);
   };
-
   const onSearchOrder = (value) => {
     setSearchQuery(value);
     setPage(0);
   };
-
   const handleFilterChange = (event) => {
     setFilters({
       ...filters,
       [event.target.name]: event.target.value,
     });
   };
-
   const applyFilters = () => {
     console.log("Applied Filters:", filters);
   };
-
   const renderOrderComponent = () => {
     switch (selectedPlatform) {
       case "Amazon":
@@ -127,7 +113,6 @@ const Orders = () => {
         return null;
     }
   };
-
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -154,8 +139,6 @@ const Orders = () => {
           <MenuItem value="Ebay">eBay</MenuItem>
           <MenuItem value="Magento">Magento</MenuItem>
         </Select>
-
-        
       </Box>
       <AppsContainer fullView>
         <AppsHeader>
@@ -164,7 +147,6 @@ const Orders = () => {
             flexDirection="row"
             alignItems="center"
             width={1}
-           
           >
             <AppSearchBar
               iconPosition="right"
@@ -220,6 +202,12 @@ const Orders = () => {
             onPageChange={onPageChange}
           />
         </Hidden>
+
+
+
+
+
+
 
         <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
           <Box style={{

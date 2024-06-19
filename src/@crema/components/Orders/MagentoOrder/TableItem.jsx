@@ -159,7 +159,7 @@ const TableItem = ({ data, displayProductCost }) => {
         align="left"
         style={{
           position: "sticky",
-          right: 145,
+          right: 142,
           zIndex: 3,
           width: "50px",
           backgroundColor: "#cee8f8",

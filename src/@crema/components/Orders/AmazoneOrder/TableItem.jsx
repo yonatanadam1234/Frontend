@@ -21,7 +21,7 @@ const TableItem = ({ data, displayProductCost }) => {
   const shippingGroupOptions = [1, 2, 3, 4];
   const getPaymentStatusColor = () => {
     switch (data.status) {
-      case "Cancelled": {
+      case "Cancelled": { 
         return "#F84E4E";
       }
       case "Shipped": {
@@ -163,7 +163,7 @@ const TableItem = ({ data, displayProductCost }) => {
               align="left"
               style={{
                 position: "sticky",
-                right: 145,
+                right: 142,
                 zIndex: 3,
                 width: "50px",
                 backgroundColor: "#cee8f8",

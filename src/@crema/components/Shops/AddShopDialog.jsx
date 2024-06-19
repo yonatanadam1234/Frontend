@@ -19,10 +19,8 @@ import * as Yup from "yup";
 import StoreFronturl from './StoreFronturl';
 import { getAccessToken, getShopAuthorizeUrl, getShopData } from "./services/shop.service";
 import { useAuthUser } from "../../hooks/AuthHooks";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
-const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) => {
+const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
 
     const [openstorefronturl, setOpenStorefrontUrl] = useState(false);
     const [accessToken, setAccessToken] = useState("");
@@ -62,15 +60,14 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                     const redirectUrl = response.data.url;
                     window.location.href = redirectUrl;
                 } else {
-                    console.error('Error:', response.data);
-                    if (response.data.errors && response.data.errors.email && response.data.errors.email.includes("The email has already been taken.")){
+                    console.log('Error:', response.data);
+                    if (response.data.errors.email) {
                         toast.error('The Email Entered is Already Taken.');
                     } else {
                         toast.error('Failed to add shop. Please try again later.');
                     }
                 }
             } catch (error) {
-                console.error('Error:', error);
                 toast.error('Failed to add shop. Please try again later.');
             }
             resetForm();
@@ -84,7 +81,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
             if (response.data.success) {
                 setShops(response.data.shops);
             } else {
-                console.error('Error:', response.data.message);
+                toast.error('Error:', response.data.message);
             }
         } catch (error) {
             console.error('Error fetching shop data:', error);
@@ -99,7 +96,7 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                 fetchShops();
             }
         } catch (error) {
-            console.error('Error fetching access token:', error);
+            toast.error('Error fetching access token:', error);
         }
     };
 
@@ -130,7 +127,6 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
     ];
 
     const timezones = [
-        // UK Timezones
         { value: "Europe/London", label: "Europe/London" },
         { value: "Europe/Belfast", label: "Europe/Belfast" },
         { value: "Europe/Glasgow", label: "Europe/Glasgow" },
@@ -202,29 +198,36 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                             error={formik.touched.storeName && Boolean(formik.errors.storeName)}
                             helperText={formik.touched.storeName && formik.errors.storeName}
                         />
-                        <Box
-                            sx={{
-                                cursor: "pointer",
-                                color: "blue",
-                                marginLeft: 80,
-                                paddingTop: 2,
-                                "&:hover": { color: "black" },
-                            }}
-                            onClick={handleStorefront}
-                        >
-                            Can't find your storefront URL?
-                        </Box>
-                        <TextField
-                            margin="dense"
-                            label="Storefront URL"
-                            fullWidth
-                            name="storefrontURL"
-                            value={formik.values.storefrontURL}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.storefrontURL && Boolean(formik.errors.storefrontURL)}
-                            helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
-                        />
+                        {/* {platform === 'amazon' ? ( */}
+                            <>
+                                <Box
+                                    sx={{
+                                        cursor: "pointer",
+                                        color: "blue",
+                                        marginLeft: 80,
+                                        paddingTop: 2,
+                                        "&:hover": { color: "black" },
+                                    }}
+                                    onClick={handleStorefront}
+                                >
+                                    Can't find your storefront URL?
+                                </Box>
+                                <TextField
+                                    margin="dense"
+                                    label="Storefront URL"
+                                    fullWidth
+                                    name="storefrontURL"
+                                    value={formik.values.storefrontURL}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.storefrontURL && Boolean(formik.errors.storefrontURL)}
+                                    helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
+                                />
+                            </>
+                        {/* ) : (
+                            <></>
+                        )} */}
+
                         <TextField
                             select
                             margin="dense"
@@ -272,7 +275,6 @@ const AddShopDialog = ({ open, onClose, platform, shops, setShops, fetchData }) 
                     </DialogActions>
                 </form>
             </Dialog>
-            <ToastContainer />
             <StoreFronturl
                 open={openstorefronturl}
                 onClose={handleStorefrontUrlClose}
@@ -288,8 +290,6 @@ AddShopDialog.propTypes = {
     platform: PropTypes.string.isRequired,
     shops: PropTypes.object.isRequired,
     setShops: PropTypes.func.isRequired,
-    getAllShop: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
 };
 
 export default AddShopDialog;

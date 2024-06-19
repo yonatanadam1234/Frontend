@@ -28,6 +28,8 @@ import AddShopDialog from "./AddShopDialog";
 import { getShopData, deleteShopData } from "./services/shop.service";
 import { useAuthUser } from "../../hooks/AuthHooks";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
   const [hOpen, setHopen] = useState(false);
@@ -54,7 +56,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
       }
     } catch (error) {
       toast.error("Error deleting shop");
-      console.error("Error deleting shop:", error);
+      toast.error("Error deleting shop:", error);
     } finally {
       setDeleteDialogOpen(false);
       setDeleteIndex(null);
@@ -253,7 +255,6 @@ const Shops = () => {
   const fetchData = useCallback(async () => {
     try {
       const response = await getShopData(user.id);
-      console.log("Fetched shops data:", response.data);
 
       if (response.data) {
         const amazonShops = response.data.filter(
@@ -329,6 +330,7 @@ const Shops = () => {
         shops={shops}
         setShops={setShops}
         fetchData={fetchData}
+        toast={toast}
       />
       <ToastContainer />
     </>

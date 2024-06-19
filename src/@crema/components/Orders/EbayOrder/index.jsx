@@ -12,10 +12,11 @@ import { useAuthUser } from "../../../hooks/AuthHooks";
 import { getEbayOrderData } from "../orders.service";
 import { getShopData } from "../../Shops/services/shop.service";
 
-const EbayOrderTabel = ({ displayProductCost, loading }) => {
+const EbayOrderTabel = ({ displayProductCost }) => {
   const { user } = useAuthUser();
   const [verificationState, setVerificationState] = useState(null);
   const [ebayOrderData, setEbayOrderData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
@@ -59,11 +60,14 @@ const EbayOrderTabel = ({ displayProductCost, loading }) => {
         const response = await getEbayOrderData(obj);
         if (response) {
           setEbayOrderData(response.data);
+          setLoading(false); 
+
         } else {
           console.error("Error: No data received");
         }
       } catch (error) {
         console.error("Error fetching ebay order data:", error);
+        setLoading(false);
       }
     };
 
@@ -92,7 +96,7 @@ const EbayOrderTabel = ({ displayProductCost, loading }) => {
             <TableHead>
               <TableHeading displayProductCost={displayProductCost} />
             </TableHead>
-          
+
             <TableBody>
               {Array.isArray(ebayOrderData.data) && ebayOrderData.data.map((data) => (
                 <TableItem data={data} key={data.order_id} displayProductCost={displayProductCost} />

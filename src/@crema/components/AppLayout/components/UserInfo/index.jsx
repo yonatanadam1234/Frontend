@@ -73,7 +73,7 @@ const UserInfo = ({ color }) => {
         </Box>
         <Box
           sx={{
-            width: { xs: "calc(100% - 92px)", xl: "calc(100% - 0px)" },
+            // width: { xs: "calc(100% - 92px)", xl: "calc(100% - 80px)" },
             ml: 4,
             color: color,
           }}

@@ -40,7 +40,7 @@ const TableHeading = ({ displayProductCost }) => {
         align="left"
         style={{
           position: "sticky",
-          right: 145,
+          right: 142,
           zIndex: 3,
           width: "50px",
           backgroundColor: "#cee8f8",
@@ -52,7 +52,7 @@ const TableHeading = ({ displayProductCost }) => {
         align="left"
         style={{
           position: "sticky",
-          right: 60,
+          right: 45,
           zIndex: 2,
           width: "50px",
           backgroundColor: "#cee8f8",
@@ -64,7 +64,7 @@ const TableHeading = ({ displayProductCost }) => {
         align="left"
         style={{
           position: "sticky",
-          right: -13,
+          right: 0,
           zIndex: 2,
           width: "50px",
           backgroundColor: "#cee8f8",

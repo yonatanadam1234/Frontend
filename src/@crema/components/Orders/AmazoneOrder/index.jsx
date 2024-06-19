@@ -1,49 +1,49 @@
-import React, { useState ,useCallback,useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import PropTypes from "prop-types";
-import TableHeading from "./TableHeading";
-import TableItem from "./TableItem"; 
-import AppTableContainer from "@crema/components/AppTableContainer";
-import AppLoader from "@crema/components/AppLoader";
-import { Typography } from "@mui/material";
-import { useAuthUser } from "../../../hooks/AuthHooks";
-import { getAmazonOrderData } from "../orders.service";
-import { getShopData } from "../../Shops/services/shop.service";
+import React, { useState, useCallback, useEffect } from 'react';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import PropTypes from 'prop-types';
+import TableHeading from './TableHeading';
+import TableItem from './TableItem';
+import AppTableContainer from '@crema/components/AppTableContainer';
+import AppLoader from '@crema/components/AppLoader';
+import { Typography } from '@mui/material';
+import { useAuthUser } from '../../../hooks/AuthHooks';
+import { getAmazonOrderData } from '../orders.service';
+import { getShopData } from '../../Shops/services/shop.service';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AmazoneOrderTable = ({ displayProductCost }) => {
-  
-  const { user } = useAuthUser();
   const [verificationState, setVerificationState] = useState(null);
   const [AmazonOrderData, setAmazonOrderData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuthUser();
 
   const fetchData = useCallback(async () => {
     try {
       const response = await getShopData(user.id);
       if (response.data) {
         const amazonShops = response.data.filter(
-          (shop) => shop.platform_connection.platform_name === "amazon"
+          (shop) => shop.platform_connection.platform_name === 'amazon'
         );
         if (amazonShops.length > 0) {
           setVerificationState(amazonShops[0].seller_info.verification_state);
         } else {
-          console.error("No Amazon shops found");
+          toast.warning('No Amazon shops found');
         }
-       
       } else {
-        console.error("Error:", response.data ? response.data.message : "No data");
+        console.error('Error:', response.data ? response.data.message : 'No data');
       }
     } catch (error) {
-      console.error("Error fetching shop data:", error);
+      console.error('Error fetching shop data:', error);
     }
   }, [user.id]);
-  
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-  
+
   useEffect(() => {
     const fetchAmazonData = async () => {
       if (!verificationState) return;
@@ -55,21 +55,25 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
           state: verificationState
         };
         const response = await getAmazonOrderData(obj);
-        if (response) {
+        if (response && response.data) {
           setAmazonOrderData(response.data);
-          setLoading(false); // Add this line
+          setLoading(false);
         } else {
-          console.error("Error: No data received");
+          toast.warning('No data received');
         }
       } catch (error) {
-        console.error("Error fetching order order data:", error);
+        console.error('Error fetching order order data:', error);
         setLoading(false);
       }
     };
     fetchAmazonData();
-  }, [user.id, verificationState]);
+  }, [user.id, verificationState]); 
+
+
+
   return (
     <>
+      <ToastContainer />
       <Typography
         display="block"
         style={{
@@ -82,6 +86,7 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
         Amazone Orders
       </Typography>
       <AppTableContainer>
+
         {loading ? (
           <AppLoader />
         ) : (
