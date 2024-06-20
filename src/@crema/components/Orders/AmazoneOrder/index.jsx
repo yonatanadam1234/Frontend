@@ -4,7 +4,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import PropTypes from 'prop-types';
 import TableHeading from './TableHeading';
-import TableItem from './TableItem';
+import TableItem from './TableItem';  
 import AppTableContainer from '@crema/components/AppTableContainer';
 import AppLoader from '@crema/components/AppLoader';
 import { Typography } from '@mui/material';
@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AmazoneOrderTable = ({ displayProductCost }) => {
   const [verificationState, setVerificationState] = useState(null);
   const [AmazonOrderData, setAmazonOrderData] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const { user } = useAuthUser();
 
@@ -108,9 +109,9 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
 
 export default AmazoneOrderTable;
 
-AmazoneOrderTable.defaultProps = {
-  orderData: [],
-};
+// AmazoneOrderTable.defaultProps = {
+//   orderData: [],
+// };
 
 AmazoneOrderTable.propTypes = {
   orderData: PropTypes.array,

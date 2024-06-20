@@ -172,7 +172,7 @@ const TableItem = ({ data, displayProductCost }) => {
                 backgroundColor: "#cee8f8",
               }}
             >
-              {product.total_profit}
+              {product.total_profit.toFixed(2)}
             </TableCell>
             <TableCell
               align="left"

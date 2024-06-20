@@ -227,7 +227,6 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                          ) : (
                             <></>
                         )} 
-
                         <TextField
                             select
                             margin="dense"

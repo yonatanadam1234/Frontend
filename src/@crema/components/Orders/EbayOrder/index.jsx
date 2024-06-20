@@ -112,9 +112,9 @@ const EbayOrderTabel = ({ displayProductCost }) => {
 
 export default EbayOrderTabel;
 
-EbayOrderTabel.defaultProps = {
-  orderData: [],
-};
+// EbayOrderTabel.defaultProps = {
+//   orderData: [],
+// };
 
 EbayOrderTabel.propTypes = {
   orderData: PropTypes.array,

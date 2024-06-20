@@ -15,7 +15,6 @@ const TableItem = ({ data, displayProductCost }) => {
   const handleShippingGroupChange = (event) => {
     const newShippingGroup = event.target.value;
     setShippingGroup(newShippingGroup);
-    // You can add logic here to update the shipping group in your data source
   };
 
   const shippingGroupOptions = [1, 2, 3, 4];
@@ -38,7 +37,6 @@ const TableItem = ({ data, displayProductCost }) => {
 
   const handleProductCostChange = (event) => {
     const newProductCost = event.target.value;
-    // Update the original data.product_cost value here
     data.product_cost = newProductCost;
     setProductCost(newProductCost);
   };

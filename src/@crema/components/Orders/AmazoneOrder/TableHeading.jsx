@@ -30,7 +30,7 @@ const TableHeading = ({ displayProductCost }) => {
       <TableCell>Ship State</TableCell>
       <TableCell>Ship Postal Code</TableCell>
       <TableCell>Ship Country</TableCell>
-      <TableCell>Is Iba</TableCell>
+      <TableCell>Is Iba Status</TableCell>
       <TableCell>Selling Fees</TableCell>
       <TableCell>Fba Fees</TableCell>
 
