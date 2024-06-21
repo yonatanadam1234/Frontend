@@ -6,7 +6,7 @@ import { FaEdit } from 'react-icons/fa';
 import Custome from './Custome';
 import Variable from './Variable';
 import Contra from './Contra';
-
+import EditSharpIcon from '@mui/icons-material/EditSharp';
 const ExpensesTable = () => {
   const [openCustomPopup, setOpenCustomPopup] = useState(false);
   const [openVariablePopup, setOpenVariablePopup] = useState(false);  
@@ -45,7 +45,7 @@ const ExpensesTable = () => {
   };
 
 
-  const handleDeleteExpense = (index) => {
+  const handleDeleteExpense = (index) => {  
     setTableData(tableData.filter((_, i) => i !== index));
   };
 
@@ -68,6 +68,17 @@ const ExpensesTable = () => {
     setEditRowIndex(null);
     setAmount("");
   };
+
+  const handleCloseCustome=()=>{
+    setOpenCustomPopup(false)
+  }
+  const handleCloseContra=()=>{
+    setOpenContraPopup(false)
+  }
+  const handleCloseVariable=()=>{
+    setOpenVariablePopup(false)
+  }
+ 
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -82,7 +93,6 @@ const ExpensesTable = () => {
                   padding: 3,
                 }}
               >
-
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <h1>Add Custom & Variable Expenses Per Order ➡️</h1>
                 </Box>
@@ -160,7 +170,7 @@ const ExpensesTable = () => {
             <TableCell>Amount</TableCell>
             <TableCell>First Payment </TableCell>
             <TableCell>Final Payment </TableCell>
-            <TableCell>Delete</TableCell>
+            <TableCell sx={{textAlign:'center'}}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -201,12 +211,18 @@ const ExpensesTable = () => {
               </TableCell>
               <TableCell>{row.firstPaymentDate || 'N/A'}</TableCell>
               <TableCell>{row.finalPaymentDate || 'N/A'}</TableCell>
-              <TableCell>
+              <TableCell sx={{textAlign:'center'}}>
                 <IconButton
                   aria-label="delete"
                   onClick={() => handleDeleteExpense(index)}
                 >
                   <DeleteIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="edit"
+                  // onClick={() => handleDeleteExpense(index)}
+                >
+                  <EditSharpIcon />
                 </IconButton>
               </TableCell>
             </TableRow>
@@ -214,12 +230,11 @@ const ExpensesTable = () => {
         </TableBody>
       </Table>
       {/* CustomExpenseForm */}
-      <Custome open={openCustomPopup} handleClose={() => setOpenCustomPopup(false)} handleSubmit={handleCustomSubmit} setOpenCustomPopup={setOpenCustomPopup} />
+      <Custome open={openCustomPopup} setOpenCustomPopup={setOpenCustomPopup}  handleCloseCustome={handleCloseCustome} handleSubmit={handleCustomSubmit} />
       {/* ContraExpenseForm */}
-      <Contra open={openContraPopup} handleClose={() => setOpenContraPopup(false)} handleSubmit={handleContraSubmit} />
+      <Contra open={openContraPopup} handleCloseContra={handleCloseContra} handleSubmit={handleContraSubmit} />
       {/* VariableExpenseForm */}
-      <Variable open={openVariablePopup} handleClose={() => setOpenVariablePopup(false)} handleSubmit={handleVariableSubmit} />
-
+      <Variable open={openVariablePopup} handleCloseVariable={handleCloseVariable} handleSubmit={handleVariableSubmit} />
 
     </TableContainer>
   );

@@ -17,6 +17,7 @@ const UserMiniHeader = ({ routes, routesConfig }) => {
   const { pathname } = useLocation();
   const { footer, layoutType, footerType } = useLayoutContext();
   const [isNavCollapsed, setNavCollapsed] = useState(false);
+  const [isCollapsed, setCollapsed] = useState(false);
 
   const toggleNavCollapsed = () => {
     setNavCollapsed(!isNavCollapsed);
@@ -33,12 +34,17 @@ const UserMiniHeader = ({ routes, routesConfig }) => {
       })}
     >
       <UserMiniHeaderWrapper
-        className={clsx('mini-sidebar-collapsed', {
+        className={clsx('miniSidebarToggleWrapper', {
+          'mini-sidebar-collapsed': isCollapsed,
           appMainFooter: footer && footerType === 'fluid',
           appMainFixedFooter: footer && footerType === 'fixed',
         })}
       >
-        <AppHeader toggleNavCollapsed={toggleNavCollapsed} />
+        <AppHeader
+          setCollapsed={setCollapsed}
+          isCollapsed={isCollapsed}
+          toggleNavCollapsed={toggleNavCollapsed}
+        />
         <Box className='mainContent'>
           <AppSidebar
             routesConfig={routesConfig}

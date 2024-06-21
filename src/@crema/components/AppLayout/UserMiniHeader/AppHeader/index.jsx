@@ -19,7 +19,9 @@ import AppLogo from "../../components/AppLogo";
 import UserInfo from "../../components/UserInfo";
 import { allowMultiLanguage } from "../../../../constants/AppConst";
 
-const AppHeader = ({ toggleNavCollapsed }) => {
+const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -50,6 +52,31 @@ const AppHeader = ({ toggleNavCollapsed }) => {
           paddingRight: { xs: 2.5, md: 5 },
         }}
       >
+
+
+
+         <Hidden lgDown>
+          <IconButton
+            sx={{ color: "text.secondary" }}
+            edge="start"
+            className="menu-btn"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setCollapsed(!isCollapsed)}
+            size="large"
+          >
+            <MenuIcon
+              sx={{
+                width: 35,
+                height: 35,
+              }}
+            />
+          </IconButton>
+        </Hidden>
+
+
+
+
         <Hidden lgUp>
           <IconButton
             sx={{ color: "text.secondary" }}
@@ -90,7 +117,7 @@ const AppHeader = ({ toggleNavCollapsed }) => {
             },
           }}
         >
-          <AppSearchBar iconPosition="right" placeholder="Search…" />
+          {/* <AppSearchBar iconPosition="right" placeholder="Search…" /> */}
         </Box>
         <Box
           sx={{
@@ -125,14 +152,14 @@ const AppHeader = ({ toggleNavCollapsed }) => {
                   px: 1.85,
                 }}
               >
-                <AppNotifications />
+                {/* <AppNotifications /> */}
               </Box>
               <Box
                 sx={{
                   px: 1.85,
                 }}
               >
-                <AppMessages />
+                {/* <AppMessages /> */}
               </Box>
             </Box>
           </Hidden>
@@ -219,5 +246,7 @@ const AppHeader = ({ toggleNavCollapsed }) => {
 export default AppHeader;
 
 AppHeader.propTypes = {
+  isCollapsed: PropTypes.bool,
+  setCollapsed: PropTypes.func,
   toggleNavCollapsed: PropTypes.func,
 };

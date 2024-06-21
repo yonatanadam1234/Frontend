@@ -1,9 +1,10 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Button, InputAdornment } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Button, InputAdornment, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import CloseIcon from "@mui/icons-material/Close";
 
-const Contra = ({ open, handleClose, handleSubmit }) => {
+const Contra = ({ open, handleSubmit, handleCloseContra }) => {
     const validationSchema = Yup.object().shape({
         recurrence: Yup.string().required('Recurrence is required'),
         expenseStatus: Yup.string().required('Expense Status is required'),
@@ -29,30 +30,39 @@ const Contra = ({ open, handleClose, handleSubmit }) => {
         onSubmit: (values, { resetForm }) => {
             handleSubmit(values);
             resetForm();
-
         },
     });
+
     const currencies = [
         {
-          value: "USD",
-          label: "$",
+            value: "USD",
+            label: "$",
         },
         {
-          value: "EUR",
-          label: "€",
+            value: "EUR",
+            label: "€",
         },
         {
-          value: "BTC",
-          label: "฿",
+            value: "BTC",
+            label: "฿",
         },
         {
-          value: "JPY",
-          label: "¥",
+            value: "JPY",
+            label: "¥",
         },
-      ];
+    ];
     return (
-        <Dialog open={open} onClose={handleClose}>
-            <DialogTitle sx={{ fontSize: 20 }}>Add Contra Variable Expense</DialogTitle>
+        <Dialog open={open} onClose={handleCloseContra} fullWidth>
+
+            <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 20 }}>
+                Add Contra Variable Expense
+                <IconButton onClick={handleCloseContra}>
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+
+
+
             <hr style={{ opacity: '0.2' }} />
             <form onSubmit={formikContraExpense.handleSubmit}>
                 <DialogContent>
@@ -120,19 +130,24 @@ const Contra = ({ open, handleClose, handleSubmit }) => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <FormControl fullWidth margin="normal">
-                        <InputLabel>Metric Allocation</InputLabel>
-                        <Select
-                            label="Metric Allocation"
-                            {...formikContraExpense.getFieldProps('metricAllocation')}
-                        >
-                            <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
-                            <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
-                        </Select>
-                        {formikContraExpense.touched.metricAllocation && formikContraExpense.errors.metricAllocation ? (
-                            <div style={{ color: 'red' }}>{formikContraExpense.errors.metricAllocation}</div>
-                        ) : null}
-                    </FormControl>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <FormControl fullWidth margin="normal">
+                                <InputLabel>Metric Allocation</InputLabel>
+                                <Select
+                                    label="Metric Allocation"
+                                    {...formikContraExpense.getFieldProps('metricAllocation')}
+                                >
+                                    <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
+                                    <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
+                                </Select>
+                                {formikContraExpense.touched.metricAllocation && formikContraExpense.errors.metricAllocation ? (
+                                    <div style={{ color: 'red' }}>{formikContraExpense.errors.metricAllocation}</div>
+                                ) : null}
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+
                     <TextField
                         fullWidth
                         margin="normal"
@@ -181,14 +196,16 @@ const Contra = ({ open, handleClose, handleSubmit }) => {
 
                 </DialogContent>
                 <DialogActions sx={{ padding: 3 }}>
-                    <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
-                        Save and Add Another
-                    </Button>
                     {/* <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
-                        Save and Done
+                        Save and Add Another
                     </Button> */}
-                    <Button onClick={handleClose} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-                        Cancel
+                    <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
+                        Save and Done
+                    </Button>
+                    <Button onClick={() => {
+                        formikContraExpense.resetForm();
+                    }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
+                        Cancel 
                     </Button>
                 </DialogActions>
             </form>

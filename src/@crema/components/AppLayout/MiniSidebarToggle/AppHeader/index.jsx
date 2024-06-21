@@ -53,7 +53,7 @@ const AppHeader = (props,sidebarTextColor) => {
           paddingRight: { xs: 5, md: 7.5 },
         }}
       >
-        <Hidden lgDown>
+         <Hidden lgDown>
           <IconButton
             sx={{ color: "text.secondary" }}
             edge="start"
@@ -97,7 +97,7 @@ const AppHeader = (props,sidebarTextColor) => {
           }}
         >
           <AppLogo />
-        </Box>
+        </Box> 
 
         <Box
           sx={{
