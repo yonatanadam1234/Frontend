@@ -10,6 +10,7 @@ const TableHeading = ({ displayProductCost }) => {
     <TableRow>
       <TableCell>Amazon Order Id</TableCell>
       <TableCell>Customer Name</TableCell>
+      <TableCell>Customer Address</TableCell>
       {displayProductCost && <TableCell>Product Cost</TableCell>}
       <TableCell>Purchase Date</TableCell>
       <TableCell>Last Updated Date</TableCell>
@@ -46,13 +47,13 @@ const TableHeading = ({ displayProductCost }) => {
           backgroundColor: "#cee8f8",
         }}
       >
-        Con.Profit
+        Total Profit
       </TableCell>
-      <TableCell
+      <TableCell  
         align="left"
         style={{
           position: "sticky",
-          right: 45,
+          right: 44,
           zIndex: 2,
           width: "50px",
           backgroundColor: "#cee8f8",

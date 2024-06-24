@@ -5,14 +5,19 @@ import * as yup from 'yup';
 import PersonalInfoForm from './PersonalInfoForm';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-
+import { useAuthMethod } from '../../../../@crema/hooks/AuthHooks';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 const validationSchema = yup.object({
   email: yup.string().email('Invalid email format').required('Required'),
 });
 const PersonalInfo = () => {
   const { user } = useAuthUser();
+  const { HandleChangeUserInfo } = useAuthMethod();
 
   return (
+    <>
+    <ToastContainer/>
     <Box
       sx={{
         position: 'relative',
@@ -30,8 +35,7 @@ const PersonalInfo = () => {
         validationSchema={validationSchema}
         onSubmit={(data, { setSubmitting }) => {
           setSubmitting(true);
-          console.log('data: ', data);
-          //TODO Api Call here to save user info
+          HandleChangeUserInfo(data)  
           setSubmitting(false);
         }}
       >
@@ -42,6 +46,7 @@ const PersonalInfo = () => {
         }}
       </Formik>
     </Box>
+    </>
   );
 };
 

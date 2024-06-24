@@ -26,7 +26,7 @@ const PricingFaq = ({ pricingFaq }) => {
           Support
         </Box>
         <Typography variant='h2' sx={{ my: 2, fontSize: 36 }}>
-          FAQs
+        Frequently Asked Questions
         </Typography>
         <Typography
           variant='body1'

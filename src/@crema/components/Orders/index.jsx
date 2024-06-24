@@ -117,21 +117,15 @@ const Orders = () => {
     <>
       <Box display="flex" alignItems="center">
         <InputLabel id="demo-simple-select-label" style={{ color: "#000" }}>
-          <Typography
-            display="block"
-            style={{ paddingBottom: "30px", fontSize: "20px" }}
-          >
-            Recent Orders:
-          </Typography>
           Select Platforms : &nbsp;
-        </InputLabel>
-
+        </InputLabel> 
         <Select
           value={selectedPlatform}
           onChange={(event) => setSelectedPlatform(event.target.value)}
           displayEmpty
-          style={{ minWidth: "300px", height: "40px", marginTop: "55px" }}
+          style={{ minWidth: "300px", height: "40px"}}
         >
+          
           <MenuItem value="Amazon" selected>
             Amazon
           </MenuItem>

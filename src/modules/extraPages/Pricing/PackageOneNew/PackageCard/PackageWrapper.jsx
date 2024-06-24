@@ -16,7 +16,7 @@ const PackageWrapper = ({ children, ...rest }) => {
           zIndex: 1,
           padding: '2px 5px',
           minWidth: 70,
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: Fonts.BOLD,
           textTransform: 'uppercase',
           color: (theme) => theme.palette.common.white,

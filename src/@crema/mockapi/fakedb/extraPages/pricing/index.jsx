@@ -111,65 +111,34 @@ export const pricingData = {
       btnText: "Try Now",
       price: 0,
       yearlyprice: 0,
-      annualplan:'Annual Plan',
-      monthplan:'Monthly Plan',
-      order: " Up to 200 Orders",
+      annualplan: 'Annual Plan',
+      monthplan: 'Monthly Plan',
+      order: "Up to 200 Orders",
       shop: "2 Shop",
-      Ofee: "Extra Order fee : $0.3 per order",
+      Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
-          title: "Free Plan Included :",
+          title: "Free Plan Included:",
           allData: [
-            {
-              id: 1,
-              title: "Live Profit Monitoring Dashboard",
-            },
-            {
-              id: 2,
-              title: "Daily Earnings Summary Email",
-            },
-            {
-              id: 3,
-              title: "Data refresh 2 times a day",
-            },
-            {
-              id: 4,
-              title: "Analytics for Orders & Products",
-            },
-            {
-              id: 5,
-              title: "Enhanced Expense Management",
-            },
-            {
-              id: 6,
-              title: "Unlimited Account Access",
-            },
+            { id: 1, title: "Live Profit Monitoring Dashboard" },
+            { id: 2, title: "Daily Earnings Summary Email" },
+            { id: 3, title: "Data refresh 2 times a day" },
+            { id: 4, title: "Analytics for Orders & Products" },
+            { id: 5, title: "Enhanced Expense Management" },
+            { id: 6, title: "Unlimited Account Access" },
           ],
         },
         {
-          title: "Comprehensive Analytics Suite :",
+          title: "Comprehensive Analytics Suite:",
           allData: [
-            {
-              id: 7,
-              title: "Shipping",
-            },
-            {
-              id: 8,
-              title: "Discount",
-            },
-            {
-              id: 9,
-              title: "Product",
-            },
-            {
-              id: 10,
-              title: "Returns",
-            },
+            { id: 7, title: "Shipping" },
+            { id: 8, title: "Discount" },
+            { id: 9, title: "Product" },
+            { id: 10, title: "Returns" },
           ],
         },
       ],
     },
-
     {
       id: 1,
       tag: "Basic",
@@ -178,75 +147,38 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 29,
       yearlyprice: 310,
-      annualplan:'Annual Plan',
-      monthplan:'Monthly Plan',
-      productId: "pro_01hzexrm11ve9tey0y6ccer6cg", // Basic Plan Product ID
-      order: " Up to 600 Orders",
+      monthlyPriceId: "pri_01hzey153328nc96wa7xcpja1t",
+      yearlyPriceId: "pri_01hzey22rjs4jsqb357drc7nnf",
+      annualplan: 'Annual Plan',
+      monthplan: 'Monthly Plan',
+      order: "Up to 600 Orders",
       shop: "2 Shop",
-      Ofee: "Extra Order fee : $0.3 per order",
+      Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
-          title: "Basic Plan Included  :",
+          title: "Basic Plan Included:",
           allData: [
-            {
-              id: 1,
-              title: "Free Data Refresh",
-            },
-            {
-              id: 2,
-              title: "Detailed Earnings Insights",
-            },
-            {
-              id: 3,
-              title: "Tailored Platform Options",
-            },
-            {
-              id: 4,
-              title: "Sophisticated Earnings Filters",
-            },
-            {
-              id: 5,
-              title: "Marketing Performance Analytics",
-            },
-            {
-              id: 6,
-              title: "One-Year Data Retention",
-            },
-            {
-              id: 7,
-              title: "Data Retention for 6 month",
-            },
+            { id: 1, title: "Free Data Refresh" },
+            { id: 2, title: "Detailed Earnings Insights" },
+            { id: 3, title: "Tailored Platform Options" },
+            { id: 4, title: "Sophisticated Earnings Filters" },
+            { id: 5, title: "Marketing Performance Analytics" },
+            { id: 6, title: "One-Year Data Retention" },
+            { id: 7, title: "Data Retention for 6 month" },
           ],
         },
         {
-          title: "Comprehensive Analytics Suite :",
+          title: "Comprehensive Analytics Suite:",
           allData: [
-            {
-              id: 8,
-              title: "Shipping",
-            },
-            {
-              id: 9,
-              title: "Discount",
-            },
-            {
-              id: 10,
-              title: "Product",
-            },
-            {
-              id: 12,
-              title: "Inventory",
-            },
-
-            {
-              id: 13,
-              title: "Returns",
-            },
+            { id: 8, title: "Shipping" },
+            { id: 9, title: "Discount" },
+            { id: 10, title: "Product" },
+            { id: 12, title: "Inventory" },
+            { id: 13, title: "Returns" },
           ],
         },
       ],
     },
-
     {
       id: 2,
       tag: "Pro",
@@ -255,83 +187,40 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 49,
       yearlyprice: 520,
-      annualplan:'Annual Plan',
-      monthplan:'Monthly Plan',
-      productId: "pro_01hzexsjwknykwdje8p596zz8b", // Pro Plan Product ID
+      monthlyPriceId: "pri_01hzey2t6yyvpc1148620mft19",
+      yearlyPriceId: "pri_01hzey3gxntw4ck5wgvhdx6bkx",
+      annualplan: 'Annual Plan',
+      monthplan: 'Monthly Plan',
       popular: "Most popular!",
-      order: " Up to 1200 Orders",
-      Ofee: "Extra Order fee : $0.1 per order",
+      order: "Up to 1200 Orders",
+      Ofee: "Extra Order fee: $0.1 per order",
       pricingList: [
         {
-          title: "Pro Plan Included  :",
+          title: "Pro Plan Included:",
           allData: [
-            {
-              id: 1,
-              title: "One Demand Data Refresh",
-            },
-            {
-              id: 2,
-              title: "Detailed Earnings Insights",
-            },
-            {
-              id: 3,
-              title: "Tailored Platform Options",
-            },
-            {
-              id: 4,
-              title: "Sophisticated Earnings Filters",
-            },
-            {
-              id: 5,
-              title: "Marketing Performance Analytics",
-            },
-            {
-              id: 6,
-              title: "Two-Year Data Retention",
-            },
-            {
-              id: 7,
-              title: "Data Retention for 6 month",
-            },
+            { id: 1, title: "One Demand Data Refresh" },
+            { id: 2, title: "Detailed Earnings Insights" },
+            { id: 3, title: "Tailored Platform Options" },
+            { id: 4, title: "Sophisticated Earnings Filters" },
+            { id: 5, title: "Marketing Performance Analytics" },
+            { id: 6, title: "Two-Year Data Retention" },
+            { id: 7, title: "Data Retention for 6 month" },
           ],
         },
         {
-          title: "Comprehensive Analytics Suite :",
+          title: "Comprehensive Analytics Suite:",
           allData: [
-            {
-              id: 8,
-              title: "Shipping",
-            },
-            {
-              id: 9,
-              title: "Discount",
-            },
-            {
-              id: 10,
-              title: "Product",
-            },
-            {
-              id: 12,
-              title: "Inventory",
-            },
-
-            {
-              id: 13,
-              title: "Returns",
-            },
-            {
-              id: 14,
-              title: "Processings",
-            },
-            {
-              id: 15,
-              title: "Gateways",
-            },
+            { id: 8, title: "Shipping" },
+            { id: 9, title: "Discount" },
+            { id: 10, title: "Product" },
+            { id: 12, title: "Inventory" },
+            { id: 13, title: "Returns" },
+            { id: 14, title: "Processings" },
+            { id: 15, title: "Gateways" },
           ],
         },
       ],
     },
-
     {
       id: 3,
       tag: "Premium",
@@ -340,101 +229,41 @@ export const pricingData = {
       btnText: "Buy Now",
       price: 69,
       yearlyprice: 730,
-      annualplan:'Annual Plan',
-      monthplan:'Monthly Plan',
-      productId: "pro_01hzexv1q0kksfqzk2cd07d911", // Premium Plan Product ID
-      order: " Unlimited Orders",
-      Ofee: "Extra Order fee : No extra order fee",
+      monthlyPriceId: "pri_01hzey4cb2r0gzts3y1n3kc5xr",
+      yearlyPriceId: "pri_01hzey58skrkf53ybt98s3j6y4",
+      annualplan: 'Annual Plan',
+      monthplan: 'Monthly Plan',
+      order: "Unlimited Orders",
+      Ofee: "Extra Order fee: No extra order fee",
       pricingList: [
         {
-          title: "Premium Plan Included   :",
+          title: "Premium Plan Included:",
           allData: [
-            {
-              id: 1,
-              title: "Premium Plan Enhancements",
-            },
-            {
-              id: 2,
-              title: "Unlimited Data History",
-            },
-            {
-              id: 3,
-              title: "Tailored Metrics and Reports",
-            },
-            {
-              id: 4,
-              title: "Automated Workspace Reporting",
-            },
-            {
-              id: 5,
-              title: "Custom Integrations and API Access",
-            },
-            {
-              id: 6,
-              title: "Industry Benchmark Reporting",
-            },
-            {
-              id: 7,
-              title: "Comprehensive Multi-Shop Analytics",
-            },
-            {
-              id: 8,
-              title: "Centralized Shop Reporting",
-            },
-            {
-              id: 9,
-              title: "Unified Marketplace, Brand, andShop Analysis",
-            },
-            {
-              id: 10,
-              title: "Access to Single or Multiple Store Data",
-            },
-            {
-              id: 11,
-              title: "Shop Comparison Tools",
-            },
-            {
-              id: 12,
-              title: "Geo-Location Profit Analysis",
-            },
-            {
-              id: 13,
-              title: "Forecasted Expense Modeling",
-            },
+            { id: 1, title: "Premium Plan Enhancements" },
+            { id: 2, title: "Unlimited Data History" },
+            { id: 3, title: "Tailored Metrics and Reports" },
+            { id: 4, title: "Automated Workspace Reporting" },
+            { id: 5, title: "Custom Integrations and API Access" },
+            { id: 6, title: "Industry Benchmark Reporting" },
+            { id: 7, title: "Comprehensive Multi-Shop Analytics" },
+            { id: 8, title: "Centralized Shop Reporting" },
+            { id: 9, title: "Unified Marketplace, Brand, and Shop Analysis" },
+            { id: 10, title: "Access to Single or Multiple Store Data" },
+            { id: 11, title: "Shop Comparison Tools" },
+            { id: 12, title: "Geo-Location Profit Analysis" },
+            { id: 13, title: "Forecasted Expense Modeling" },
           ],
         },
         {
-          title: "Comprehensive Analytics Suite :",
+          title: "Comprehensive Analytics Suite:",
           allData: [
-            {
-              id: 14,
-              title: "Shipping",
-            },
-            {
-              id: 15,
-              title: "Discount",
-            },
-            {
-              id: 16,
-              title: "Product",
-            },
-            {
-              id: 17,
-              title: "Inventory",
-            },
-
-            {
-              id: 18,
-              title: "Returns",
-            },
-            {
-              id: 19,
-              title: "Processings",
-            },
-            {
-              id: 20,
-              title: "Gateways",
-            },
+            { id: 14, title: "Shipping" },
+            { id: 15, title: "Discount" },
+            { id: 16, title: "Product" },
+            { id: 17, title: "Inventory" },
+            { id: 18, title: "Returns" },
+            { id: 19, title: "Processings" },
+            { id: 20, title: "Gateways" },
           ],
         },
       ],

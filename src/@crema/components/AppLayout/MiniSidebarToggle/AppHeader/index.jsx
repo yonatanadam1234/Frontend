@@ -110,7 +110,7 @@ const AppHeader = (props,sidebarTextColor) => {
             },
           }}
         >
-          {/* <AppSearchBar iconPosition="right" placeholder="Search…" /> */}
+          <AppSearchBar iconPosition="right" placeholder="Search…" />
         </Box>
         <Box
           sx={{

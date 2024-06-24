@@ -11,12 +11,16 @@ import { Typography } from "@mui/material";
 import { useAuthUser } from "../../../hooks/AuthHooks";
 import { getEbayOrderData } from "../orders.service";
 import { getShopData } from "../../Shops/services/shop.service";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import noDataImage from '../../../../../public/assets/icon/no_data_found.jpg';
 
 const EbayOrderTabel = ({ displayProductCost }) => {
   const { user } = useAuthUser();
   const [verificationState, setVerificationState] = useState(null);
   const [ebayOrderData, setEbayOrderData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [nodata, setnodata] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
@@ -31,13 +35,13 @@ const EbayOrderTabel = ({ displayProductCost }) => {
         if (ebayShops.length > 0) {
           setVerificationState(ebayShops[0].seller_info.verification_state);
         } else {
-          console.error("No eBay shops found");
+          toast.error("No eBay shops found");
         }
       } else {
-        console.error("Error:", response.data ? response.data.message : "No data");
+        toast.error("Error:", response.data ? response.data.message : "No data");
       }
     } catch (error) {
-      console.error("Error fetching shop data:", error);
+      toast.error("Error fetching shop data:", error);
     }
   }, [user.id]);
 
@@ -59,14 +63,18 @@ const EbayOrderTabel = ({ displayProductCost }) => {
         };
         const response = await getEbayOrderData(obj);
         if (response) {
-          setEbayOrderData(response.data);
-          setLoading(false); 
-
+          if (response.data.length > 0) {
+            setEbayOrderData(response.data);
+            setLoading(false);
+          } else {
+            setnodata(true);
+            setLoading(false);
+          }
         } else {
-          console.error("Error: No data received");
+          toast.warning("Error: No data received");
         }
       } catch (error) {
-        console.error("Error fetching ebay order data:", error);
+        toast.error("Error fetching ebay order data:", error);
         setLoading(false);
       }
     };
@@ -76,6 +84,8 @@ const EbayOrderTabel = ({ displayProductCost }) => {
 
   return (
     <>
+      <ToastContainer />
+
       {" "}
       <Typography
         display="block"
@@ -91,7 +101,7 @@ const EbayOrderTabel = ({ displayProductCost }) => {
       <AppTableContainer>
         {loading ? (
           <AppLoader />
-        ) : (
+        ) : ebayOrderData.data && ebayOrderData.data.length > 0 ? (
           <Table stickyHeader className='table'>
             <TableHead>
               <TableHeading displayProductCost={displayProductCost} />
@@ -102,21 +112,16 @@ const EbayOrderTabel = ({ displayProductCost }) => {
                 <TableItem data={data} key={data.order_id} displayProductCost={displayProductCost} />
               ))}
             </TableBody>
-
           </Table>
+        ) : (
+          <div style={{ textAlign: 'center' }}>
+            <img src={noDataImage} alt="No data available" style={{ width: '100%', height: '500px', objectFit: 'contain', padding: '50px' }} />
+            <Typography variant="h2" sx={{ marginBottom: '50px' }}>No Result Found</Typography>
+          </div>
         )}
-      </AppTableContainer>{" "}
+      </AppTableContainer>
     </>
   );
 };
 
 export default EbayOrderTabel;
-
-// EbayOrderTabel.defaultProps = {
-//   orderData: [],
-// };
-
-EbayOrderTabel.propTypes = {
-  orderData: PropTypes.array,
-  loading: PropTypes.bool,
-};

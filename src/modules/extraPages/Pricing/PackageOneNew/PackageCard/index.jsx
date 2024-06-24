@@ -8,35 +8,40 @@ import PackageWrapper from "./PackageWrapper";
 import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 
+// Initialize Paddle with your environment and token
+Paddle.Environment.set("sandbox");
+Paddle.Setup({
+  // vendor: 193862, // replace with your vendor ID if needed
+  token: 'live_1bc6cf442aa74adbab7ffae494d' // replace with your actual token
+});
+
 const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
+  const openCheckout = (priceId) => {
+    const items = [
+      {
+        priceId: priceId,
+        quantity: 1
+      }
+    ];
 
-
-  Paddle.Environment.set("sandbox");
-  Paddle.Initialize({
-    token: "live_1bc6cf442aa74adbab7ffae494d" // replace with a client-side token
-  });
-  
-  // define items
-  let itemsList = [
-    {
-      priceId: "pri_01gsz8ntc6z7npqqp6j4ys0w1w",
-      quantity: 5
-    },
-    {
-      priceId: "pri_01h1vjfevh5etwq3rb416a23h2",
-      quantity: 1
-    }
-  ];
-  
-  // define customer details
-
-  // open checkout
-  function openCheckout(items, customer){
     Paddle.Checkout.open({
       items: items,
-      customer: customer
+      successCallback: (data) => {
+        console.log('Checkout completed successfully!', data);
+      },
+      closeCallback: () => {
+        console.log('Checkout closed');
+      },
+      errorCallback: (error) => {
+        console.error('Checkout error', error);
+      }
     });
-  }
+  };
+
+  const handleButtonClick = () => {
+    const priceId = billingFormat === "month" ? pricing.monthlyPriceId : pricing.yearlyPriceId;
+    openCheckout(priceId);
+  };
 
   return (
     <PackageWrapper>
@@ -76,7 +81,7 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
               component="span"
               sx={{
                 fontWeight: Fonts.BOLD,
-              }}
+              }}                      
             >
               ${currentPricing}
             </Box>
@@ -153,7 +158,7 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
                 borderWidth: 2,
               },
             }}
-            onClick={() => openCheckout(itemsList)}
+            onClick={handleButtonClick}
           >
             {pricing.btnText}
           </Button>

@@ -29,7 +29,7 @@ const InfoForm = () => {
     const token = localStorage.getItem('token');
 
     jwtAxios
-      .get(`auth/${token}`).then((data) => {
+      .get(`auth/auth/${token}`).then((data) => {
         setJWTAuthData({
           user: data.data.user,
           isLoading: false,
@@ -78,7 +78,7 @@ const InfoForm = () => {
                 type='submit'
                 onClick={handleupgrade}
               >
-                Upgrade Plan ??
+                Upgrade Plan
               </Button>
 
             </Box>

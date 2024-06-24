@@ -56,6 +56,7 @@ const ChangePassword = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting, resetForm }) => {
+            console.log("🚀 ~ ChangePassword ~ data:", data)
             setSubmitting(true);
             HandleChangePassword(data)
             setSubmitting(false);

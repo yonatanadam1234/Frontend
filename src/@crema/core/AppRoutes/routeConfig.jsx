@@ -49,6 +49,11 @@ import { MdDashboard } from "react-icons/md";
 import { MdSettingsSuggest } from "react-icons/md";
 import { LuBoxes } from "react-icons/lu";
 import { GiExpense } from "react-icons/gi";
+import { TbShoppingCartCheck } from "react-icons/tb";
+import { FaListCheck } from "react-icons/fa6";
+import { PiPlugsConnectedThin } from "react-icons/pi";
+import { MdChecklist } from "react-icons/md";
+
 const routesConfig = [
 
       {
@@ -66,7 +71,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.order",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <LuBoxes />,
+        icon: <TbShoppingCartCheck />,
         url: "/dashboards/order",
       },
       {
@@ -75,7 +80,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.Productlisting",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <MdOutlineChecklist />,
+        icon: <MdChecklist />,
         url: "/dashboards/inventory",
       },
       {
@@ -84,7 +89,7 @@ const routesConfig = [
         messageId: "sidebar.app.dashboard.shops",
         type: "item",
         permittedRole: [RoutePermittedRole.Admin, RoutePermittedRole.User],
-        icon: <MdOutlineSettingsInputComponent  />,
+        icon: <PiPlugsConnectedThin  />,
         url: "/shops",
       },
 

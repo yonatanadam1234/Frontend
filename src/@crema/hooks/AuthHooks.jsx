@@ -22,7 +22,7 @@ export const useAuthMethod = () => {
     logInWithPopup,
     logout,
   } = useJWTAuthActions();
-  
+
   const navigate = useNavigate();
 
   const handleSignup = (data) => {
@@ -91,6 +91,7 @@ export const useAuthMethod = () => {
         email: localStorage.getItem('email'),
         password: password.password
       }
+      
       jwtAxios.post('auth/updatePassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
@@ -126,6 +127,33 @@ export const useAuthMethod = () => {
       console.log(err);
     }
   }
+
+  const HandleChangeUserInfo = async (data) => {
+    try {
+      const newUserdata = {
+        email: data.email,
+        name: data.displayName,
+        image:data.photoURL,
+        lastname:data.username
+      }
+      const res = await jwtAxios.put('auth/edit/user', newUserdata, {
+      });
+      if (res.status === 200) {
+        toast.success(res.data.message);
+      } else {
+        toast.error('Unexpected status code: ' + res.status);
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+        console.log('API error response:', error.response);
+      } else {
+        toast.error('An unexpected error occurred');
+      }
+      console.log('Error:', error);
+    }
+  };
+  
   const handleVerifyOtp = (otp) => {
     verifyUser({ email: localStorage.getItem("email"), otp: otp })
   }
@@ -136,8 +164,10 @@ export const useAuthMethod = () => {
     VerifyforgetpasswordOTP,
     updatePassword,
     HandleChangePassword,
+    HandleChangeUserInfo,
     logInWithEmailAndPassword,
     logInWithPopup,
     logout,
+
   };
 };

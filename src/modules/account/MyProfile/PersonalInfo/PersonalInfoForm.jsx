@@ -49,7 +49,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: (acceptedFiles) => {
-      setFieldValue('photoURL', URL.createObjectURL(acceptedFiles[0]));
+      setFieldValue('photoURL', acceptedFiles[0]);
     },
   });
 

@@ -19,7 +19,7 @@ import AppLogo from "../../components/AppLogo";
 import UserInfo from "../../components/UserInfo";
 import { allowMultiLanguage } from "../../../../constants/AppConst";
 
-const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
+const AppHeader = ({ isCollapsed, setCollapsed, toggleNavCollapsed }) => {
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -52,10 +52,17 @@ const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
           paddingRight: { xs: 2.5, md: 5 },
         }}
       >
+        <Box
+          sx={{
+            "& .logo-text": {
+              display: { xs: "none", sm: "block",},
+            },
+          }}
+        >
+          <AppLogo />
+        </Box>
 
-
-
-         <Hidden lgDown>
+        <Hidden lgDown>
           <IconButton
             sx={{ color: "text.secondary" }}
             edge="start"
@@ -73,9 +80,6 @@ const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
             />
           </IconButton>
         </Hidden>
-
-
-
 
         <Hidden lgUp>
           <IconButton
@@ -95,17 +99,8 @@ const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
             />
           </IconButton>
         </Hidden>
-        <Box
-          sx={{
-            "& .logo-text": {
-              display: { xs: "none", sm: "block" },
-            },
-          }}
-        >
-          <AppLogo />
-        </Box>
 
-        <Box
+        {/* <Box
           sx={{
             minHeight: 40,
             position: "relative",
@@ -116,9 +111,9 @@ const AppHeader = ({ isCollapsed, setCollapsed,toggleNavCollapsed }) => {
               top: { xs: 0, sm: "auto" },
             },
           }}
-        >
+        > */}
           {/* <AppSearchBar iconPosition="right" placeholder="Search…" /> */}
-        </Box>
+        {/* </Box> */}
         <Box
           sx={{
             flexGrow: 1,

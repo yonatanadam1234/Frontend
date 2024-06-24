@@ -9,6 +9,7 @@ const TableHeading = ({ displayProductCost }) => {
     <TableRow>
       <TableCell>Ebay Order Id</TableCell>
       <TableCell>Customer Name</TableCell>
+      <TableCell>Customer Address</TableCell>
       {displayProductCost && <TableCell>Product Cost</TableCell>}
       <TableCell>Purchase Date</TableCell>
       <TableCell>Last Updated Date</TableCell>
@@ -50,7 +51,7 @@ const TableHeading = ({ displayProductCost }) => {
         align="left"
         style={{
           position: "sticky",
-          right: 60,
+          right: 44,
           zIndex: 2,
           width: "50px",
           backgroundColor: "#cee8f8",

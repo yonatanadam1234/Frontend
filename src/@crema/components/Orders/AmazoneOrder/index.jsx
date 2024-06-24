@@ -4,7 +4,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import PropTypes from 'prop-types';
 import TableHeading from './TableHeading';
-import TableItem from './TableItem';  
+import TableItem from './TableItem';
 import AppTableContainer from '@crema/components/AppTableContainer';
 import AppLoader from '@crema/components/AppLoader';
 import { Typography } from '@mui/material';
@@ -13,14 +13,14 @@ import { getAmazonOrderData } from '../orders.service';
 import { getShopData } from '../../Shops/services/shop.service';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import noDataImage from '../../../../../public/assets/icon/no_data_found.jpg';
 
 const AmazoneOrderTable = ({ displayProductCost }) => {
   const [verificationState, setVerificationState] = useState(null);
   const [AmazonOrderData, setAmazonOrderData] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const { user } = useAuthUser();
-
+  const check = [];
   const fetchData = useCallback(async () => {
     try {
       const response = await getShopData(user.id);
@@ -58,19 +58,17 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
         const response = await getAmazonOrderData(obj);
         if (response && response.data) {
           setAmazonOrderData(response.data);
-          setLoading(false);
         } else {
           toast.warning('No data received');
         }
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching order order data:', error);
         setLoading(false);
       }
     };
     fetchAmazonData();
-  }, [user.id, verificationState]); 
-
-
+  }, [user.id, verificationState]);
 
   return (
     <>
@@ -84,13 +82,12 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
           fontWeight: "2000",
         }}
       >
-        Amazone Orders
+        Amazon Orders
       </Typography>
       <AppTableContainer>
-
         {loading ? (
           <AppLoader />
-        ) : (
+        ) : AmazonOrderData.data && AmazonOrderData.data.length > 0 ? (
           <Table stickyHeader className="table">
             <TableHead>
               <TableHeading displayProductCost={displayProductCost} />
@@ -101,6 +98,11 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
               ))}
             </TableBody>
           </Table>
+        ) : (
+          <div style={{ textAlign: 'center' }}>
+            <img src={noDataImage} alt="No data available" style={{ width: '100%', height: '500px', objectFit: 'contain', padding: '50px' }} />
+            <Typography variant="h2" sx={{ marginBottom: '50px' }}>No Result Found</Typography>
+          </div>
         )}
       </AppTableContainer>
     </>
@@ -109,11 +111,6 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
 
 export default AmazoneOrderTable;
 
-// AmazoneOrderTable.defaultProps = {
-//   orderData: [],
-// };
-
 AmazoneOrderTable.propTypes = {
-  orderData: PropTypes.array,
-  loading: PropTypes.bool,
+  displayProductCost: PropTypes.bool,
 };

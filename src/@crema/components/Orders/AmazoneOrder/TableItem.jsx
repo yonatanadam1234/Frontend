@@ -68,6 +68,7 @@ const TableItem = ({ data, displayProductCost }) => {
           </Box>{" "}
         </TableCell>
         <TableCell>{data.customer_name}</TableCell>
+        <TableCell>{data.customer_address}</TableCell>
         {data.products.map((product, index) => (
           <>
             {displayProductCost && (

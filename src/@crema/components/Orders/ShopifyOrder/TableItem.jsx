@@ -65,6 +65,7 @@ const TableItem = ({ data, displayProductCost }) => {
         </Box>{" "}
       </TableCell>
       <TableCell>{data.customer_name}</TableCell>
+      <TableCell>{data.customer_address}</TableCell>
       {displayProductCost && (
         <TableCell>
           {isEditing ? (
