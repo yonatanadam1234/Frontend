@@ -224,9 +224,9 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                                     helperText={formik.touched.storefrontURL && formik.errors.storefrontURL}
                                 />
                             </>
-                         ) : (
+                        ) : (
                             <></>
-                        )} 
+                        )}
                         <TextField
                             select
                             margin="dense"

@@ -3,8 +3,11 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, I
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CloseIcon from "@mui/icons-material/Close";
-
-const Variable = ({ open, handleSubmit,handleCloseVariable }) => {
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuthUser } from '../../../hooks/AuthHooks';
+import { addVariableExpense } from '../services/expense.service';
+const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
   const validationSchema = Yup.object().shape({
     recurrence: Yup.string().required('Recurrence is required'),
     expenseStatus: Yup.string().required('Expense Status is required'),
@@ -15,6 +18,7 @@ const Variable = ({ open, handleSubmit,handleCloseVariable }) => {
     expenseAmount: Yup.number().required('Expense Amount is required'),
     firstPayment: Yup.date().required('First Payment is required'),
   });
+  const { user } = useAuthUser();
 
   const formikVariableExpense = useFormik({
     initialValues: {
@@ -30,9 +34,33 @@ const Variable = ({ open, handleSubmit,handleCloseVariable }) => {
     },
 
     validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      handleSubmit(values);
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const obj = {
+          user_id: user.id,
+          recurrence: values.recurrence,
+          status: values.expenseStatus === 'Active' ? '1' : '0',
+          expense_label: values.expenseLabel,
+          category: values.category,
+          calculated_per: values.calculatedPer,
+          metric_allocation: values.metricAllocation,
+          currency_amount: values.expenseAmount,
+          currency_icon: values.currency,
+          first_payment: values.firstPayment
+        }
+        const response = await addVariableExpense(obj)
+        if (response.data.success) {
+          toast.success("Variable Expense Created Succesfully!");
+          console.log('Response:', response.data);
+          handleSubmit(values);
+          resetForm();
+        }
+        else {
+          toast.error("Somthing is Wrong!!")
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
     },
   });
   const currencies = [
@@ -63,12 +91,13 @@ const Variable = ({ open, handleSubmit,handleCloseVariable }) => {
       </DialogTitle>
       <hr style={{ opacity: '0.2' }} />
       <form onSubmit={formikVariableExpense.handleSubmit}>
+
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <FormControl fullWidth margin="normal">
                 <InputLabel>Recurrence</InputLabel>
-                <Select label="Recurrence" {...formikVariableExpense.getFieldProps('recurrence')}>
+                <Select label="Recurrence"  {...formikVariableExpense.getFieldProps('recurrence')}>
                   <MenuItem value={'Daily'}>Daily</MenuItem>
                   <MenuItem value={'Weekly'}>Weekly</MenuItem>
                   <MenuItem value={'Monthly'}>Monthly</MenuItem>
@@ -209,10 +238,10 @@ const Variable = ({ open, handleSubmit,handleCloseVariable }) => {
           <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
             Save and Done
           </Button>
-           <Button onClick={() => {
-            formikVariableExpense.resetForm();  
+          <Button onClick={() => {
+            formikVariableExpense.resetForm();
           }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-            Cancel 
+            Cancel
           </Button>
         </DialogActions>
       </form>

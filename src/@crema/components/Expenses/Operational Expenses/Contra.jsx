@@ -3,23 +3,29 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, I
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CloseIcon from "@mui/icons-material/Close";
-
+import { useAuthUser } from '../../../hooks/AuthHooks';
+import { addContraExpense } from '../services/expense.service';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Contra = ({ open, handleSubmit, handleCloseContra }) => {
     const validationSchema = Yup.object().shape({
         recurrence: Yup.string().required('Recurrence is required'),
         expenseStatus: Yup.string().required('Expense Status is required'),
         expenseLabel: Yup.string().required('Expense Label is required'),
+        calculatedPer: Yup.string().required('Calculated Per is required'),
         category: Yup.string().required('Category is required'),
         metricAllocation: Yup.string().required('Metric Allocation is required'),
         expenseAmount: Yup.number().required('Expense Amount is required'),
         firstPayment: Yup.date().required('First Payment is required'),
     });
 
+    const { user } = useAuthUser();
     const formikContraExpense = useFormik({
         initialValues: {
             recurrence: '',
             expenseStatus: '',
             expenseLabel: '',
+            calculatedPer: '',
             category: '',
             metricAllocation: '',
             expenseAmount: '',
@@ -27,12 +33,35 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
             firstPayment: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values, { resetForm }) => {
-            handleSubmit(values);
-            resetForm();
-        },
-    });
-
+        onSubmit: async (values, { resetForm }) => {
+            try {
+              const obj = {
+                user_id: user.id,
+                recurrence: values.recurrence,
+                status: values.expenseStatus === 'Active' ? '1' : '0',
+                expense_label: values.expenseLabel,
+                category: values.category,
+                calculated_per: values.calculatedPer,
+                metric_allocation: values.metricAllocation,
+                currency_amount: values.expenseAmount,
+                currency_icon: values.currency,
+                first_payment: values.firstPayment
+              }
+              const response = await addContraExpense(obj)
+              if (response.data.success) {
+                toast.success("Contra Expense Created Succesfully!");
+                console.log('Response:', response.data);
+                handleSubmit(values);
+                resetForm();
+              }
+              else {
+                toast.error("Somthing is Wrong!!")
+              }
+            } catch (error) {
+              console.error('Error submitting form:', error);
+            }
+          },
+        });
     const currencies = [
         {
             value: "USD",
@@ -114,6 +143,21 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                             ) : null}
                         </Grid>
                         <Grid item xs={6}>
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Calculated Per"
+                                select
+                                {...formikContraExpense.getFieldProps('calculatedPer')}
+                            >
+                                <MenuItem value={"Order"}>Order</MenuItem>
+                                <MenuItem value={"Custom"}>Custom</MenuItem>
+                            </TextField>
+                            {formikContraExpense.touched.calculatedPer && formikContraExpense.errors.calculatedPer ? (
+                                <div style={{ color: 'red' }}>{formikContraExpense.errors.calculatedPer}</div>
+                            ) : null}
+                        </Grid>
+                        <Grid item xs={6}>
                             <FormControl fullWidth margin="normal">
                                 <InputLabel>Category</InputLabel>
                                 <Select
@@ -129,9 +173,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                 ) : null}
                             </FormControl>
                         </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <FormControl fullWidth margin="normal">
                                 <InputLabel>Metric Allocation</InputLabel>
                                 <Select
@@ -146,54 +188,57 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                 ) : null}
                             </FormControl>
                         </Grid>
+                        <Grid item xs={12}>
+
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Expense Amount"
+                                {...formikContraExpense.getFieldProps('expenseAmount')}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <TextField
+                                                style={{ padding: "0px 5px" }}
+                                                id="standard-select-currency"
+                                                select
+                                                label="Currency"
+                                                defaultValue="EUR"
+                                                variant="standard"
+                                                {...formikContraExpense.getFieldProps('currency')}
+                                            >
+                                                {currencies.map((option) => (
+                                                    <MenuItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            {formikContraExpense.touched.expenseAmount && formikContraExpense.errors.expenseAmount ? (
+                                <div style={{ color: 'red' }}>{formikContraExpense.errors.expenseAmount}</div>
+                            ) : null}
+                        </Grid>
+
+                        <Grid item xs={12}>
+
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="First Payment"
+                                type="date"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                {...formikContraExpense.getFieldProps('firstPayment')}
+                            />
+                            {formikContraExpense.touched.firstPayment && formikContraExpense.errors.firstPayment ? (
+                                <div style={{ color: 'red' }}>{formikContraExpense.errors.firstPayment}</div>
+                            ) : null}
+                        </Grid>
                     </Grid>
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Expense Amount"
-                        {...formikContraExpense.getFieldProps('expenseAmount')}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <TextField
-                                        style={{ padding: "0px 5px" }}
-                                        id="standard-select-currency"
-                                        select
-                                        label="Currency"
-                                        defaultValue="EUR"
-                                        variant="standard"
-                                        {...formikContraExpense.getFieldProps('currency')}
-                                    >
-                                        {currencies.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    {formikContraExpense.touched.expenseAmount && formikContraExpense.errors.expenseAmount ? (
-                        <div style={{ color: 'red' }}>{formikContraExpense.errors.expenseAmount}</div>
-                    ) : null}
-
-
-                    <TextField
-                        fullWidth
-                        margin="normal"
-                        label="First Payment"
-                        type="date"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        {...formikContraExpense.getFieldProps('firstPayment')}
-                    />
-                    {formikContraExpense.touched.firstPayment && formikContraExpense.errors.firstPayment ? (
-                        <div style={{ color: 'red' }}>{formikContraExpense.errors.firstPayment}</div>
-                    ) : null}
-
                 </DialogContent>
                 <DialogActions sx={{ padding: 3 }}>
                     {/* <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
@@ -205,7 +250,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                     <Button onClick={() => {
                         formikContraExpense.resetForm();
                     }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-                        Cancel 
+                        Cancel
                     </Button>
                 </DialogActions>
             </form>

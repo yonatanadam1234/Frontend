@@ -11,8 +11,8 @@ import { BiSolidShoppingBagAlt } from "react-icons/bi";
 // Initialize Paddle with your environment and token
 Paddle.Environment.set("sandbox");
 Paddle.Setup({
-  // vendor: 193862, // replace with your vendor ID if needed
-  token: 'live_1bc6cf442aa74adbab7ffae494d' // replace with your actual token
+  vendor: 193862, // replace with your vendor ID if needed
+  // token: 'live_1bc6cf442aa74adbab7ffae494d' // replace with your actual token
 });
 
 const PackageCard = ({ billingFormat, pricing, currentPricing }) => {

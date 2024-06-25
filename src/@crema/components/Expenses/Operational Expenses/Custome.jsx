@@ -4,8 +4,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from '@mui/system';
-
-const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) => {
+import axios from 'axios';
+import { useAuthUser } from '../../../hooks/AuthHooks';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { addCustomeExpense } from '../services/expense.service';
+const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup }) => {
   const validationSchema = Yup.object().shape({
     recurrence: Yup.string().required('Recurrence is required'),
     expenseStatus: Yup.string().required('Expense Status is required'),
@@ -15,6 +19,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
     expenseAmount: Yup.number().required('Expense Amount is required'),
     firstPayment: Yup.date().required('First Payment is required'),
   });
+  const { user } = useAuthUser();
 
   const formikCustomExpense = useFormik({
     initialValues: {
@@ -28,11 +33,35 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
       firstPayment: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      handleSubmit(values);
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const obj = {
+          user_id: user.id,
+          recurrence: values.recurrence,
+          status: values.expenseStatus === 'Active' ? '1' : '0',
+          expense_label: values.expenseLabel,
+          category: values.category,
+          metric_allocation: values.metricAllocation,
+          currency_amount: values.expenseAmount,
+          currency_icon: values.currency,
+          first_payment: values.firstPayment
+        }
+        const response = await addCustomeExpense(obj)
+        if (response.data.success) {
+          toast.success("Custome Expense Created Succesfully!");
+          console.log('Response:', response.data);
+          handleSubmit(values);
+          resetForm();
+        }
+        else {
+          toast.error("Somthing is Wrong!!")
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
     },
   });
+
   const currencies = [
     {
       value: "USD",
@@ -51,11 +80,15 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
       label: "¥",
     },
   ];
+
   return (
+    <>
+    <ToastContainer />
+
     <Dialog open={open} onClose={handleCloseCustome} fullWidth>
       <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 20 }}>
         Add Custome Expense
-        <IconButton onClick={handleCloseCustome}  >
+        <IconButton onClick={handleCloseCustome}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -100,7 +133,6 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
                 margin="normal"
                 label="Expense Label"
                 {...formikCustomExpense.getFieldProps('expenseLabel')}
-
               />
               {formikCustomExpense.touched.expenseLabel && formikCustomExpense.errors.expenseLabel ? (
                 <div style={{ color: 'red' }}>{formikCustomExpense.errors.expenseLabel}</div>
@@ -185,11 +217,6 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
           ) : null}
         </DialogContent>
         <DialogActions sx={{ padding: 3 }}>
-
-          
-          {/* <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
-            Save and Add Another
-          </Button> */}
           <Button
             type="submit"
             variant="contained"
@@ -206,6 +233,8 @@ const Custome = ({ open, handleSubmit, handleCloseCustome,setOpenCustomPopup }) 
         </DialogActions>
       </form>
     </Dialog>
+    </>
   );
 };
+
 export default Custome;
