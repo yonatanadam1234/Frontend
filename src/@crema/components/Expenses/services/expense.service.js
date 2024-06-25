@@ -1,3 +1,4 @@
+// services/expense.service.js
 import axios from 'axios';
 
 const apiBaseUrl = import.meta.env.VITE_API_LINK;
@@ -20,9 +21,12 @@ export const addVariableExpense = (data) => {
 };
 export const getCustomeExpenseData = (userId) => {
   return axiosInstance.get(`/expenses?user_id=${userId}`);
-};  
-export const deleteExpense = (userId) => {
-  return axiosInstance.get(`/expenses/${userId}`);
-};  
+};
+export const deleteExpense = (id) => {
+  return axiosInstance.delete(`/expenses/${id}`);
+};
+export const updateExpense = (id, data) => {
+  return axiosInstance.put(`/expenses/${id}`, data);
+};
 
 export default { apiBaseUrl };
