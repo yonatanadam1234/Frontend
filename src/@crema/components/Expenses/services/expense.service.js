@@ -25,6 +25,7 @@ export const getCustomeExpenseData = (userId) => {
 export const deleteExpense = (id) => {
   return axiosInstance.delete(`/expenses/${id}`);
 };
+
 export const updateExpense = (id, data) => {
   return axiosInstance.put(`/expenses/${id}`, data);
 };

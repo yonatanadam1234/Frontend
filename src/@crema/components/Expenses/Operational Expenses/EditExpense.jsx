@@ -2,25 +2,24 @@ import React from "react";
 import {
   Box,
   Button,
-  Drawer,
+  Dialog,
   TextField,
   Typography,
   Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 
 const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
   return (
-    <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box
-        sx={{ width: 500, padding: 3 }}
-        role="presentation"
-      >
-        <Typography variant="h3" gutterBottom>
+    <Dialog anchor="right" open={open} onClose={onClose}>
+      <Box sx={{ width: 500, padding: 6 }} role="presentation">
+        <Typography variant="h4" gutterBottom sx={{ mb: 5 }}>
           Edit Expense
         </Typography>
-        <hr/>
-        <hr/>
-        
+
         <form onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -29,39 +28,47 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                value={rowData.title}
-                onChange={(e) => onChange("title", e.target.value)}
+                value={rowData.expense_label}
+                onChange={(e) => onChange("expense_label", e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <TextField
                 label="Type"
                 variant="outlined"
                 fullWidth
                 margin="normal"
                 value={rowData.type}
-                onChange={(e) => onChange("type", e.target.value)}
+                disabled
               />
+            </Grid> */}
+            <Grid item xs={6}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Calculated Per</InputLabel>
+                <Select
+                  label="Calculated Per"
+                  variant="outlined"
+                  value={rowData.calculated_per}
+                  onChange={(e) => onChange("calculated_per", e.target.value)}
+                >
+                  <MenuItem value={"Order"}>Order</MenuItem>
+                  <MenuItem value={"Custom"}>Custom</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <TextField
-                label="Calculated Per"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={rowData.calculatedPer}
-                onChange={(e) => onChange("calculatedPer", e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Status"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                value={rowData.status}
-                onChange={(e) => onChange("status", e.target.value)}
-              />
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Status</InputLabel>
+                <Select
+                  label="Status"
+                  variant="outlined"
+                  value={rowData.status}
+                  onChange={(e) => onChange("status", e.target.value)}
+                >
+                  <MenuItem value={"Active"}>Active</MenuItem>
+                  <MenuItem value={"Inactive"}>Inactive</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={6}>
               <TextField
@@ -69,8 +76,8 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                value={rowData.amount}
-                onChange={(e) => onChange("amount", e.target.value)}
+                value={rowData.currency_amount}
+                onChange={(e) => onChange("currency_amount", e.target.value)}
               />
             </Grid>
             <Grid item xs={6}>
@@ -79,20 +86,24 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                value={rowData.firstPaymentDate}
-                onChange={(e) => onChange("firstPaymentDate", e.target.value)}
+                type="date"
+                InputLabelProps={{ shrink: true }}
+                value={rowData.first_payment}
+                onChange={(e) => onChange("first_payment", e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <TextField
                 label="Final Payment Date"
                 variant="outlined"
                 fullWidth
                 margin="normal"
+                type="date"
+                InputLabelProps={{ shrink: true }}
                 value={rowData.finalPaymentDate}
                 onChange={(e) => onChange("finalPaymentDate", e.target.value)}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Box
             sx={{
@@ -111,7 +122,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
           </Box>
         </form>
       </Box>
-    </Drawer>
+    </Dialog>
   );
 };
 

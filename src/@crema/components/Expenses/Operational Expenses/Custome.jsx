@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box } from '@mui/system';
 import axios from 'axios';
 import { useAuthUser } from '../../../hooks/AuthHooks';
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { addCustomeExpense } from '../services/expense.service';
 const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup }) => {
@@ -14,6 +14,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
     recurrence: Yup.string().required('Recurrence is required'),
     expenseStatus: Yup.string().required('Expense Status is required'),
     expenseLabel: Yup.string().required('Expense Label is required'),
+    calculatedPer: Yup.string().required('Calculated Per is required'),
     category: Yup.string().required('Category is required'),
     metricAllocation: Yup.string().required('Metric Allocation is required'),
     expenseAmount: Yup.number().required('Expense Amount is required'),
@@ -26,10 +27,11 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
       recurrence: '',
       expenseStatus: '',
       expenseLabel: '',
+      calculatedPer: '',
       category: '',
       metricAllocation: '',
       expenseAmount: '',
-      currency: 'USD',
+      currency: '$',
       firstPayment: '',
     },
     validationSchema: validationSchema,
@@ -41,6 +43,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
           status: values.expenseStatus === 'Active' ? '1' : '0',
           expense_label: values.expenseLabel,
           category: values.category,
+          calculated_per: values.calculatedPer,
           metric_allocation: values.metricAllocation,
           currency_amount: values.expenseAmount,
           currency_icon: values.currency,
@@ -64,26 +67,25 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
 
   const currencies = [
     {
-      value: "USD",
+      value: "$",
       label: "$",
     },
     {
-      value: "EUR",
+      value: "€",
       label: "€",
     },
     {
-      value: "BTC",
+      value: "฿",
       label: "฿",
     },
     {
-      value: "JPY",
+      value: "¥",
       label: "¥",
     },
   ];
 
   return (
     <>
-    <ToastContainer />
 
     <Dialog open={open} onClose={handleCloseCustome} fullWidth>
       <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 20 }}>
@@ -139,6 +141,22 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
               ) : null}
             </Grid>
             <Grid item xs={6}>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Calculated Per"
+                select
+                {...formikCustomExpense.getFieldProps('calculatedPer')}
+              >
+                <MenuItem value={"Order"}>Order</MenuItem>
+                <MenuItem value={"Custom"}>Custom</MenuItem>
+              </TextField>
+              {formikCustomExpense.touched.calculatedPer && formikCustomExpense.errors.calculatedPer ? (
+                <div style={{ color: 'red' }}>{formikCustomExpense.errors.calculatedPer}</div>
+              ) : null}
+            </Grid>
+            
+            <Grid item xs={6}>
               <FormControl fullWidth margin="normal">
                 <InputLabel>Category</InputLabel>
                 <Select
@@ -154,9 +172,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                 ) : null}
               </FormControl>
             </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <FormControl fullWidth margin="normal">
                 <InputLabel>Metric Allocation</InputLabel>
                 <Select
@@ -228,7 +244,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
           <Button onClick={() => {
             formikCustomExpense.resetForm();
           }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-            Cancel
+            Clear
           </Button>
         </DialogActions>
       </form>

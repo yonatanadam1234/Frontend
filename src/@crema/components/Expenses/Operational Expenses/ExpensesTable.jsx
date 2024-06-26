@@ -1,4 +1,3 @@
-// ExpensesTable.js
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Table,
@@ -28,6 +27,10 @@ import {
   updateExpense,
 } from "../services/expense.service";
 import EditDrawer from "./EditExpense";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { v4 as uuidv4 } from 'uuid';
+import AppLoader from '@crema/components/AppLoader';
 
 const ExpensesTable = () => {
   const [openCustomPopup, setOpenCustomPopup] = useState(false);
@@ -41,17 +44,20 @@ const ExpensesTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editRowData, setEditRowData] = useState({});
   const { user } = useAuthUser();
-
+  const [loading, setloading] = useState(true)
   const handleCustomSubmit = (values) => {
     setTableData([
       ...tableData,
       {
         ...values,
+        id: uuidv4(),
         type: "Custom Expense",
-        title: values.expenseLabel || "N/A",
+        expense_label: values.expenseLabel || "N/A",
         status: values.expenseStatus || "N/A",
-        amount: values.expenseAmount || "N/A",
-        firstPaymentDate: values.firstPayment || "N/A",
+        currency_amount: values.expenseAmount || "N/A",
+        first_payment: values.firstPayment || "N/A",
+        calculated_per: values.calculatedPer || "N/A",
+        currency_icon: values.currency || "N/A",
       },
     ]);
     setOpenCustomPopup(false);
@@ -62,11 +68,15 @@ const ExpensesTable = () => {
       ...tableData,
       {
         ...values,
+        id: uuidv4(),
         type: "Contra Variable Expense",
-        title: values.expenseLabel || "N/A",
+        expense_label: values.expenseLabel || "N/A",
         status: values.expenseStatus || "N/A",
-        amount: values.expenseAmount || "N/A",
-        firstPaymentDate: values.firstPayment || "N/A",
+        currency_amount: values.expenseAmount || "N/A",
+        first_payment: values.firstPayment || "N/A",
+        calculated_per: values.calculatedPer || "N/A",
+        currency_icon: values.currency || "N/A",
+
       },
     ]);
     setOpenContraPopup(false);
@@ -77,21 +87,35 @@ const ExpensesTable = () => {
       ...tableData,
       {
         ...values,
+        id: uuidv4(),
         type: "Variable Expense",
-        title: values.expenseLabel || "N/A",
+        expense_label: values.expenseLabel || "N/A",
         status: values.expenseStatus || "N/A",
-        amount: values.expenseAmount || "N/A",
-        firstPaymentDate: values.firstPayment || "N/A",
+        currency_amount: values.expenseAmount || "N/A",
+        first_payment: values.firstPayment || "N/A",
+        calculated_per: values.calculatedPer || "N/A",
+        currency_icon: values.currency || "N/A",
       },
     ]);
     setOpenVariablePopup(false);
   };
 
   const handleDeleteExpense = async (id, index) => {
+    if (!id) return;
+
+
+    if (id.length === 36) {
+      setTableData(tableData.filter((_, i) => i !== index));
+      toast.success("Expense Deleted Successfully!!");
+      return;
+    }
+
     try {
       const response = await deleteExpense(id);
       if (response.status === 200 || response.data.success) {
         setTableData(tableData.filter((_, i) => i !== index));
+        toast.success("Expense Deleted Successfully!!");
+
       } else {
         console.error("Failed to delete expense:", response);
       }
@@ -107,18 +131,6 @@ const ExpensesTable = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-  const handleAmountBlur = () => {
-    const updatedTableData = [...tableData];
-    updatedTableData[editRowIndex].amount = amount;
-    setTableData(updatedTableData);
-    setEditRowIndex(null);
-    setAmount("");
   };
 
   const handleCloseCustome = () => {
@@ -139,15 +151,17 @@ const ExpensesTable = () => {
 
       if (response.data && response.data.success) {
         const mappedData = response.data.expenses.map((expense) => ({
-          title: expense.expense_label,
+          expense_label: expense.expense_label,
           type: "Custom Expense",
-          calculatedPer: expense.calculated_per,
+          calculated_per: expense.calculated_per,
           status: expense.status === "1" ? "Active" : "Inactive",
-          amount: expense.currency_amount,
-          firstPaymentDate: expense.first_payment,
+          currency_amount: expense.currency_amount,
+          first_payment: expense.first_payment,
           finalPaymentDate: "N/A",
           id: expense.id,
+          currency_icon: expense.currency_icon,
         }));
+        setloading(false);
         setTableData(mappedData);
       } else {
         console.error(
@@ -180,29 +194,36 @@ const ExpensesTable = () => {
     }));
   };
 
+
+
   const handleEditSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await updateExpense(editRowData.id, editRowData);
+
       if (response.status === 200 || response.data.success) {
         const updatedTableData = tableData.map((item) =>
           item.id === editRowData.id ? editRowData : item
         );
         setTableData(updatedTableData);
-        setOpenEditDrawer(false);
+        // setOpenEditDrawer(false);
+        toast.success("Expense Updated Successfully!!");
       } else {
         console.error("Failed to update expense:", response);
+        toast.error("Failed to update expense");
       }
     } catch (error) {
       console.error("Error updating expense:", error);
+      toast.error("Error updating expense");
     }
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
+    <>
+      <ToastContainer />
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
             <TableCell colSpan={8} sx={{ padding: 2 }}>
               <Box
                 sx={{
@@ -279,82 +300,94 @@ const ExpensesTable = () => {
                 </Box>
               </Box>
             </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell>Calculated Per</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>First Payment</TableCell>
-            <TableCell>Final Payment</TableCell>
-            <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Array.isArray(tableData) &&
-            tableData.map((row, index) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.title || "N/A"}</TableCell>
-                <TableCell>{row.type || "N/A"}</TableCell>
-                <TableCell>{row.calculatedPer || "N/A"}</TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      backgroundColor:
-                        row.status === "Active" ? "#c8e6c9" : "#ffcdd2",
-                      padding: "5px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {row.status || "N/A"}
-                  </Box>
-                </TableCell>
-                <TableCell align="left">{row.amount}</TableCell>
-                <TableCell>{row.firstPaymentDate || "N/A"}</TableCell>
-                <TableCell>{row.finalPaymentDate || "N/A"}</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => handleDeleteExpense(row.id, index)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="edit"
-                    onClick={() => handleEditClick(row)}
-                  >
-                    <EditSharpIcon />
-                  </IconButton>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              {/* <TableCell>Type</TableCell> */}
+              <TableCell>Calculated Per</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Amount</TableCell>
+              <TableCell>First Payment</TableCell>
+              <TableCell>Final Payment</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={8} sx={{ height: "450px" }}>
+                  <AppLoader />
                 </TableCell>
               </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-      <Custome
-        open={openCustomPopup}
-        setOpenCustomPopup={setOpenCustomPopup}
-        handleCloseCustome={handleCloseCustome}
-        handleSubmit={handleCustomSubmit}
-      />
-      <Contra
-        open={openContraPopup}
-        handleCloseContra={handleCloseContra}
-        handleSubmit={handleContraSubmit}
-      />
-      <Variable
-        open={openVariablePopup}
-        handleCloseVariable={handleCloseVariable}
-        handleSubmit={handleVariableSubmit}
-      />
-      <EditDrawer
-        open={openEditDrawer}
-        onClose={handleDrawerClose}
-        rowData={editRowData}
-        onChange={handleInputChange}
-        onSubmit={handleEditSubmit}
-      />
-    </TableContainer>
+            ) : (
+              Array.isArray(tableData) && tableData.map((row, index) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.expense_label || "N/A"}</TableCell>
+                  {/* <TableCell>{row.type || "N/A"}</TableCell> */}
+                  <TableCell>{row.calculated_per || "N/A"}</TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        backgroundColor:
+                          row.status === "Active" ? "#c8e6c9" : "#ffcdd2",
+                        padding: "5px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      {row.status || "N/A"}
+                    </Box>
+                  </TableCell>
+                  <TableCell>{row.currency_icon}{row.currency_amount}</TableCell>
+                  <TableCell>{row.first_payment || "N/A"}</TableCell>
+                  <TableCell>{row.finalPaymentDate || "N/A"}</TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => handleDeleteExpense(row.id, index)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() => handleEditClick(row)}
+                    >
+                      <EditSharpIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+
+
+
+          </TableBody>
+        </Table>
+        <Custome
+          open={openCustomPopup}
+          setOpenCustomPopup={setOpenCustomPopup}
+          handleCloseCustome={handleCloseCustome}
+          handleSubmit={handleCustomSubmit}
+        />
+        <Contra
+          open={openContraPopup}
+          handleCloseContra={handleCloseContra}
+          handleSubmit={handleContraSubmit}
+        />
+        <Variable
+          open={openVariablePopup}
+          handleCloseVariable={handleCloseVariable}
+          handleSubmit={handleVariableSubmit}
+        />
+        <EditDrawer
+          open={openEditDrawer}
+          onClose={handleDrawerClose}
+          rowData={editRowData}
+          onChange={handleInputChange}
+          onSubmit={handleEditSubmit}
+        />
+      </TableContainer>
+    </>
   );
 };
 

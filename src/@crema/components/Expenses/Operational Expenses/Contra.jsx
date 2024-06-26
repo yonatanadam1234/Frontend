@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuthUser } from '../../../hooks/AuthHooks';
 import { addContraExpense } from '../services/expense.service';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 const Contra = ({ open, handleSubmit, handleCloseContra }) => {
     const validationSchema = Yup.object().shape({
@@ -29,7 +29,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
             category: '',
             metricAllocation: '',
             expenseAmount: '',
-            currency: 'USD',
+            currency: '$',
             firstPayment: '',
         },
         validationSchema: validationSchema,
@@ -64,19 +64,19 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
         });
     const currencies = [
         {
-            value: "USD",
+            value: "$",
             label: "$",
         },
         {
-            value: "EUR",
+            value: "€",
             label: "€",
         },
         {
-            value: "BTC",
+            value: "฿",
             label: "฿",
         },
         {
-            value: "JPY",
+            value: "¥",
             label: "¥",
         },
     ];
@@ -250,7 +250,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                     <Button onClick={() => {
                         formikContraExpense.resetForm();
                     }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-                        Cancel
+                        Clear
                     </Button>
                 </DialogActions>
             </form>

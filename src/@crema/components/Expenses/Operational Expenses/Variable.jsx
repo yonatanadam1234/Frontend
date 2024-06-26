@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, I
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CloseIcon from "@mui/icons-material/Close";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthUser } from '../../../hooks/AuthHooks';
 import { addVariableExpense } from '../services/expense.service';
@@ -29,7 +29,7 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
       category: '',
       metricAllocation: '',
       expenseAmount: '',
-      currency: 'USD',
+      currency: '$',
       firstPayment: '',
     },
 
@@ -65,19 +65,19 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
   });
   const currencies = [
     {
-      value: "USD",
+      value: "$",
       label: "$",
     },
     {
-      value: "EUR",
+      value: "€",
       label: "€",
     },
     {
-      value: "BTC",
+      value: "฿",
       label: "฿",
     },
     {
-      value: "JPY",
+      value: "¥",
       label: "¥",
     },
   ];
@@ -241,7 +241,7 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
           <Button onClick={() => {
             formikVariableExpense.resetForm();
           }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
-            Cancel
+            Clear
           </Button>
         </DialogActions>
       </form>

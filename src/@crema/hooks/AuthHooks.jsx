@@ -91,7 +91,7 @@ export const useAuthMethod = () => {
         email: localStorage.getItem('email'),
         password: password.password
       }
-      
+
       jwtAxios.post('auth/updatePassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
@@ -130,30 +130,37 @@ export const useAuthMethod = () => {
 
   const HandleChangeUserInfo = async (data) => {
     try {
-      const newUserdata = {
+      const updatedUserData = {
         email: data.email,
-        name: data.displayName,
-        image:data.photoURL,
-        lastname:data.username
-      }
-      const res = await jwtAxios.put('auth/edit/user', newUserdata, {
-      });
-      if (res.status === 200) {
-        toast.success(res.data.message);
+        name: data.name,
+        image: data.image,
+        lastname: data.lastname
+      };
+  
+      const response = await jwtAxios.put('auth/edit/user', updatedUserData);
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        console.log('Response data:', response.data);
       } else {
-        toast.error('Unexpected status code: ' + res.status);
+        toast.error('Unexpected status code: ' + response.status);
+        console.log('Unexpected status code:', response.status);
       }
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
         console.log('API error response:', error.response);
+      } else if (error.request) {
+        toast.error('No response from server');
+        console.log('No response from server:', error.request);
       } else {
         toast.error('An unexpected error occurred');
+        console.log('Error:', error.message);
       }
-      console.log('Error:', error);
     }
   };
   
+
+
   const handleVerifyOtp = (otp) => {
     verifyUser({ email: localStorage.getItem("email"), otp: otp })
   }

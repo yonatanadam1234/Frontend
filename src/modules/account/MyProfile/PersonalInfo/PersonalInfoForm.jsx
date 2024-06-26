@@ -126,7 +126,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <AppTextField
-            name='email'
+            name='email'  
             fullWidth
             label={<IntlMessages id='common.email' />}
           />
