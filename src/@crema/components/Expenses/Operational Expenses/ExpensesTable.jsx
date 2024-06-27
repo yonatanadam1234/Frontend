@@ -22,7 +22,7 @@ import Variable from "./Variable";
 import Contra from "./Contra";
 import { useAuthUser } from "../../../hooks/AuthHooks";
 import {
-  getCustomeExpenseData,
+  getExpenseData,
   deleteExpense,
   updateExpense,
 } from "../services/expense.service";
@@ -38,7 +38,7 @@ const ExpensesTable = () => {
   const [openContraPopup, setOpenContraPopup] = useState(false);
   const [openEditDrawer, setOpenEditDrawer] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
@@ -145,14 +145,13 @@ const ExpensesTable = () => {
     setOpenVariablePopup(false);
   };
 
-  const fetchCustomeData = useCallback(async () => {
+  const fetchExpenseData = useCallback(async () => {
     try {
-      const response = await getCustomeExpenseData(user.id);
+      const response = await getExpenseData(user.id);
 
       if (response.data && response.data.success) {
         const mappedData = response.data.expenses.map((expense) => ({
           expense_label: expense.expense_label,
-          type: "Custom Expense",
           calculated_per: expense.calculated_per,
           status: expense.status === "1" ? "Active" : "Inactive",
           currency_amount: expense.currency_amount,
@@ -175,8 +174,8 @@ const ExpensesTable = () => {
   }, [user.id]);
 
   useEffect(() => {
-    fetchCustomeData();
-  }, [fetchCustomeData]);
+    fetchExpenseData();
+  }, [fetchExpenseData]);
 
   const handleEditClick = (row) => {
     setEditRowData(row);
@@ -340,7 +339,7 @@ const ExpensesTable = () => {
                   </TableCell>
                   <TableCell>{row.currency_icon}{row.currency_amount}</TableCell>
                   <TableCell>{row.first_payment || "N/A"}</TableCell>
-                  <TableCell>{row.finalPaymentDate || "N/A"}</TableCell>
+                    <TableCell>{row.finalPaymentDate || "N/A"}</TableCell>
                   <TableCell sx={{ textAlign: "center" }}>
                     <IconButton
                       aria-label="delete"

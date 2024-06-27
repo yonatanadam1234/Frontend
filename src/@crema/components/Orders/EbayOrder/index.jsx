@@ -35,7 +35,7 @@ const EbayOrderTabel = ({ displayProductCost }) => {
         if (ebayShops.length > 0) {
           setVerificationState(ebayShops[0].seller_info.verification_state);
         } else {
-          toast.error("No eBay shops found");
+          toast.warning("No eBay shops found");
         }
       } else {
         toast.error("Error:", response.data ? response.data.message : "No data");
@@ -48,7 +48,6 @@ const EbayOrderTabel = ({ displayProductCost }) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
 
 
   useEffect(() => {

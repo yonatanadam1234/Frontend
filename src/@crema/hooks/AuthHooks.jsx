@@ -158,8 +158,6 @@ export const useAuthMethod = () => {
       }
     }
   };
-  
-
 
   const handleVerifyOtp = (otp) => {
     verifyUser({ email: localStorage.getItem("email"), otp: otp })

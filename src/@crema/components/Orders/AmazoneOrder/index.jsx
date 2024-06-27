@@ -15,6 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import noDataImage from '../../../../../public/assets/icon/no_data_found.jpg';
 
+
+
 const AmazoneOrderTable = ({ displayProductCost }) => {
   const [verificationState, setVerificationState] = useState(null);
   const [AmazonOrderData, setAmazonOrderData] = useState([]);
@@ -90,6 +92,7 @@ const AmazoneOrderTable = ({ displayProductCost }) => {
         ) : AmazonOrderData.data && AmazonOrderData.data.length > 0 ? (
           <Table stickyHeader className="table">
             <TableHead>
+              
               <TableHeading displayProductCost={displayProductCost} />
             </TableHead>
             <TableBody>

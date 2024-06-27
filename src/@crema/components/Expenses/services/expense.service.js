@@ -19,7 +19,7 @@ export const addContraExpense = (data) => {
 export const addVariableExpense = (data) => {
   return axiosInstance.post('/expenses', data);
 };
-export const getCustomeExpenseData = (userId) => {
+export const getExpenseData = (userId) => {
   return axiosInstance.get(`/expenses?user_id=${userId}`);
 };
 export const deleteExpense = (id) => {

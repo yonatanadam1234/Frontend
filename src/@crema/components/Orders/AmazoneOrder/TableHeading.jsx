@@ -5,7 +5,7 @@ import { BsFillGearFill } from "react-icons/bs";
 
 const TableHeading = ({ displayProductCost }) => {
   return (
-    
+    <>
     <TableRow>
       <TableCell>Amazon Order Id</TableCell>
       <TableCell>Customer Name</TableCell>
@@ -72,6 +72,7 @@ const TableHeading = ({ displayProductCost }) => {
         <BsFillGearFill />
       </TableCell>
     </TableRow>
+    </>
   );
 };
 

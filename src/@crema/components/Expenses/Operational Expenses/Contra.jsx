@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Button, InputAdornment, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,7 +7,11 @@ import { useAuthUser } from '../../../hooks/AuthHooks';
 import { addContraExpense } from '../services/expense.service';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+
 const Contra = ({ open, handleSubmit, handleCloseContra }) => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { user } = useAuthUser();
+
     const validationSchema = Yup.object().shape({
         recurrence: Yup.string().required('Recurrence is required'),
         expenseStatus: Yup.string().required('Expense Status is required'),
@@ -17,9 +21,10 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
         metricAllocation: Yup.string().required('Metric Allocation is required'),
         expenseAmount: Yup.number().required('Expense Amount is required'),
         firstPayment: Yup.date().required('First Payment is required'),
+        user_id: Yup.string().required('User ID is required'),
+        status: Yup.string().required('Status is required'),
     });
 
-    const { user } = useAuthUser();
     const formikContraExpense = useFormik({
         initialValues: {
             recurrence: '',
@@ -31,66 +36,59 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
             expenseAmount: '',
             currency: '$',
             firstPayment: '',
+            user_id: user ? user.id : '',
+            status: 'Active', // Set a default status if necessary
         },
         validationSchema: validationSchema,
         onSubmit: async (values, { resetForm }) => {
+            if (isSubmitting) return;
+            setIsSubmitting(true);
+
             try {
-              const obj = {
-                user_id: user.id,
-                recurrence: values.recurrence,
-                status: values.expenseStatus === 'Active' ? '1' : '0',
-                expense_label: values.expenseLabel,
-                category: values.category,
-                calculated_per: values.calculatedPer,
-                metric_allocation: values.metricAllocation,
-                currency_amount: values.expenseAmount,
-                currency_icon: values.currency,
-                first_payment: values.firstPayment
-              }
-              const response = await addContraExpense(obj)
-              if (response.data.success) {
-                toast.success("Contra Expense Created Succesfully!");
-                console.log('Response:', response.data);
-                handleSubmit(values);
-                resetForm();
-              }
-              else {
-                toast.error("Somthing is Wrong!!")
-              }
+                const obj = {
+                    user_id: user.id,
+                    recurrence: values.recurrence,
+                    status: values.expenseStatus === 'Active' ? '1' : '0',
+                    expense_label: values.expenseLabel,
+                    category: values.category,
+                    calculated_per: values.calculatedPer,
+                    metric_allocation: values.metricAllocation,
+                    currency_amount: values.expenseAmount,
+                    currency_icon: values.currency,
+                    first_payment: values.firstPayment
+                };
+
+                const response = await addContraExpense(obj);
+                if (response.data.success) {
+                    toast.success("Contra Expense Created Successfully!");
+                    handleSubmit(values);
+                    resetForm();
+                } else {
+                    toast.error("Something went wrong!!");
+                }
             } catch (error) {
-              console.error('Error submitting form:', error);
+                console.error('Error submitting form:', error);
+            } finally {
+                setIsSubmitting(false);
             }
-          },
-        });
+        },
+    });
+
     const currencies = [
-        {
-            value: "$",
-            label: "$",
-        },
-        {
-            value: "€",
-            label: "€",
-        },
-        {
-            value: "฿",
-            label: "฿",
-        },
-        {
-            value: "¥",
-            label: "¥",
-        },
+        { value: "$", label: "$" },
+        { value: "€", label: "€" },
+        { value: "฿", label: "฿" },
+        { value: "¥", label: "¥" },
     ];
+
     return (
         <Dialog open={open} onClose={handleCloseContra} fullWidth>
-
             <DialogTitle sx={{ display: "flex", justifyContent: "space-between", fontSize: 20 }}>
                 Add Contra Variable Expense
                 <IconButton onClick={handleCloseContra}>
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
-
-
 
             <hr style={{ opacity: '0.2' }} />
             <form onSubmit={formikContraExpense.handleSubmit}>
@@ -189,7 +187,6 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-
                             <TextField
                                 fullWidth
                                 margin="normal"
@@ -203,7 +200,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                                 id="standard-select-currency"
                                                 select
                                                 label="Currency"
-                                                defaultValue="EUR"
+                                                defaultValue="$"
                                                 variant="standard"
                                                 {...formikContraExpense.getFieldProps('currency')}
                                             >
@@ -223,7 +220,6 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                         </Grid>
 
                         <Grid item xs={12}>
-
                             <TextField
                                 fullWidth
                                 margin="normal"
@@ -241,15 +237,16 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                     </Grid>
                 </DialogContent>
                 <DialogActions sx={{ padding: 3 }}>
-                    {/* <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
-                        Save and Add Another
-                    </Button> */}
-                    <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
+                    <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }} disabled={isSubmitting}>
                         Save and Done
                     </Button>
-                    <Button onClick={() => {
-                        formikContraExpense.resetForm();
-                    }} color="primary" style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}>
+                    <Button
+                        onClick={() => {
+                            formikContraExpense.resetForm();
+                        }}
+                        color="primary"
+                        style={{ background: '#707070', color: '#fff', padding: '8px 18px' }}
+                    >
                         Clear
                     </Button>
                 </DialogActions>

@@ -52,15 +52,7 @@ const AppHeader = ({ isCollapsed, setCollapsed, toggleNavCollapsed }) => {
           paddingRight: { xs: 2.5, md: 5 },
         }}
       >
-        <Box
-          sx={{
-            "& .logo-text": {
-              display: { xs: "none", sm: "block",},
-            },
-          }}
-        >
-          <AppLogo />
-        </Box>
+
 
         <Hidden lgDown>
           <IconButton
@@ -99,7 +91,15 @@ const AppHeader = ({ isCollapsed, setCollapsed, toggleNavCollapsed }) => {
             />
           </IconButton>
         </Hidden>
-
+        <Box
+          sx={{
+            "& .logo-text": {
+              display: { xs: "none", sm: "block", },
+            },
+          }}
+        >
+          <AppLogo />
+        </Box>
         {/* <Box
           sx={{
             minHeight: 40,
@@ -112,7 +112,7 @@ const AppHeader = ({ isCollapsed, setCollapsed, toggleNavCollapsed }) => {
             },
           }}
         > */}
-          {/* <AppSearchBar iconPosition="right" placeholder="Search…" /> */}
+        {/* <AppSearchBar iconPosition="right" placeholder="Search…" /> */}
         {/* </Box> */}
         <Box
           sx={{

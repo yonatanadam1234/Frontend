@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Button, InputAdornment, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -19,6 +19,7 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
     firstPayment: Yup.date().required('First Payment is required'),
   });
   const { user } = useAuthUser();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formikVariableExpense = useFormik({
     initialValues: {
@@ -35,6 +36,8 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
 
     validationSchema: validationSchema,
     onSubmit: async (values, { resetForm }) => {
+      if (isSubmitting) return;
+      setIsSubmitting(true);
       try {
         const obj = {
           user_id: user.id,
@@ -60,6 +63,9 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
         }
       } catch (error) {
         console.error('Error submitting form:', error);
+      }
+      finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -235,7 +241,7 @@ const Variable = ({ open, handleSubmit, handleCloseVariable }) => {
           {/* <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
             Save and Add Another
           </Button> */}
-          <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}>
+          <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 1 }}  disabled={isSubmitting}>
             Save and Done
           </Button>
           <Button onClick={() => {
