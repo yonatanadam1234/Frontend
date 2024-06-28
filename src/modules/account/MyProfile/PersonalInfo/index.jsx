@@ -13,10 +13,9 @@ const validationSchema = yup.object({
   email: yup.string().email('Invalid email format').required('Required'),
 });
 const PersonalInfo = () => {
-  // const { user } = useAuthUser();
   const { HandleChangeUserInfo } = useAuthMethod();
   const { user } = useJWTAuth();
-  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/images/${user?.image}`;
+  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/image/${user?.image}`;
   
 
   return (

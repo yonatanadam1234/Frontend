@@ -82,11 +82,10 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
                 height: { xs: 50, lg: 64 },
                 cursor: 'pointer',
               }}
-              src={values.photoURL}
+              src={values.image}
             />
 
-
-            <Box className='edit-icon'>
+              <Box className='edit-icon'>
               <EditIcon />
             </Box>
           </label>

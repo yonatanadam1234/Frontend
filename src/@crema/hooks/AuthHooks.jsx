@@ -129,6 +129,7 @@ export const useAuthMethod = () => {
   }
 
   const HandleChangeUserInfo = async (data) => {
+    console.log("🚀 ~ HandleChangeUserInfo ~ data:", data)
     try {
       const formData = new FormData();
       formData.append('name', data.displayName);
