@@ -75,6 +75,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
         <AvatarViewWrapper {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
           <label htmlFor='icon-button-file'>
+            
             <Avatar
               sx={{
                 width: { xs: 50, lg: 64 },
@@ -83,6 +84,8 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
               }}
               src={values.photoURL}
             />
+
+
             <Box className='edit-icon'>
               <EditIcon />
             </Box>
@@ -117,27 +120,27 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
             label={<IntlMessages id='common.fullName' />}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <AppTextField
             fullWidth
             name='username'
             label={<IntlMessages id='common.userName' />}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <AppTextField
-            name='email'  
+            name='email'
             fullWidth
             label={<IntlMessages id='common.email' />}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <AppTextField
             name='company'
             fullWidth
             label={<IntlMessages id='common.company' />}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={12}>
           <Box
             sx={{

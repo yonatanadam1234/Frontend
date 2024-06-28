@@ -130,14 +130,16 @@ export const useAuthMethod = () => {
 
   const HandleChangeUserInfo = async (data) => {
     try {
-      const updatedUserData = {
-        email: data.email,
-        name: data.name,
-        image: data.image,
-        lastname: data.lastname
-      };
+      const formData = new FormData();
+      formData.append('name', data.displayName);
+      formData.append('image', data.photoURL);
   
-      const response = await jwtAxios.put('auth/edit/user', updatedUserData);
+      const response = await jwtAxios.post('auth/edit/user', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
       if (response.status === 200) {
         toast.success(response.data.message);
         console.log('Response data:', response.data);

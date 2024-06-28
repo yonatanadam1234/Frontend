@@ -16,7 +16,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
         recurrence: Yup.string().required('Recurrence is required'),
         expenseStatus: Yup.string().required('Expense Status is required'),
         expenseLabel: Yup.string().required('Expense Label is required'),
-        calculatedPer: Yup.string().required('Calculated Per is required'),
+        // calculatedPer: Yup.string().required('Calculated Per is required'),
         category: Yup.string().required('Category is required'),
         metricAllocation: Yup.string().required('Metric Allocation is required'),
         expenseAmount: Yup.number().required('Expense Amount is required'),
@@ -30,7 +30,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
             recurrence: '',
             expenseStatus: '',
             expenseLabel: '',
-            calculatedPer: '',
+            // calculatedPer: '',
             category: '',
             metricAllocation: '',
             expenseAmount: '',
@@ -51,7 +51,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                     status: values.expenseStatus === 'Active' ? '1' : '0',
                     expense_label: values.expenseLabel,
                     category: values.category,
-                    calculated_per: values.calculatedPer,
+                    // calculated_per: values.calculatedPer,
                     metric_allocation: values.metricAllocation,
                     currency_amount: values.expenseAmount,
                     currency_icon: values.currency,
@@ -140,7 +140,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                 <div style={{ color: 'red' }}>{formikContraExpense.errors.expenseLabel}</div>
                             ) : null}
                         </Grid>
-                        <Grid item xs={6}>
+                        {/* <Grid item xs={6}>
                             <TextField
                                 fullWidth
                                 margin="normal"
@@ -154,7 +154,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                             {formikContraExpense.touched.calculatedPer && formikContraExpense.errors.calculatedPer ? (
                                 <div style={{ color: 'red' }}>{formikContraExpense.errors.calculatedPer}</div>
                             ) : null}
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={6}>
                             <FormControl fullWidth margin="normal">
                                 <InputLabel>Category</InputLabel>
@@ -171,7 +171,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                 ) : null}
                             </FormControl>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <FormControl fullWidth margin="normal">
                                 <InputLabel>Metric Allocation</InputLabel>
                                 <Select

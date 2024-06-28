@@ -42,7 +42,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 disabled
               />
             </Grid> */}
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <FormControl fullWidth margin="normal">
                 <InputLabel>Calculated Per</InputLabel>
                 <Select
@@ -55,7 +55,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                   <MenuItem value={"Custom"}>Custom</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <FormControl fullWidth margin="normal">
                 <InputLabel>Status</InputLabel>
@@ -70,7 +70,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Amount"
                 variant="outlined"
@@ -80,7 +80,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 onChange={(e) => onChange("currency_amount", e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <TextField
                 label="First Payment Date"
                 variant="outlined"
@@ -91,7 +91,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit }) => {
                 value={rowData.first_payment}
                 onChange={(e) => onChange("first_payment", e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             {/* <Grid item xs={6}>
               <TextField
                 label="Final Payment Date"

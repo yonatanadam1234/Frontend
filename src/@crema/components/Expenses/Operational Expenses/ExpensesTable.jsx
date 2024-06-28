@@ -302,12 +302,13 @@ const ExpensesTable = () => {
             <TableRow>
               <TableCell>Title</TableCell>
               {/* <TableCell>Type</TableCell> */}
-              <TableCell>Calculated Per</TableCell>
+              {/* <TableCell>Calculated Per</TableCell> */}
               <TableCell>Status</TableCell>
               <TableCell>Amount</TableCell>
-              <TableCell>First Payment</TableCell>
-              <TableCell>Final Payment</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
+              {/* <TableCell>First Payment</TableCell> */}
+              {/* <TableCell>Final Payment</TableCell> */}
+              <TableCell sx={{ textAlign: "right" }}>Delete</TableCell>
+              <TableCell >Edit</TableCell>
             </TableRow>
           </TableHead>
 
@@ -324,7 +325,7 @@ const ExpensesTable = () => {
                 <TableRow key={row.id}>
                   <TableCell>{row.expense_label || "N/A"}</TableCell>
                   {/* <TableCell>{row.type || "N/A"}</TableCell> */}
-                  <TableCell>{row.calculated_per || "N/A"}</TableCell>
+                  {/* <TableCell>{row.calculated_per || "N/A"}</TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -332,21 +333,26 @@ const ExpensesTable = () => {
                           row.status === "Active" ? "#c8e6c9" : "#ffcdd2",
                         padding: "5px",
                         borderRadius: "4px",
+                        width:'50%'
                       }}
                     >
                       {row.status || "N/A"}
                     </Box>
                   </TableCell>
                   <TableCell>{row.currency_icon}{row.currency_amount}</TableCell>
-                  <TableCell>{row.first_payment || "N/A"}</TableCell>
-                    <TableCell>{row.finalPaymentDate || "N/A"}</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
+                  {/* <TableCell>{row.first_payment || "N/A"}</TableCell> */}
+                    {/* <TableCell>{row.finalPaymentDate || "N/A"}</TableCell> */}
+                  <TableCell sx={{ textAlign: "right" }}>
                     <IconButton
                       aria-label="delete"
                       onClick={() => handleDeleteExpense(row.id, index)}
                     >
                       <DeleteIcon />
                     </IconButton>
+                    
+                  </TableCell>
+                  <TableCell>
+                  
                     <IconButton
                       aria-label="edit"
                       onClick={() => handleEditClick(row)}

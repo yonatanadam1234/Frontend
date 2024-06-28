@@ -14,7 +14,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
     recurrence: Yup.string().required('Recurrence is required'),
     expenseStatus: Yup.string().required('Expense Status is required'),
     expenseLabel: Yup.string().required('Expense Label is required'),
-    calculatedPer: Yup.string().required('Calculated Per is required'),
+    // calculatedPer: Yup.string().required('Calculated Per is required'),
     category: Yup.string().required('Category is required'),
     metricAllocation: Yup.string().required('Metric Allocation is required'),
     expenseAmount: Yup.number().required('Expense Amount is required'),
@@ -28,7 +28,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
       recurrence: '',
       expenseStatus: '',
       expenseLabel: '',
-      calculatedPer: '',
+      // calculatedPer: '',
       category: '',
       metricAllocation: '',
       expenseAmount: '',
@@ -46,7 +46,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
           status: values.expenseStatus === 'Active' ? '1' : '0',
           expense_label: values.expenseLabel,
           category: values.category,
-          calculated_per: values.calculatedPer,
+          // calculated_per: values.calculatedPer,
           metric_allocation: values.metricAllocation,
           currency_amount: values.expenseAmount,
           currency_icon: values.currency,
@@ -146,7 +146,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                   <div style={{ color: 'red' }}>{formikCustomExpense.errors.expenseLabel}</div>
                 ) : null}
               </Grid>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <TextField
                   fullWidth
                   margin="normal"
@@ -160,7 +160,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                 {formikCustomExpense.touched.calculatedPer && formikCustomExpense.errors.calculatedPer ? (
                   <div style={{ color: 'red' }}>{formikCustomExpense.errors.calculatedPer}</div>
                 ) : null}
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={6}>
                 <FormControl fullWidth margin="normal">
@@ -178,7 +178,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                   ) : null}
                 </FormControl>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormControl fullWidth margin="normal">
                   <InputLabel>Metric Allocation</InputLabel>
                   <Select

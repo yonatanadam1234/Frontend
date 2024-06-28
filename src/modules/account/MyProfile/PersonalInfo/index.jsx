@@ -8,12 +8,16 @@ import { Box } from '@mui/material';
 import { useAuthMethod } from '../../../../@crema/hooks/AuthHooks';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useJWTAuth } from '../../../../@crema/services/auth';
 const validationSchema = yup.object({
   email: yup.string().email('Invalid email format').required('Required'),
 });
 const PersonalInfo = () => {
-  const { user } = useAuthUser();
+  // const { user } = useAuthUser();
   const { HandleChangeUserInfo } = useAuthMethod();
+  const { user } = useJWTAuth();
+  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/images/${user?.image}`;
+  
 
   return (
     <>
@@ -28,9 +32,7 @@ const PersonalInfo = () => {
         validateOnBlur={true}
         initialValues={{
           ...user,
-          photoURL: user.photoURL
-            ? user.photoURL
-            : '/assets/images/placeholder.jpg',
+          image: user.image ? imageBaseURL: '/assets/images/placeholder.jpg',
         }}
         validationSchema={validationSchema}
         onSubmit={(data, { setSubmitting }) => {

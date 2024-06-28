@@ -9,15 +9,16 @@ import { Fonts } from "@crema/constants/AppEnums";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useAuthMethod, useAuthUser } from "@crema/hooks/AuthHooks";
+import { useJWTAuth } from "../../../../services/auth";
 
 const UserInfo = ({ color }) => {
   const { logout } = useAuthMethod();
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = (event) => {-
     setAnchorEl(event.currentTarget);
   };
 
@@ -34,6 +35,8 @@ const UserInfo = ({ color }) => {
     }
   };
 
+  const imageBaseURL = "https://squid-app-oqakh.ondigitalocean.app/images/";
+
   return (
     <>
       <Box
@@ -48,15 +51,14 @@ const UserInfo = ({ color }) => {
         className="user-info-view"
       >
         <Box sx={{ py: 0.5 }}>
-          {user.photoURL ? (
+          {user.image ? (
             <Avatar
               sx={{
                 height: 35,
                 width: 35,
                 fontSize: 24,
-                // backgroundColor: orange[500],
               }}
-              src={user.photoURL}
+              src={`${imageBaseURL}${user.image}`}
             />
           ) : (
             <Avatar
@@ -73,7 +75,6 @@ const UserInfo = ({ color }) => {
         </Box>
         <Box
           sx={{
-            // width: { xs: "calc(100% - 92px)", xl: "calc(100% - 80px)" },
             ml: 4,
             color: color,
           }}
@@ -107,7 +108,7 @@ const UserInfo = ({ color }) => {
                 display: "flex",
               }}
             >
-              <ExpandMoreIcon style={{marginLeft:'60px'}} />
+              <ExpandMoreIcon style={{ marginLeft: '60px' }} />
             </Box>
           </Box>
           <Box
