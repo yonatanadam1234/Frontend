@@ -132,7 +132,7 @@ export const useAuthMethod = () => {
     console.log("🚀 ~ HandleChangeUserInfo ~ data:", data)
     try {
       const formData = new FormData();
-      formData.append('name', data.displayName);
+      formData.append('name', data.name);
       formData.append('image', data.photoURL);
   
       const response = await jwtAxios.post('auth/edit/user', formData, {
@@ -142,7 +142,7 @@ export const useAuthMethod = () => {
       });
   
       if (response.status === 200) {
-        toast.success(response.data.message);
+        toast.success("Data Updated Successfully!!");
         console.log('Response data:', response.data);
       } else {
         toast.error('Unexpected status code: ' + response.status);

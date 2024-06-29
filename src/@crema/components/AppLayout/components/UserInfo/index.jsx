@@ -8,24 +8,35 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Fonts } from "@crema/constants/AppEnums";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useAuthMethod, useAuthUser } from "@crema/hooks/AuthHooks";
+import { useAuthMethod } from "@crema/hooks/AuthHooks";
 import { useJWTAuth } from "../../../../services/auth";
 
 const UserInfo = ({ color }) => {
   const { logout } = useAuthMethod();
   const { user } = useJWTAuth();
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
+  // const { setJWTAuthData } = useJWTAuthActions()
 
-  const handleClick = (event) => {-
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
 
+  //   jwtAxios
+  //     .get(`auth/auth/${token}`).then((data) => {
+  //       setJWTAuthData({
+  //         user: data.data.user,
+  //         isLoading: false,
+  //         isAuthenticated: true,
+  //       })
+  //     })
+  // }, [])
   const getUserAvatar = () => {
     if (user.displayName) {
       return user.displayName.charAt(0).toUpperCase();
@@ -33,10 +44,12 @@ const UserInfo = ({ color }) => {
     if (user.email) {
       return user.email.charAt(0).toUpperCase();
     }
+    return "";
   };
 
-  const imageBaseURL = "https://squid-app-oqakh.ondigitalocean.app/images/";
+  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/image/${user?.image}`;
 
+  console.log("🚀 ~ UserInfo ~ imageBaseURL:", imageBaseURL)
   return (
     <>
       <Box
@@ -58,7 +71,7 @@ const UserInfo = ({ color }) => {
                 width: 35,
                 fontSize: 24,
               }}
-              src={`${imageBaseURL}${user.image}`}
+              src={imageBaseURL} 
             />
           ) : (
             <Avatar
@@ -99,7 +112,7 @@ const UserInfo = ({ color }) => {
               }}
               component="span"
             >
-              {user.displayName ? user.displayName : "Admin User "}
+              {user.name ? user.name : "Admin User "}
             </Box>
             <Box
               sx={{
