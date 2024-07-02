@@ -26,44 +26,44 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import AmazoneOrderTable from "../Orders/AmazoneOrder";
 
 const ShippingSetting = () => {
-  const { messages } = useIntl();
-  const [page, setPage] = useState(0);
-  const [search, setSearchQuery] = useState("");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    product: "",
-    vendor: "",
-    financial: "",
-    fulfillment: "",
-    countries: "",
-    price: "",
-    cogs: "",
-    shipping: "",
-    physicalLocation: "",
-    items: "",
-    status: "",
-    salesChannel: "",
-    discountCode: "",
-    marketingSource: "",
-    utmSource: "",
-    utmMedium: "",
-    utmContent: "",
-    utmTerm: "",
-    utmCampaign: "",
-    paymentGateways: "",
-    orderSource: "",
-  });
+  // const { messages } = useIntl();
+  // const [page, setPage] = useState(0);
+  // const [search, setSearchQuery] = useState("");
+  // const [isFilterOpen, setIsFilterOpen] = useState(false);
+  // const [filters, setFilters] = useState({
+  //   product: "",
+  //   vendor: "",
+  //   financial: "",
+  //   fulfillment: "",
+  //   countries: "",
+  //   price: "",
+  //   cogs: "",
+  //   shipping: "",
+  //   physicalLocation: "",
+  //   items: "",
+  //   status: "",
+  //   salesChannel: "",
+  //   discountCode: "",
+  //   marketingSource: "",
+  //   utmSource: "",
+  //   utmMedium: "",
+  //   utmContent: "",
+  //   utmTerm: "",
+  //   utmCampaign: "",
+  //   paymentGateways: "",
+  //   orderSource: "",
+  // });
 
-  const onPageChange = (event, value) => {
-    setPage(value);
-  };
-  const toggleFilterDrawer = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-  const onSearchOrder = (value) => {
-    setSearchQuery(value);
-    setPage(0);
-  };
+  // const onPageChange = (event, value) => {
+  //   setPage(value);
+  // };
+  // const toggleFilterDrawer = () => {
+  //   setIsFilterOpen(!isFilterOpen);
+  // };
+  // const onSearchOrder = (value) => {
+  //   setSearchQuery(value);
+  //   setPage(0);
+  // };
   // const handleFilterChange = (event) => {
   //   setFilters({
   //     ...filters,
@@ -76,7 +76,8 @@ const ShippingSetting = () => {
   return (
 
     <>
-      <Box display="flex" alignItems="center">
+    <h1>Shipping Groups</h1>
+      {/* <Box display="flex" alignItems="center">
 
       </Box>
       <AppsContainer fullView>
@@ -131,7 +132,7 @@ const ShippingSetting = () => {
             page={page}
             onPageChange={onPageChange}
           />
-        </Hidden>
+        </Hidden> */}
         {/* <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
           <Box style={{
             width:'100%',
@@ -390,7 +391,7 @@ const ShippingSetting = () => {
             </Button>
           </Box>
         </Drawer> */}
-      </AppsContainer>
+      {/* </AppsContainer> */}
     </>
   );
 };

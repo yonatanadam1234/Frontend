@@ -173,9 +173,7 @@ const SignupJwtAuth = () => {
                           name="terms"
                           checked={values.terms}
                           onChange={handleChange}
-                          sx={{
-                            ml: -3,
-                          }}
+                         
                         />
                       }
                       label={

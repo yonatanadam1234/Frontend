@@ -38,6 +38,7 @@ const ExpensesTable = () => {
   const [openContraPopup, setOpenContraPopup] = useState(false);
   const [openEditDrawer, setOpenEditDrawer] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [isSubmitting, setisSubmitting] = useState(false)
   // const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -52,12 +53,12 @@ const ExpensesTable = () => {
         ...values,
         id: uuidv4(),
         type: "Custom Expense",
-        expense_label: values.expenseLabel || "N/A",
-        status: values.expenseStatus || "N/A",
-        currency_amount: values.expenseAmount || "N/A",
-        first_payment: values.firstPayment || "N/A",
-        calculated_per: values.calculatedPer || "N/A",
-        currency_icon: values.currency || "N/A",
+        expense_label: values?.expenseLabel || "N/A",
+        recurrence: values?.recurrence || "N/A",
+        status: values?.expenseStatus || "N/A",
+        category: values?.category || "N/A",
+        currency_amount: values?.expenseAmount || "N/A",
+        currency_icon: values?.currency || "N/A",
       },
     ]);
     setOpenCustomPopup(false);
@@ -69,14 +70,13 @@ const ExpensesTable = () => {
       {
         ...values,
         id: uuidv4(),
-        type: "Contra Variable Expense",
-        expense_label: values.expenseLabel || "N/A",
-        status: values.expenseStatus || "N/A",
-        currency_amount: values.expenseAmount || "N/A",
-        first_payment: values.firstPayment || "N/A",
-        calculated_per: values.calculatedPer || "N/A",
-        currency_icon: values.currency || "N/A",
-
+        type: "Custom Expense",
+        expense_label: values?.expenseLabel || "N/A",
+        recurrence: values?.recurrence || "N/A",
+        status: values?.expenseStatus || "N/A",
+        category: values?.category || "N/A",
+        currency_amount: values?.expenseAmount || "N/A",
+        currency_icon: values?.currency || "N/A",
       },
     ]);
     setOpenContraPopup(false);
@@ -88,13 +88,13 @@ const ExpensesTable = () => {
       {
         ...values,
         id: uuidv4(),
-        type: "Variable Expense",
-        expense_label: values.expenseLabel || "N/A",
-        status: values.expenseStatus || "N/A",
-        currency_amount: values.expenseAmount || "N/A",
-        first_payment: values.firstPayment || "N/A",
-        calculated_per: values.calculatedPer || "N/A",
-        currency_icon: values.currency || "N/A",
+        type: "Custom Expense",
+        expense_label: values?.expenseLabel || "N/A",
+        recurrence: values?.recurrence || "N/A",
+        status: values?.expenseStatus || "N/A",
+        category: values?.category || "N/A",
+        currency_amount: values?.expenseAmount || "N/A",
+        currency_icon: values?.currency || "N/A",
       },
     ]);
     setOpenVariablePopup(false);
@@ -152,11 +152,10 @@ const ExpensesTable = () => {
       if (response.data && response.data.success) {
         const mappedData = response.data.expenses.map((expense) => ({
           expense_label: expense.expense_label,
-          calculated_per: expense.calculated_per,
+          recurrence: expense.recurrence,
           status: expense.status === "1" ? "Active" : "Inactive",
+          category: expense.category,
           currency_amount: expense.currency_amount,
-          first_payment: expense.first_payment,
-          finalPaymentDate: "N/A",
           id: expense.id,
           currency_icon: expense.currency_icon,
         }));
@@ -193,19 +192,20 @@ const ExpensesTable = () => {
     }));
   };
 
-
-
   const handleEditSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+    setisSubmitting(true);
     try {
       const response = await updateExpense(editRowData.id, editRowData);
+      console.log("🚀 ~ handleEditSubmit ~ editRowData:", editRowData)
 
       if (response.status === 200 || response.data.success) {
         const updatedTableData = tableData.map((item) =>
           item.id === editRowData.id ? editRowData : item
         );
         setTableData(updatedTableData);
-        // setOpenEditDrawer(false);
+        setOpenEditDrawer(false);
         toast.success("Expense Updated Successfully!!");
       } else {
         console.error("Failed to update expense:", response);
@@ -215,8 +215,11 @@ const ExpensesTable = () => {
       console.error("Error updating expense:", error);
       toast.error("Error updating expense");
     }
+    finally {
+      setisSubmitting(false);
+    }
   };
-
+  
   return (
     <>
       <ToastContainer />
@@ -233,7 +236,7 @@ const ExpensesTable = () => {
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <h1>Add Custom & Variable Expenses Per Order ➡️</h1>
+                  <h1>Add Orders Expenses</h1>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Button
@@ -263,14 +266,14 @@ const ExpensesTable = () => {
                 </Box>
               </Box>
               <hr style={{ opacity: "0.2", margin: "20px" }} />
+
               <Box
-                sx={{ justifyContent: "space-between", alignItems: "center" }}
+                sx={{ display: 'flex', justifyContent: "flex-start", alignItems: "left" }}
               >
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    justifyItems: "right",
                   }}
                 >
                   <TablePagination
@@ -301,9 +304,11 @@ const ExpensesTable = () => {
             </TableCell>
             <TableRow>
               <TableCell>Title</TableCell>
+              <TableCell>Recurrence</TableCell>
               {/* <TableCell>Type</TableCell> */}
               {/* <TableCell>Calculated Per</TableCell> */}
               <TableCell>Status</TableCell>
+              <TableCell>Category</TableCell>
               <TableCell>Amount</TableCell>
               {/* <TableCell>First Payment</TableCell> */}
               {/* <TableCell>Final Payment</TableCell> */}
@@ -324,8 +329,7 @@ const ExpensesTable = () => {
               Array.isArray(tableData) && tableData.map((row, index) => (
                 <TableRow key={row.id}>
                   <TableCell>{row.expense_label || "N/A"}</TableCell>
-                  {/* <TableCell>{row.type || "N/A"}</TableCell> */}
-                  {/* <TableCell>{row.calculated_per || "N/A"}</TableCell> */}
+                  <TableCell>{row.recurrence || "N/A"}</TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -333,15 +337,14 @@ const ExpensesTable = () => {
                           row.status === "Active" ? "#c8e6c9" : "#ffcdd2",
                         padding: "5px",
                         borderRadius: "4px",
-                        width:'50%'
+                        width: '50%'
                       }}
                     >
                       {row.status || "N/A"}
                     </Box>
                   </TableCell>
+                  <TableCell>{row.category}</TableCell>
                   <TableCell>{row.currency_icon}{row.currency_amount}</TableCell>
-                  {/* <TableCell>{row.first_payment || "N/A"}</TableCell> */}
-                    {/* <TableCell>{row.finalPaymentDate || "N/A"}</TableCell> */}
                   <TableCell sx={{ textAlign: "right" }}>
                     <IconButton
                       aria-label="delete"
@@ -349,10 +352,10 @@ const ExpensesTable = () => {
                     >
                       <DeleteIcon />
                     </IconButton>
-                    
+
                   </TableCell>
                   <TableCell>
-                  
+
                     <IconButton
                       aria-label="edit"
                       onClick={() => handleEditClick(row)}
@@ -390,6 +393,7 @@ const ExpensesTable = () => {
           rowData={editRowData}
           onChange={handleInputChange}
           onSubmit={handleEditSubmit}
+          isSubmitting={isSubmitting}
         />
       </TableContainer>
     </>

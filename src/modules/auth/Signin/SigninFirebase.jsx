@@ -189,7 +189,7 @@ const SigninFirebase = () => {
           </Box>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -260,7 +260,7 @@ const SigninFirebase = () => {
               <AiOutlineTwitter />
             </IconButton>
           </Box>
-        </Box>
+        </Box> */}
 
         <AppInfoView />
       </Box>

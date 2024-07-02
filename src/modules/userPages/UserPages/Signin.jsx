@@ -194,7 +194,7 @@ const Signin = () => {
             )}
           </Formik>
 
-          <Box
+          {/* <Box
             sx={{
               mt: { xs: 3, xl: 4 },
               mb: { xs: 2, xl: 4 },
@@ -237,7 +237,7 @@ const Signin = () => {
                 />
               </IconButton>
             </Box>
-          </Box>
+          </Box> */}
 
           <Box
             sx={{

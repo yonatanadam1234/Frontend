@@ -4,7 +4,7 @@ import Shops from '../../components/Shops/Shops';
 import Account from '../../../modules/account/MyProfile'
 import Orders from '../../components/Orders';
 import ProductListing from '../../components/Inventory/Listing';
-import OperationExpenses from '../../components/Expenses/Operational Expenses/OperationExpenses';
+import OperationExpenses from '../../components/Expenses/OperationalExpenses/OperationExpenses';
 import ShippingSetting from '../../components/ShippingSetting';
 
 

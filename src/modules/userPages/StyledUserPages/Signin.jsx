@@ -197,7 +197,7 @@ const Signin = () => {
                 )}
               </Formik>
 
-              <Box
+              {/* <Box
                 sx={{
                   mt: { xs: 3, xl: 4 },
                   mb: 3,
@@ -228,7 +228,7 @@ const Signin = () => {
                     <TwitterIcon sx={{ color: 'text.primary' }} />
                   </IconButton>
                 </Box>
-              </Box>
+              </Box> */}
 
               <Box
                 sx={{

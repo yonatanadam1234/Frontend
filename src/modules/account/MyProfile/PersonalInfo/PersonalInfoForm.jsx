@@ -50,7 +50,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useJWTAuth();
   const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/image/${user?.image}`;
-  
+
   console.log("🚀 ~ PersonalInfoForm ~ imageBaseURL:", imageBaseURL)
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
@@ -90,7 +90,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
               }}
               src={selectedImage || imageBaseURL}
             />
-           
+
           </label>
         </AvatarViewWrapper>
         <Box
@@ -128,6 +128,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
             name='email'
             fullWidth
             label={<IntlMessages id='common.email' />}
+            disabled={true}
           />
         </Grid>
 

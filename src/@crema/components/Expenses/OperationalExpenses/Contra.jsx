@@ -9,35 +9,30 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Contra = ({ open, handleSubmit, handleCloseContra }) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const { user } = useAuthUser();
-
     const validationSchema = Yup.object().shape({
         recurrence: Yup.string().required('Recurrence is required'),
         expenseStatus: Yup.string().required('Expense Status is required'),
         expenseLabel: Yup.string().required('Expense Label is required'),
         // calculatedPer: Yup.string().required('Calculated Per is required'),
         category: Yup.string().required('Category is required'),
-        metricAllocation: Yup.string().required('Metric Allocation is required'),
+        // metricAllocation: Yup.string().required('Metric Allocation is required'),
         expenseAmount: Yup.number().required('Expense Amount is required'),
-        firstPayment: Yup.date().required('First Payment is required'),
-        user_id: Yup.string().required('User ID is required'),
-        status: Yup.string().required('Status is required'),
+        // firstPayment: Yup.date().required('First Payment is required'),
+        // user_id: Yup.string().required('User ID is required'),
+        // status: Yup.string().required('Status is required'),
     });
+    const { user } = useAuthUser();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formikContraExpense = useFormik({
         initialValues: {
             recurrence: '',
-            expenseStatus: '',
+            expenseStatus: 'Active',
             expenseLabel: '',
-            // calculatedPer: '',
             category: '',
-            metricAllocation: '',
             expenseAmount: '',
             currency: '$',
-            firstPayment: '',
-            user_id: user ? user.id : '',
-            status: 'Active', // Set a default status if necessary
+            
         },
         validationSchema: validationSchema,
         onSubmit: async (values, { resetForm }) => {
@@ -51,11 +46,8 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                     status: values.expenseStatus === 'Active' ? '1' : '0',
                     expense_label: values.expenseLabel,
                     category: values.category,
-                    // calculated_per: values.calculatedPer,
-                    metric_allocation: values.metricAllocation,
                     currency_amount: values.expenseAmount,
                     currency_icon: values.currency,
-                    first_payment: values.firstPayment
                 };
 
                 const response = await addContraExpense(obj);
@@ -75,10 +67,15 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
     });
 
     const currencies = [
-        { value: "$", label: "$" },
-        { value: "€", label: "€" },
-        { value: "฿", label: "฿" },
-        { value: "¥", label: "¥" },
+        { value: "$", label: "$ (USD)" },
+        { value: "€", label: "€ (EUR)" },
+        { value: "฿", label: "฿ (THB)" },
+        { value: "¥", label: "¥ (JPY)" },
+        { value: "£", label: "£ (GBP)" },
+        { value: "₹", label: "₹ (INR)" },
+        { value: "₺", label: "₺ (TRY)" },
+        { value: "₽", label: "₽ (RUB)" },
+        { value: "₫", label: "₫ (VND)" },
     ];
 
     return (
@@ -101,10 +98,10 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                     label="Recurrence"
                                     {...formikContraExpense.getFieldProps('recurrence')}
                                 >
-                                    <MenuItem value={"Daily"}>Daily</MenuItem>
-                                    <MenuItem value={"Weekly"}>Weekly</MenuItem>
+                                    {/* <MenuItem value={"Daily"}>Daily</MenuItem>
+                                    <MenuItem value={"Weekly"}>Weekly</MenuItem> */}
                                     <MenuItem value={"Monthly"}>Monthly</MenuItem>
-                                    <MenuItem value={"Yearly"}>Yearly</MenuItem>
+                                    {/* <MenuItem value={"Yearly"}>Yearly</MenuItem> */}
                                 </Select>
                                 {formikContraExpense.touched.recurrence && formikContraExpense.errors.recurrence ? (
                                     <div style={{ color: 'red' }}>{formikContraExpense.errors.recurrence}</div>
@@ -140,56 +137,24 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                                 <div style={{ color: 'red' }}>{formikContraExpense.errors.expenseLabel}</div>
                             ) : null}
                         </Grid>
-                        {/* <Grid item xs={6}>
-                            <TextField
-                                fullWidth
-                                margin="normal"
-                                label="Calculated Per"
-                                select
-                                {...formikContraExpense.getFieldProps('calculatedPer')}
-                            >
-                                <MenuItem value={"Order"}>Order</MenuItem>
-                                <MenuItem value={"Custom"}>Custom</MenuItem>
-                            </TextField>
-                            {formikContraExpense.touched.calculatedPer && formikContraExpense.errors.calculatedPer ? (
-                                <div style={{ color: 'red' }}>{formikContraExpense.errors.calculatedPer}</div>
-                            ) : null}
-                        </Grid> */}
+        
                         <Grid item xs={6}>
-                            <FormControl fullWidth margin="normal">
-                                <InputLabel>Category</InputLabel>
-                                <Select
-                                    label="Category"
-                                    {...formikContraExpense.getFieldProps('category')}
-                                >
-                                    <MenuItem value={"Category 1"}>Category 1</MenuItem>
-                                    <MenuItem value={"Category 2"}>Category 2</MenuItem>
-                                    <MenuItem value={"Category 3"}>Category 3</MenuItem>
-                                </Select>
-                                {formikContraExpense.touched.category && formikContraExpense.errors.category ? (
-                                    <div style={{ color: 'red' }}>{formikContraExpense.errors.category}</div>
-                                ) : null}
-                            </FormControl>
+                            <TextField
+                                fullWidth
+                                margin="normal"
+                                label="Category"
+                                {...formikContraExpense.getFieldProps('category')}
+                            />
+                            {formikContraExpense.touched.category && formikContraExpense.errors.category ? (
+                                <div style={{ color: 'red' }}>{formikContraExpense.errors.category}</div>
+                            ) : null}
                         </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth margin="normal">
-                                <InputLabel>Metric Allocation</InputLabel>
-                                <Select
-                                    label="Metric Allocation"
-                                    {...formikContraExpense.getFieldProps('metricAllocation')}
-                                >
-                                    <MenuItem value={"Metric 1"}>Metric 1</MenuItem>
-                                    <MenuItem value={"Metric 2"}>Metric 2</MenuItem>
-                                </Select>
-                                {formikContraExpense.touched.metricAllocation && formikContraExpense.errors.metricAllocation ? (
-                                    <div style={{ color: 'red' }}>{formikContraExpense.errors.metricAllocation}</div>
-                                ) : null}
-                            </FormControl>
-                        </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 margin="normal"
+                                type='number'
                                 label="Expense Amount"
                                 {...formikContraExpense.getFieldProps('expenseAmount')}
                                 InputProps={{
@@ -219,21 +184,7 @@ const Contra = ({ open, handleSubmit, handleCloseContra }) => {
                             ) : null}
                         </Grid>
 
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                margin="normal"
-                                label="First Payment"
-                                type="date"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                {...formikContraExpense.getFieldProps('firstPayment')}
-                            />
-                            {formikContraExpense.touched.firstPayment && formikContraExpense.errors.firstPayment ? (
-                                <div style={{ color: 'red' }}>{formikContraExpense.errors.firstPayment}</div>
-                            ) : null}
-                        </Grid>
+              
                     </Grid>
                 </DialogContent>
                 <DialogActions sx={{ padding: 3 }}>

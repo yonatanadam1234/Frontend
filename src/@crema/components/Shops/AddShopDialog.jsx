@@ -170,7 +170,7 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                     </IconButton>
                 </DialogTitle>
                 <DialogTitle sx={{ fontSize: 14 }}>
-                    Fill in the following details to connect to BeProfit with your {platform} store
+                    Fill in the following details to connect to Any Profit with your {platform} store
                 </DialogTitle>
                 <form onSubmit={(e) => formik.handleSubmit(e)}>
                     <DialogContent>
@@ -264,11 +264,11 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
                             ))}
                         </TextField>
                     </DialogContent>
-                    <DialogActions sx={{ display: "flex", justifyContent: "space-between", mx: 2, mb: 1 }}>
-                        <Button sx={{ cursor: "pointer", color: "blue", "&:hover": { color: "black" } }}>
+                    <DialogActions sx={{ display: "flex", justifyContent: "flex-end", mx: 2, mb: 1 }}>
+                        {/* <Button sx={{ cursor: "pointer", color: "blue", "&:hover": { color: "black" } }}>
                             Need Help?
-                        </Button>
-                        <Button type="submit" sx={{ color: "#000" }}>
+                        </Button> */}
+                        <Button type="submit" variant="contained" color="primary"  sx={{ color: "#fff" }}>
                             Add Shop
                         </Button>
                     </DialogActions>

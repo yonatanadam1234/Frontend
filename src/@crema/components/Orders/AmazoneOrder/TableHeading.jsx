@@ -69,7 +69,7 @@ const TableHeading = ({ displayProductCost }) => {
           backgroundColor: "#cee8f8",
         }}
       >
-        <BsFillGearFill />
+        Action
       </TableCell>
     </TableRow>
     </>
