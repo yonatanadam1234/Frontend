@@ -18,8 +18,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditSharpIcon from "@mui/icons-material/EditSharp";
 import Custome from "./Custome";
-import Variable from "./Variable";
-import Contra from "./Contra";
+// import Variable from "./Variable";
+// import Contra from "./Contra";
 import { useAuthUser } from "../../../hooks/AuthHooks";
 import {
   getExpenseData,
@@ -34,8 +34,8 @@ import AppLoader from '@crema/components/AppLoader';
 
 const ExpensesTable = () => {
   const [openCustomPopup, setOpenCustomPopup] = useState(false);
-  const [openVariablePopup, setOpenVariablePopup] = useState(false);
-  const [openContraPopup, setOpenContraPopup] = useState(false);
+  // const [openVariablePopup, setOpenVariablePopup] = useState(false);
+  // const [openContraPopup, setOpenContraPopup] = useState(false);
   const [openEditDrawer, setOpenEditDrawer] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [isSubmitting, setisSubmitting] = useState(false)
@@ -64,41 +64,41 @@ const ExpensesTable = () => {
     setOpenCustomPopup(false);
   };
 
-  const handleContraSubmit = (values) => {
-    setTableData([
-      ...tableData,
-      {
-        ...values,
-        id: uuidv4(),
-        type: "Custom Expense",
-        expense_label: values?.expenseLabel || "N/A",
-        recurrence: values?.recurrence || "N/A",
-        status: values?.expenseStatus || "N/A",
-        category: values?.category || "N/A",
-        currency_amount: values?.expenseAmount || "N/A",
-        currency_icon: values?.currency || "N/A",
-      },
-    ]);
-    setOpenContraPopup(false);
-  };
+  // const handleContraSubmit = (values) => {
+  //   setTableData([
+  //     ...tableData,
+  //     {
+  //       ...values,
+  //       id: uuidv4(),
+  //       type: "Custom Expense",
+  //       expense_label: values?.expenseLabel || "N/A",
+  //       recurrence: values?.recurrence || "N/A",
+  //       status: values?.expenseStatus || "N/A",
+  //       category: values?.category || "N/A",
+  //       currency_amount: values?.expenseAmount || "N/A",
+  //       currency_icon: values?.currency || "N/A",
+  //     },
+  //   ]);
+  //   setOpenContraPopup(false);
+  // };
 
-  const handleVariableSubmit = (values) => {
-    setTableData([
-      ...tableData,
-      {
-        ...values,
-        id: uuidv4(),
-        type: "Custom Expense",
-        expense_label: values?.expenseLabel || "N/A",
-        recurrence: values?.recurrence || "N/A",
-        status: values?.expenseStatus || "N/A",
-        category: values?.category || "N/A",
-        currency_amount: values?.expenseAmount || "N/A",
-        currency_icon: values?.currency || "N/A",
-      },
-    ]);
-    setOpenVariablePopup(false);
-  };
+  // const handleVariableSubmit = (values) => {
+  //   setTableData([
+  //     ...tableData,
+  //     {
+  //       ...values,
+  //       id: uuidv4(),
+  //       type: "Custom Expense",
+  //       expense_label: values?.expenseLabel || "N/A",
+  //       recurrence: values?.recurrence || "N/A",
+  //       status: values?.expenseStatus || "N/A",
+  //       category: values?.category || "N/A",
+  //       currency_amount: values?.expenseAmount || "N/A",
+  //       currency_icon: values?.currency || "N/A",
+  //     },
+  //   ]);
+  //   setOpenVariablePopup(false);
+  // };
 
   const handleDeleteExpense = async (id, index) => {
     if (!id) return;
@@ -137,13 +137,13 @@ const ExpensesTable = () => {
     setOpenCustomPopup(false);
   };
 
-  const handleCloseContra = () => {
-    setOpenContraPopup(false);
-  };
+  // const handleCloseContra = () => {
+  //   setOpenContraPopup(false);
+  // };
 
-  const handleCloseVariable = () => {
-    setOpenVariablePopup(false);
-  };
+  // const handleCloseVariable = () => {
+  //   setOpenVariablePopup(false);
+  // };
 
   const fetchExpenseData = useCallback(async () => {
     try {
@@ -208,11 +208,9 @@ const ExpensesTable = () => {
         setOpenEditDrawer(false);
         toast.success("Expense Updated Successfully!!");
       } else {
-        console.error("Failed to update expense:", response);
         toast.error("Failed to update expense");
       }
     } catch (error) {
-      console.error("Error updating expense:", error);
       toast.error("Error updating expense");
     }
     finally {
@@ -247,22 +245,22 @@ const ExpensesTable = () => {
                   >
                     + Custom Expense
                   </Button>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     color="primary"
                     sx={{ marginRight: 1 }}
                     onClick={() => setOpenContraPopup(true)}
                   >
                     + Contra Variable Expense
-                  </Button>
-                  <Button
+                  </Button> */}
+                  {/* <Button
                     variant="contained"
                     color="primary"
                     sx={{ marginRight: 1 }}
                     onClick={() => setOpenVariablePopup(true)}
                   >
                     + Variable Expense
-                  </Button>
+                  </Button> */}
                 </Box>
               </Box>
               <hr style={{ opacity: "0.2", margin: "20px" }} />
@@ -377,16 +375,16 @@ const ExpensesTable = () => {
           handleCloseCustome={handleCloseCustome}
           handleSubmit={handleCustomSubmit}
         />
-        <Contra
+        {/* <Contra
           open={openContraPopup}
           handleCloseContra={handleCloseContra}
           handleSubmit={handleContraSubmit}
-        />
-        <Variable
+        /> */}
+        {/* <Variable
           open={openVariablePopup}
           handleCloseVariable={handleCloseVariable}
           handleSubmit={handleVariableSubmit}
-        />
+        /> */}
         <EditDrawer
           open={openEditDrawer}
           onClose={handleDrawerClose}

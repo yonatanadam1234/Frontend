@@ -28,7 +28,7 @@ const AmazonOrderTable = () => {
   const [amazonOrderData, setAmazonOrderData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(7); // Set rows per page to 10
+  const [rowsPerPage, setRowsPerPage] = useState(10); // Set rows per page to 10
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [displayProductCost, setDisplayProductCost] = useState(false);
@@ -90,7 +90,7 @@ const AmazonOrderTable = () => {
   };
 
   const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 7));
     setPage(0);
   };
 

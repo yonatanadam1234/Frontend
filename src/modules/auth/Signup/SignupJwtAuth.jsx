@@ -183,6 +183,7 @@ const SignupJwtAuth = () => {
                             sx={{ mr: 2, color: "grey.700" }}
                           >
                             <IntlMessages id="common.iAgreeTo" />
+                      
                           </Box>
                           <Box
                             component="span"

@@ -48,7 +48,7 @@ const InfoForm = () => {
 
           {currentPlan.id <= 3 ? (
             <>
-              <p>Price: ${currentPlan.price}</p>
+              <p>Price: ${currentPlan.monthlyprice}</p>
               <p>Duration: {currentPlan.monthplan}</p>
             </>
           ) : (

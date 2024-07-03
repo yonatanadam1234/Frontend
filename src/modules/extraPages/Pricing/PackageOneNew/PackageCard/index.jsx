@@ -8,13 +8,12 @@ import PackageWrapper from "./PackageWrapper";
 import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 
-// Initialize Paddle with your environment and token
 Paddle.Environment.set("sandbox");
 Paddle.Setup({
   token: 'live_1bc6cf442aa74adbab7ffae494d'
 });
 
-const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
+const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
   const openCheckout = (priceId) => {
     const items = [
       {
@@ -80,7 +79,7 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
               component="span"
               sx={{
                 fontWeight: Fonts.BOLD,
-              }}                      
+              }}
             >
               ${currentPricing}
             </Box>
@@ -159,7 +158,7 @@ const PackageCard = ({ billingFormat, pricing, currentPricing }) => {
             }}
             onClick={handleButtonClick}
           >
-            {pricing.btnText}
+            {btnText}
           </Button>
 
         </Box>
