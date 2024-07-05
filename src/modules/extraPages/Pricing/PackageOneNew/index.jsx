@@ -5,22 +5,23 @@ import Grid from "@mui/material/Grid";
 import PackageCard from "./PackageCard";
 import pricingData from "@crema/mockapi/fakedb/extraPages/pricing";
 import { useAuthUser } from "../../../../@crema/hooks/AuthHooks";
+import { useJWTAuth } from "../../../../@crema/services/auth";
 
 const PackageOne = ({ billingFormat }) => {
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
 
   const getButtonText = (id) => {
     if (id===0) {return "Try Now";}
     
     if (billingFormat === "month") {
-      if (id > user.subscriptionPlan) {
+      if (id > user.subscription) {
         return "Upgrade";
       } else {
         return "Buy Now";
       }
     } else if (billingFormat === "year") {
       const yearlyId = id + 3; // map monthly IDs (0-3) to yearly IDs (4-6)
-      if (yearlyId > user.subscriptionPlan) {
+      if (yearlyId > user.subscription) {
         return "Upgrade";
       } else {
         return "Buy Now";

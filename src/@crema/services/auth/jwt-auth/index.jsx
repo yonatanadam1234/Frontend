@@ -1,7 +1,7 @@
 import axios from '@crema/services/axios';
 
 const jwtAxios = axios?.create({
-  baseURL: 'https://squid-app-oqakh.ondigitalocean.app/',
+  baseURL: 'https://platform.anyprofit.io/staging/api',
   headers: {
     'Content-Type': 'application/json',
   },

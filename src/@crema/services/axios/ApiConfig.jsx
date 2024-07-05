@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiConfig = axios?.create({
-  baseURL: 'https://squid-app-oqakh.ondigitalocean.app/',
+  baseURL: 'https://platform.anyprofit.io/staging/api',
   headers: {
     'Content-Type': 'application/json',
   },

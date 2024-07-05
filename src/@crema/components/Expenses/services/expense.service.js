@@ -3,13 +3,14 @@ import axios from 'axios';
 
 const apiBaseUrl = import.meta.env.VITE_API_LINK;
 
+const token = localStorage.getItem('token')
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
   },
 });
-
 export const addCustomeExpense = (data) => {
   return axiosInstance.post('/expenses', data);
 };
@@ -25,7 +26,6 @@ export const getExpenseData = (userId) => {
 export const deleteExpense = (id) => {
   return axiosInstance.delete(`/expenses/${id}`);
 };
-
 export const updateExpense = (id, data) => {
   return axiosInstance.put(`/expenses/${id}`, data);
 };

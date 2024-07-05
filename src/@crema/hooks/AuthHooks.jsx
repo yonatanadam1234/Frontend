@@ -74,6 +74,7 @@ export const useAuthMethod = () => {
         if (res.status === 200) {
           showMessage(res.data.message);
           navigate('/setNewPassword');
+          localStorage.setItem('token', res.data.token);
         }
       })
         .catch((res) => {
@@ -87,15 +88,18 @@ export const useAuthMethod = () => {
 
   const updatePassword = (password) => {
     try {
+      const token = localStorage.getItem('token')
       const data = {
         email: localStorage.getItem('email'),
-        password: password.password
+        password: password.password,
+        token: token
       }
 
       jwtAxios.post('auth/updatePassword', data).then((res) => {
         if (res.status === 200) {
           showMessage(res.data.message);
           navigate('/');
+          localStorage.clear();
         }
       })
         .catch((res) => {
@@ -114,7 +118,7 @@ export const useAuthMethod = () => {
         oldpassword: data.oldPassword,
         newpassword: data.newPassword
       }
-      jwtAxios.post('auth/changepassword', newdata).then((res) => {
+      jwtAxios.post('auth/changePassword', newdata).then((res) => {
         if (res.status === 200) {
           toast.success(res.data.message);
         }
@@ -129,18 +133,19 @@ export const useAuthMethod = () => {
   }
 
   const HandleChangeUserInfo = async (data) => {
-    console.log("🚀 ~ HandleChangeUserInfo ~ data:", data)
     try {
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('image', data.photoURL);
-  
+      formData.append('_method', 'PUT');
+      // formData.append('last_name', 'any');
+
       const response = await jwtAxios.post('auth/edit/user', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       if (response.status === 200) {
         toast.success("Data Updated Successfully!!");
         console.log('Response data:', response.data);

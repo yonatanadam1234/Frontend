@@ -46,7 +46,7 @@ const ProductListing = () => {
   const [page, setPage] = useState(0);
   const [{ apiData, loading }, { setQueryParams }] = useGetDataApi(
     "/api/ecommerce/list",
-    [],
+    [], 
     {},
     false
   );

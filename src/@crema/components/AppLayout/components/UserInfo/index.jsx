@@ -16,7 +16,6 @@ const UserInfo = ({ color }) => {
   const { user } = useJWTAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const { setJWTAuthData } = useJWTAuthActions()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,18 +24,7 @@ const UserInfo = ({ color }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
 
-  //   jwtAxios
-  //     .get(`auth/auth/${token}`).then((data) => {
-  //       setJWTAuthData({
-  //         user: data.data.user,
-  //         isLoading: false,
-  //         isAuthenticated: true,
-  //       })
-  //     })
-  // }, [])
   const getUserAvatar = () => {
     if (user.displayName) {
       return user.displayName.charAt(0).toUpperCase();
@@ -47,9 +35,7 @@ const UserInfo = ({ color }) => {
     return "";
   };
 
-  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/image/${user?.image}`;
 
-  console.log("🚀 ~ UserInfo ~ imageBaseURL:", imageBaseURL)
   return (
     <>
       <Box
@@ -71,7 +57,7 @@ const UserInfo = ({ color }) => {
                 width: 35,
                 fontSize: 24,
               }}
-              src={imageBaseURL} 
+              src={user?.image} 
             />
           ) : (
             <Avatar

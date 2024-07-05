@@ -49,9 +49,6 @@ const AvatarViewWrapper = styled('div')(({ theme }) => {
 const PersonalInfoForm = ({ values, setFieldValue }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useJWTAuth();
-  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/image/${user?.image}`;
-
-  console.log("🚀 ~ PersonalInfoForm ~ imageBaseURL:", imageBaseURL)
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     onDrop: (acceptedFiles) => {
@@ -88,7 +85,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
                 height: { xs: 50, lg: 64 },
                 cursor: 'pointer',
               }}
-              src={selectedImage || imageBaseURL}
+              src={selectedImage || user?.image}
             />
 
           </label>
@@ -158,7 +155,7 @@ const PersonalInfoForm = ({ values, setFieldValue }) => {
               }}
               color='primary'
               variant='outlined'
-              type='cancel'
+              type='button'
             >
               <IntlMessages id='common.cancel' />
             </Button>

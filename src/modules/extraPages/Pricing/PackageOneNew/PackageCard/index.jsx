@@ -8,12 +8,13 @@ import PackageWrapper from "./PackageWrapper";
 import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 
-Paddle.Environment.set("sandbox");
-Paddle.Setup({
-  token: 'live_1bc6cf442aa74adbab7ffae494d'
+Paddle.Environment.set("production");
+Paddle.Initialize({ 
+  token: 'live_1bc6cf442aa74adbab7ffae494d' 
 });
 
 const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
+
   const openCheckout = (priceId) => {
     const items = [
       {
@@ -32,7 +33,12 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
       },
       errorCallback: (error) => {
         console.error('Checkout error', error);
-      }
+      },
+      returnUrl: 'http://localhost:5173/extra-pages/checkout/confirmation',
+      override: {
+        returnUrl: 'http://localhost:5173/extra-pages/checkout/confirmation', 
+      },
+      checkoutUrl: 'https://vendors.paddle.com/api/2.0/order', 
     });
   };
 
@@ -160,7 +166,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
           >
             {btnText}
           </Button>
-
         </Box>
         <Box>{pricing.Ofee}</Box>
         <hr color="#0A8FDC" style={{ marginTop: "30px" }} />

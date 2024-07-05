@@ -4,6 +4,8 @@ import { useInfoViewActionsContext } from '@crema/context/AppContextProvider/Inf
 import { isRequestSuccessful, sanitizeData } from '@crema/helpers/ApiHelper';
 import jwtAxios from '@crema/services/axios';
 
+
+
 export const useGetDataApi = (
   url,
   initialData = undefined,
@@ -48,7 +50,8 @@ export const useGetDataApi = (
       jwtAxios
         .get(initialUrl, { params: sanitizeData(params) })
         .then((data) => {
-          console.log(
+          console.log("🚀 ~ .then ~ data:", data)
+          console.log('product data',
             initialUrl,
             data.data,
             didCancelRef.current,
@@ -67,6 +70,7 @@ export const useGetDataApi = (
               setData(initialData);
               if (callbackFun) callbackFun(data.data);
             }
+           
           }
         })
         .catch((error) => {
@@ -86,6 +90,7 @@ export const useGetDataApi = (
       didCancelRef.current = true;
     };
   }, [initialUrl, queryParams, allowApiCall]);
+  
   return [
     {
       loading,
@@ -101,6 +106,14 @@ export const useGetDataApi = (
     },
   ];
 };
+
+
+
+
+
+
+
+
 
 export const trimObjectValues = (obj) => {
   if (_.isEmpty(obj)) {

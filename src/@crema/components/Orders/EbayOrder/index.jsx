@@ -30,8 +30,9 @@ import AppSearchBar from "@crema/components/AppSearchBar";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AppsContainer from "@crema/components/AppsContainer";
 import { useIntl } from "react-intl";
+import { useJWTAuth } from "../../../services/auth";
 const EbayOrderTabel = () => {
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const [verificationState, setVerificationState] = useState(null);
   const [ebayOrderData, setEbayOrderData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +58,7 @@ const EbayOrderTabel = () => {
           toast.warning('No eBay shops found');
         }
       } else {
-        toast.error('Error:', response.data ? response.data.message : 'No data');
+        console.error('Error:', response.data ? response.data.message : 'No data');
       }
     } catch (error) {
       toast.error('Error fetching shop data:', error);

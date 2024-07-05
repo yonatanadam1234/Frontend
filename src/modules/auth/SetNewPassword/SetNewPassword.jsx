@@ -14,6 +14,7 @@ import { Fonts } from '@crema/constants/AppEnums';
 import AuthWrapper from '../AuthWrapper';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useJWTAuth } from '../../../@crema/services/auth';
 
 const validationSchema = yup.object({
   password: yup
@@ -23,7 +24,6 @@ const validationSchema = yup.object({
 
 const SigninJwtAuth = () => {
   const { updatePassword } = useAuthMethod();
-
   const { messages } = useIntl();
 
   return (

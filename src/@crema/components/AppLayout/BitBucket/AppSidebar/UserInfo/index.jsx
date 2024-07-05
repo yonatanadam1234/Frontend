@@ -7,10 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import { Fonts } from '@crema/constants/AppEnums';
 import { useNavigate } from 'react-router-dom';
 import { useAuthMethod, useAuthUser } from '@crema/hooks/AuthHooks';
+import { useJWTAuth } from '../../../../../services/auth';
 
 const UserInfo = () => {
   const { logout } = useAuthMethod();
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);

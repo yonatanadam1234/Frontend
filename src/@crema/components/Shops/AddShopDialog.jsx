@@ -18,13 +18,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import StoreFronturl from './StoreFronturl';
 import { getAccessToken, getShopAuthorizeUrl, getShopData } from "./services/shop.service";
-import { useAuthUser } from "../../hooks/AuthHooks";
+import { useJWTAuth } from "../../services/auth";
 
 const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
 
     const [openstorefronturl, setOpenStorefrontUrl] = useState(false);
     const [accessToken, setAccessToken] = useState("");
-    const { user } = useAuthUser();
+    const { user } = useJWTAuth();
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("Email is required"),
@@ -81,7 +81,7 @@ const AddShopDialog = ({ open, onClose, platform, setShops, toast }) => {
             if (response.data.success) {
                 setShops(response.data.shops);
             } else {
-                toast.error('Error:', response.data.message);
+                console.error('Error:', response.data.message);
             }
         } catch (error) {
             console.error('Error fetching shop data:', error);

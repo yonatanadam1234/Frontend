@@ -14,10 +14,8 @@ const validationSchema = yup.object({
   email: yup.string().email('Invalid email format').required('Required'),
 });
 const PersonalInfo = () => {
-  // const { user } = useAuthUser();
   const { HandleChangeUserInfo } = useAuthMethod();
   const { user } = useJWTAuth();
-  const imageBaseURL = `https://squid-app-oqakh.ondigitalocean.app/images/${user?.image}`;
   const { setJWTAuthData } = useJWTAuthActions()
 
 
@@ -25,7 +23,11 @@ const PersonalInfo = () => {
     const token = localStorage.getItem('token');
 
     jwtAxios
-      .get(`auth/auth/${token}`).then((data) => {
+      .get(`auth/user-data`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => {
         setJWTAuthData({
           user: data.data.user,
           isLoading: false,
@@ -46,7 +48,7 @@ const PersonalInfo = () => {
           validateOnBlur={true}
           initialValues={{
             ...user,
-            image: user.image ? imageBaseURL : '/assets/images/placeholder.jpg',
+            image: user.image ? user?.image : '/assets/images/placeholder.jpg',
           }}
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {

@@ -32,8 +32,13 @@ const JWTAuthAuthProvider = ({ children }) => {
         return;
       }
       setAuthToken(token);
+
       jwtAxios
-        .get(`auth/auth/${token}`)
+        .get('auth/user-data', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then(({ data }) => {
           fetchSuccess();
           setJWTAuthData({
@@ -42,6 +47,8 @@ const JWTAuthAuthProvider = ({ children }) => {
             isAuthenticated: true,
           });
         })
+
+
         .catch(() => {
           setJWTAuthData({
             user: undefined,

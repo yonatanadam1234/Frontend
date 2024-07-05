@@ -9,6 +9,7 @@ import { useAuthUser } from '../../../hooks/AuthHooks';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { addCustomeExpense } from '../services/expense.service';
+import { useJWTAuth } from '../../../services/auth';
 const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup }) => {
   const validationSchema = Yup.object().shape({
     recurrence: Yup.string().required('Recurrence is required'),
@@ -17,7 +18,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
     category: Yup.string().required('Category is required'),
     expenseAmount: Yup.number().required('Expense Amount is required'),
   });
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formikCustomExpense = useFormik({

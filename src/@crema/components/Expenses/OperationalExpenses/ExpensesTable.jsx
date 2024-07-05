@@ -31,6 +31,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
 import AppLoader from '@crema/components/AppLoader';
+import { useJWTAuth } from "../../../services/auth";
 
 const ExpensesTable = () => {
   const [openCustomPopup, setOpenCustomPopup] = useState(false);
@@ -44,7 +45,7 @@ const ExpensesTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [editRowData, setEditRowData] = useState({});
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const [loading, setloading] = useState(true)
   const handleCustomSubmit = (values) => {
     setTableData([

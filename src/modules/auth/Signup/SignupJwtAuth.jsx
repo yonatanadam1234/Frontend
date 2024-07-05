@@ -84,6 +84,7 @@ const SignupJwtAuth = () => {
                 password: "",
                 address: "a",
                 terms: false,
+                role:'user',
               }}
               validationSchema={validationSchema}
               onSubmit={(data, { setSubmitting }) => {

@@ -20,15 +20,16 @@ import AppsContainer from "@crema/components/AppsContainer";
 import { useIntl } from "react-intl";
 import TableHeading from './TableHeading';
 import TableItem from './TableItem';
+import { useJWTAuth } from '../../../services/auth';
 
 const AmazonOrderTable = () => {
   const { messages } = useIntl();
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
   const [verificationState, setVerificationState] = useState(null);
-  const [amazonOrderData, setAmazonOrderData] = useState([]);
+  const [amazonOrderData, setAmazonOrderData] = useState({ data: [], total: 0 }); // Initialize with empty data and total count
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Set rows per page to 10
+  const [rowsPerPage, setRowsPerPage] = useState(7); // Set rows per page to 10
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [displayProductCost, setDisplayProductCost] = useState(false);
@@ -46,7 +47,7 @@ const AmazonOrderTable = () => {
           toast.warning('No Amazon shops found');
         }
       } else {
-        console.error('Error:', response.data ? response.data.message : 'No data');
+        console.error('Error:', response.data? response.data.message : 'No data');
       }
     } catch (error) {
       console.error('Error fetching shop data:', error);
@@ -65,10 +66,8 @@ const AmazonOrderTable = () => {
         const obj = {
           platform: 'amazon',
           userId: user.id,
-          page: page + 1,
-          rowsPerPage,
-          searchQuery,
-          state: verificationState
+          // Remove page and rowsPerPage from the request
+          status: 'cancel',
         };
         const response = await getAmazonOrderData(obj);
         if (response && response.data) {
@@ -83,7 +82,7 @@ const AmazonOrderTable = () => {
       }
     };
     fetchAmazonData();
-  }, [user.id, verificationState, page, rowsPerPage, searchQuery]);
+  }, [user.id, verificationState]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -103,9 +102,13 @@ const AmazonOrderTable = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  // Calculate the number of pages based on the total count and rows per page
+  const totalPages = Math.ceil(amazonOrderData.total / rowsPerPage);
+
   return (
     <>
       <AppsContainer fullView>
+        
         <AppsHeader>
           <Box
             display="flex"
@@ -172,15 +175,15 @@ const AmazonOrderTable = () => {
             Amazon Orders
           </Typography>
           <AppTableContainer>
-            {loading ? (
+            {loading? (
               <AppLoader />
-            ) : amazonOrderData.data && amazonOrderData.data.length > 0 ? (
+            ) : amazonOrderData.data && amazonOrderData.data.length > 0? (
               <Table stickyHeader className="table">
                 <TableHead>
                   <TableHeading displayProductCost={displayProductCost} />
                 </TableHead>
                 <TableBody>
-                  {amazonOrderData.data.map((data) => (
+                  {amazonOrderData.data.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((data) => (
                     <TableItem data={data} key={data.order_id} displayProductCost={displayProductCost} />
                   ))}
                 </TableBody>
@@ -198,7 +201,7 @@ const AmazonOrderTable = () => {
           <AppsPagination
             rowsPerPage={rowsPerPage}
             page={page}
-            count={amazonOrderData.total || 0} // Total count from API response
+            count={amazonOrderData.total || 0} 
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleRowsPerPageChange}
           />

@@ -15,9 +15,6 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit,isSubmitting }) => {
-
-
-
   return (
     <Dialog anchor="right" open={open} onClose={onClose}>
       <Box sx={{ width: 500, padding: 6 }} role="presentation">

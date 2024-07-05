@@ -29,37 +29,41 @@ import { getShopData, deleteShopData } from "./services/shop.service";
 import { useAuthUser } from "../../hooks/AuthHooks";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useJWTAuth } from "../../services/auth";
 
 
-const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
+const Row = ({ row, handleOpen, platform, shops, setShops, user, fetchData }) => {
   const [hOpen, setHopen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [shopId, setShopId] = useState(null);
 
   const handleHistory = () => setHopen(!hOpen);
 
   const handleDeleteShop = async () => {
     try {
-      const verificationState = deleteIndex;
-      console.log("Deleting shop with verification state:", verificationState);
-      const response = await deleteShopData(user.id, verificationState);
-      console.log("Delete response:", response);
+      const shopid = shopId;
+      console.log("Deleting shop with verification state:", shopid);
+      const response = await deleteShopData(user.id, shopid);
       if (response.data.success) {
+        // Update local state by filtering out the deleted shop
         const updatedShops = { ...shops };
         updatedShops[platform] = updatedShops[platform].filter(
-          (shop) => shop.seller_info.verification_state !== verificationState
+          (shop) => shop.seller_info.id !== shopid
         );
         setShops(updatedShops);
         toast.success('Shop Deleted Successfully');
+
+        // Fetch updated data from backend
+        fetchData();
       } else {
         toast.error("Error deleting shop");
       }
     } catch (error) {
       toast.error("Error deleting shop");
-      toast.error("Error deleting shop:", error);
+      console.error("Error deleting shop:", error);
     } finally {
       setDeleteDialogOpen(false);
-      setDeleteIndex(null);
+      setShopId(null);
     }
   };
 
@@ -71,13 +75,13 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
   };
 
   const openDeleteDialog = (shop) => {
-    setDeleteIndex(shop.seller_info.verification_state);
     setDeleteDialogOpen(true);
+    setShopId(shop.seller_info.id);
   };
 
   const closeDeleteDialog = () => {
     setDeleteDialogOpen(false);
-    setDeleteIndex(null);
+    setShopId(null);
   };
 
   return (
@@ -240,6 +244,7 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user }) => {
   );
 };
 
+
 const Shops = () => {
   const [open, setOpen] = useState(false);
   const [shops, setShops] = useState({
@@ -250,12 +255,11 @@ const Shops = () => {
   });
 
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  const { user } = useAuthUser();
+  const { user } = useJWTAuth();
 
   const fetchData = useCallback(async () => {
     try {
       const response = await getShopData(user.id);
-
       if (response.data) {
         const amazonShops = response.data.filter(
           (shop) => shop.platform_connection.platform_name === "amazon"
@@ -263,11 +267,11 @@ const Shops = () => {
         const ebayShops = response.data.filter(
           (shop) => shop.platform_connection.platform_name === "ebay"
         );
-        setShops((prevShops) => ({
-          ...prevShops,
+        setShops({
+          ...shops,
           amazon: amazonShops,
           ebay: ebayShops,
-        }));
+        });
       } else {
         console.error("Error:", response.data ? response.data.message : "No data");
       }
@@ -318,6 +322,7 @@ const Shops = () => {
                 shops={shops}
                 setShops={setShops}
                 user={user}
+                fetchData={fetchData} // Pass fetchData to Row component
               />
             ))}
           </TableBody>
@@ -338,3 +343,5 @@ const Shops = () => {
 };
 
 export default Shops;
+
+
