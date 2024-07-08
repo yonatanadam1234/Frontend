@@ -95,7 +95,7 @@ const AmazonOrderTable = () => {
     fetchData();
   }, [fetchData]);
 
-  const fetchAmazonData = useCallback(async () => {
+  const fetchAmazonData = useCallback(async (page = 0) => {
     if (!verificationState) return;
     setLoading(true);
     try {
@@ -122,15 +122,16 @@ const AmazonOrderTable = () => {
   }, [fetchAmazonData]);
 
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    fetchAmazonData(newPage);
   };
 
   const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 7));
+    setRowsPerPage(parseInt(event.target.value, 7)); 
     setPage(0);
   };
-
+  
   const onSearchOrder = (value) => {
     setSearchQuery(value);
     setPage(0);
@@ -145,6 +146,7 @@ const AmazonOrderTable = () => {
       fetchAmazonData();
     }
   };
+
   const handleDrawerClose = () => {
     setOpenAddOrder(false);
   }
@@ -543,10 +545,10 @@ const AmazonOrderTable = () => {
               </Grid>
 
               {/* Add similar FormControl for other filters as needed */}
-              <Box sx={{display:'flex', justifyContent:'flex-end'}}>
-              <Button onClick={applyFilters} variant="contained" color="primary" sx={{ marginTop: 2 }}>
-                Apply Filters
-              </Button>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button onClick={applyFilters} variant="contained" color="primary" sx={{ marginTop: 2 }}>
+                  Apply Filters
+                </Button>
               </Box>
             </FormControl>
           </Box>
