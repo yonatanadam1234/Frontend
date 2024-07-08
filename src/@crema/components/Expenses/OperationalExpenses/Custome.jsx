@@ -15,7 +15,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
     recurrence: Yup.string().required('Recurrence is required'),
     expenseStatus: Yup.string().required('Expense Status is required'),
     expenseLabel: Yup.string().required('Expense Label is required'),
-    category: Yup.string().required('Category is required'),
+    // category: Yup.string().required('Category is required'),
     expenseAmount: Yup.number().required('Expense Amount is required'),
   });
   const { user } = useJWTAuth();
@@ -26,7 +26,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
       recurrence: '',
       expenseStatus: 'Active',
       expenseLabel: '',
-      category: '',
+      // category: '',
       expenseAmount: '',
       currency: '$',
     },
@@ -40,7 +40,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
           recurrence: values.recurrence,
           status: values.expenseStatus === 'Active' ? '1' : '0',
           expense_label: values.expenseLabel,
-          category: values.category,
+          // category: values.category,
           currency_amount: values.expenseAmount,
           currency_icon: values.currency,
         }
@@ -85,8 +85,8 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
         <hr style={{ opacity: '0.2' }} />
         <form onSubmit={formikCustomExpense.handleSubmit}>
           <DialogContent>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+            {/* <Grid container spacing={2}>
+              <Grid item xs={6}> */}
                 <FormControl fullWidth margin="normal">
                   <InputLabel>Recurrence</InputLabel>
                   <Select label="Recurrence" {...formikCustomExpense.getFieldProps('recurrence')}>
@@ -99,8 +99,8 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                     <div style={{ color: 'red' }}>{formikCustomExpense.errors.recurrence}</div>
                   ) : null}
                 </FormControl>
-              </Grid>
-              <Grid item xs={6}>
+              {/* </Grid>
+              <Grid item xs={6}> */}
                 <FormControl fullWidth margin="normal">
                   <InputLabel>Expense Status</InputLabel>
                   <Select
@@ -114,10 +114,9 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                     <div style={{ color: 'red' }}>{formikCustomExpense.errors.expenseStatus}</div>
                   ) : null}
                 </FormControl>
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+              {/* </Grid>
+            </Grid> */}
+              {/* <Grid item xs={6}> */}
                 <TextField
                   fullWidth
                   margin="normal"
@@ -127,10 +126,10 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                 {formikCustomExpense.touched.expenseLabel && formikCustomExpense.errors.expenseLabel ? (
                   <div style={{ color: 'red' }}>{formikCustomExpense.errors.expenseLabel}</div>
                 ) : null}
-              </Grid>
+              {/* </Grid> */}
 
 
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <TextField
                   fullWidth
                   margin="normal"
@@ -140,8 +139,7 @@ const Custome = ({ open, handleSubmit, handleCloseCustome, setOpenCustomPopup })
                 {formikCustomExpense.touched.category && formikCustomExpense.errors.category ? (
                   <div style={{ color: 'red' }}>{formikCustomExpense.errors.category}</div>
                 ) : null}
-              </Grid>
-            </Grid>
+              </Grid> */}
             <TextField
               fullWidth
               margin="normal"

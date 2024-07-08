@@ -63,7 +63,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit,isSubmitting })
                 onChange={(e) => onChange("expense_label", e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <TextField
                 label="Category"
                 variant="outlined"
@@ -72,7 +72,7 @@ const EditDrawer = ({ open, onClose, rowData, onChange, onSubmit,isSubmitting })
                 value={rowData.category}
                 onChange={(e) => onChange("category", e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 label="Amount"

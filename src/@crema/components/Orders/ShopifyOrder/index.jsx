@@ -16,7 +16,8 @@ import {
   Hidden, Box,
   MenuItem,
   Select,
-} from "@mui/material";import noDataImage from '../../../../../public/assets/icon/no_data_found.jpg';
+} from "@mui/material";
+import noDataImage from '../../../../assets/icon/no_data_found.jpg';
 import { IoCloseSharp } from "react-icons/io5";
 import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";

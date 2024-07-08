@@ -28,7 +28,7 @@ const AppLayout = () => {
   const [params] = useUrlSearchParams();
 
   const initURL = params?.redirect ? params?.redirect : initialUrl;
-  const loginUrl = `/signin?redirect=${window.location.pathname}`;
+  const loginUrl = `/signin?https://app.anyprofit.io/dashboards/e-commerce`;
   const generatedRoutes = generateRoutes({
     isAuthenticated: isAuthenticated,
     userRole: user?.role,

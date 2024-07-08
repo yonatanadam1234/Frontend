@@ -5,11 +5,11 @@ import {
   IconButton,
   FormControlLabel,
   FormHelperText,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Typography,
+  // Dialog,
+  // DialogTitle,
+  // DialogContent,
+  // DialogActions,
+  // Typography,
 } from "@mui/material";
 import { Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -27,8 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { GoDotFill } from "react-icons/go";
-
+// import { GoDotFill } from "react-icons/go";
 
 
 const validationSchema = yup.object({
@@ -47,10 +46,10 @@ const validationSchema = yup.object({
 });
 
 const SignupJwtAuth = () => {
-  const { handleSignup } = useAuthMethod();
 
+  const { handleSignup } = useAuthMethod();
   const [showPassword, setShowPassword] = useState(false);
-  const [openTermsDialog, setOpenTermsDialog] = useState(false);
+  // const [openTermsDialog, setOpenTermsDialog] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -59,14 +58,14 @@ const SignupJwtAuth = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+ 
+  // const handleOpenTermsDialog = () => {
+  //   setOpenTermsDialog(true);
+  // };
 
-  const handleOpenTermsDialog = () => {
-    setOpenTermsDialog(true);
-  };
-
-  const handleCloseTermsDialog = () => {
-    setOpenTermsDialog(false);
-  };
+  // const handleCloseTermsDialog = () => {
+  //   setOpenTermsDialog(false);
+  // };
 
   return (
     <>
@@ -84,7 +83,7 @@ const SignupJwtAuth = () => {
                 password: "",
                 address: "a",
                 terms: false,
-                role:'user',
+                role: 'user',
               }}
               validationSchema={validationSchema}
               onSubmit={(data, { setSubmitting }) => {
@@ -174,7 +173,7 @@ const SignupJwtAuth = () => {
                           name="terms"
                           checked={values.terms}
                           onChange={handleChange}
-                         
+
                         />
                       }
                       label={
@@ -184,7 +183,7 @@ const SignupJwtAuth = () => {
                             sx={{ mr: 2, color: "grey.700" }}
                           >
                             <IntlMessages id="common.iAgreeTo" />
-                      
+
                           </Box>
                           <Box
                             component="span"
@@ -192,9 +191,10 @@ const SignupJwtAuth = () => {
                               color: (theme) => theme.palette.primary.main,
                               cursor: "pointer",
                             }}
-                            onClick={handleOpenTermsDialog}
                           >
-                            <IntlMessages id="common.termConditions" />
+                            <Link to="https://anyprofit.io/policies/terms-of-service" target="_blank" rel="noopener noreferrer">
+                              <IntlMessages id="common.termConditions" />
+                            </Link>
                           </Box>
                         </>
                       }
@@ -252,7 +252,7 @@ const SignupJwtAuth = () => {
         </Box>
       </AuthWrapper>
 
-      <Dialog open={openTermsDialog} onClose={handleCloseTermsDialog} sx={{
+      {/* <Dialog open={openTermsDialog} onClose={handleCloseTermsDialog} sx={{
         maxHeight: '90%',
         mt: '40px'
       }}>
@@ -334,7 +334,7 @@ const SignupJwtAuth = () => {
             Close
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };

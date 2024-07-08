@@ -21,7 +21,7 @@ import { getEbayOrderData } from "../orders.service";
 import { getShopData } from "../../Shops/services/shop.service";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import noDataImage from '../../../../../public/assets/icon/no_data_found.jpg';
+import noDataImage from '../../../../assets/icon/no_data_found.jpg';
 import { IoCloseSharp } from "react-icons/io5";
 import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";

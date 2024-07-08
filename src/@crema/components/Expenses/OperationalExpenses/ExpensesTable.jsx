@@ -57,7 +57,7 @@ const ExpensesTable = () => {
         expense_label: values?.expenseLabel || "N/A",
         recurrence: values?.recurrence || "N/A",
         status: values?.expenseStatus || "N/A",
-        category: values?.category || "N/A",
+        // category: values?.category || "N/A",
         currency_amount: values?.expenseAmount || "N/A",
         currency_icon: values?.currency || "N/A",
       },
@@ -155,7 +155,7 @@ const ExpensesTable = () => {
           expense_label: expense.expense_label,
           recurrence: expense.recurrence,
           status: expense.status === "1" ? "Active" : "Inactive",
-          category: expense.category,
+          // category: expense.category,
           currency_amount: expense.currency_amount,
           id: expense.id,
           currency_icon: expense.currency_icon,
@@ -307,7 +307,7 @@ const ExpensesTable = () => {
               {/* <TableCell>Type</TableCell> */}
               {/* <TableCell>Calculated Per</TableCell> */}
               <TableCell>Status</TableCell>
-              <TableCell>Category</TableCell>
+              {/* <TableCell>Category</TableCell> */}
               <TableCell>Amount</TableCell>
               {/* <TableCell>First Payment</TableCell> */}
               {/* <TableCell>Final Payment</TableCell> */}
@@ -342,7 +342,7 @@ const ExpensesTable = () => {
                       {row.status || "N/A"}
                     </Box>
                   </TableCell>
-                  <TableCell>{row.category}</TableCell>
+                  {/* <TableCell>{row.category}</TableCell> */}
                   <TableCell>{row.currency_icon}{row.currency_amount}</TableCell>
                   <TableCell sx={{ textAlign: "right" }}>
                     <IconButton
