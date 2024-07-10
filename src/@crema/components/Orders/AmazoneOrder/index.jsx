@@ -128,10 +128,10 @@ const AmazonOrderTable = () => {
   };
 
   const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 7)); 
+    setRowsPerPage(parseInt(event.target.value, 7));
     setPage(0);
   };
-  
+
   const onSearchOrder = (value) => {
     setSearchQuery(value);
     setPage(0);
@@ -190,6 +190,15 @@ const AmazonOrderTable = () => {
               onChange={(event) => onSearchOrder(event.target.value)}
               placeholder={messages["common.searchHere"]}
             />
+            <Hidden smDown>
+              <AppsPagination
+                rowsPerPage={rowsPerPage}
+                page={page}
+                count={amazonOrderData.total || 0}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleRowsPerPageChange}
+              />
+            </Hidden>
             <Box alignItems="right">
               <label>
                 <input
@@ -211,15 +220,7 @@ const AmazonOrderTable = () => {
                 Add Order
               </Button>
 
-              <Hidden smDown>
-                <AppsPagination
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  count={amazonOrderData.total || 0}
-                  onPageChange={handlePageChange}
-                  onRowsPerPageChange={handleRowsPerPageChange}
-                />
-              </Hidden>
+
             </Box>
           </Box>
         </AppsHeader>
@@ -252,8 +253,8 @@ const AmazonOrderTable = () => {
                   <TableHeading displayProductCost={displayProductCost} />
                 </TableHead>
                 <TableBody>
-                  {amazonOrderData.data.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((data) => (
-                    <TableItem data={data} key={data.order_id} displayProductCost={displayProductCost} />
+                  {amazonOrderData.data && amazonOrderData.data.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((data) => (
+                    data && <TableItem data={data} key={data.order_id} displayProductCost={displayProductCost} />
                   ))}
                 </TableBody>
               </Table>
@@ -311,7 +312,6 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Ebay Order Id"
                 name="ebayOrderId"
-                value={formData.ebayOrderId}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
 
@@ -320,7 +320,6 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Customer Name"
                 name="customerName"
-                value={formData.customerName}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
 
@@ -329,7 +328,6 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Customer Address"
                 name="customerAddress"
-                value={formData.customerAddress}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
 
@@ -337,40 +335,35 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Product Cost"
                 name="productCost"
-                value={formData.productCost}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Purchase Date"
                 name="purchaseDate"
-                value={formData.purchaseDate}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Last Updated Date"
                 name="lastUpdatedDate"
-                value={formData.lastUpdatedDate}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
-              <TextField
+              <Select
                 label="Order Status"
                 name="orderStatus"
                 value={formData.orderStatus}
                 onChange={handleFilterChange}
-                select
                 sx={{ width: 250, margin: 2 }}
               >
                 <MenuItem value="">Select Order Status</MenuItem>
                 <MenuItem value="Cancelled">Cancelled</MenuItem>
                 <MenuItem value="Shipped">Shipped</MenuItem>
-              </TextField>
+              </Select>
               <TextField
                 label="Fulfillment Channel"
                 name="fulfillmentChannel"
-                value={formData.fulfillmentChannel}
                 onChange={handleFilterChange}
                 select
                 sx={{ width: 250, margin: 2 }}
@@ -382,7 +375,6 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Sales Channel"
                 name="salesChannel"
-                value={formData.salesChannel}
                 onChange={handleFilterChange}
                 select
                 sx={{ width: 250, margin: 2 }}
@@ -394,28 +386,24 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Ship Service Level"
                 name="shipServiceLevel"
-                value={formData.shipServiceLevel}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Product Name"
                 name="productName"
-                value={formData.productName}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="SKU"
                 name="sku"
-                value={formData.sku}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Item Status"
                 name="itemStatus"
-                value={formData.itemStatus}
                 onChange={handleFilterChange}
                 select
                 sx={{ width: 250, margin: 2 }}
@@ -427,14 +415,12 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Quantity"
                 name="quantity"
-                value={formData.quantity}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Currency"
                 name="currency"
-                value={formData.currency}
                 onChange={handleFilterChange}
                 select
                 sx={{ width: 250, margin: 2 }}
@@ -446,63 +432,54 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Item Price"
                 name="itemPrice"
-                value={formData.itemPrice}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Item Tax"
                 name="itemTax"
-                value={formData.itemTax}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Shipping Price"
                 name="shippingPrice"
-                value={formData.shippingPrice}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Shipping Tax"
                 name="shippingTax"
-                value={formData.shippingTax}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Ship City"
                 name="shipCity"
-                value={formData.shipCity}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Ship State"
                 name="shipState"
-                value={formData.shipState}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Ship Postal Code"
                 name="shipPostalCode"
-                value={formData.shipPostalCode}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Ship Country"
                 name="shipCountry"
-                value={formData.shipCountry}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="Is IBA"
                 name="isIba"
-                value={formData.isIba}
                 onChange={handleFilterChange}
                 select
                 sx={{ width: 250, margin: 2 }}
@@ -515,14 +492,12 @@ const AmazonOrderTable = () => {
               <TextField
                 label="Selling Fees"
                 name="sellingFees"
-                value={formData.sellingFees}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
               <TextField
                 label="FBA Fees"
                 name="fbaFees"
-                value={formData.fbaFees}
                 onChange={handleFilterChange}
                 sx={{ width: 250, margin: 2 }}
               />
@@ -530,7 +505,6 @@ const AmazonOrderTable = () => {
                 <TextField
                   label="Shipping Group"
                   name="shippingGroup"
-                  value={formData.shippingGroup}
                   onChange={handleFilterChange}
                   select
                   sx={{ width: 250, margin: 2 }}

@@ -66,7 +66,6 @@ const PricingDetail = () => {
         </Box>
       </Box>
 
-      
           <Grid item xs={12}>
             <PackageOneNew
               billingFormat={billingFormat}

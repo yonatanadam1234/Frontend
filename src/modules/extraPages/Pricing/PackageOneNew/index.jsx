@@ -8,26 +8,35 @@ import { useAuthUser } from "../../../../@crema/hooks/AuthHooks";
 import { useJWTAuth } from "../../../../@crema/services/auth";
 
 const PackageOne = ({ billingFormat }) => {
+  console.log("🚀 ~ PackageOne ~ billingFormat:", billingFormat)
   const { user } = useJWTAuth();
 
   const getButtonText = (id) => {
-    if (id===0) {return "Try Now";}
+    if (id === 0) {
+      return "Free";
+    }
+    const isCurrentPlanMonthly = billingFormat === "month" && id === user.subscription;
+    const isCurrentPlanYearly = billingFormat === "year" && (id + 3) === user.subscription;
+
+    if (isCurrentPlanMonthly || isCurrentPlanYearly) {
+      return "Current Plan";
+    }
     
     if (billingFormat === "month") {
       if (id > user.subscription) {
-        return "Upgrade";
+        return "Upgrade Plan";
       } else {
-        return "Buy Now";
+        return "Buy Plan";
       }
     } else if (billingFormat === "year") {
       const yearlyId = id + 3; // map monthly IDs (0-3) to yearly IDs (4-6)
       if (yearlyId > user.subscription) {
-        return "Upgrade";
+        return "Upgrade Plan";
       } else {
-        return "Buy Now";
+        return "Buy Plan";
       }
     }
-    return "buy Now";
+    return "Buy Plan";
   };
 
   return (

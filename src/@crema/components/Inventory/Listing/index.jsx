@@ -46,7 +46,7 @@ const ProductListing = () => {
   const [page, setPage] = useState(0);
   const [{ apiData, loading }, { setQueryParams }] = useGetDataApi(
     "/api/ecommerce/list",
-    [], 
+    [],
     {},
     false
   );
@@ -98,33 +98,6 @@ const ProductListing = () => {
                       onChange={(event) => onSearchOrder(event.target.value)}
                       placeholder={messages["common.searchHere"]}
                     />
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
-                      justifyContent="right"
-                      flex="auto"
-                    >
-                      <IconButton color="primary" onClick={toggleFilterDrawer}>
-                        <Button
-                         style={{
-                          padding:'8px 20px',
-                          margin:'10px 0px',
-                          background:'#0A8FDC',
-                          color:'#FFF',
-                          borderRadius:'10px',
-                          border:'none',
-                          display:'flex',
-                          alignItems:'center'
-                        }}
-                        >
-                          <FilterListIcon />
-                          &nbsp;&nbsp;Filters
-                        </Button>
-                      </IconButton>
-                      
-                    </Box>
-
                     <Box display="flex" flexDirection="row" alignItems="center">
                       <Box
                         display="flex"
@@ -142,6 +115,34 @@ const ProductListing = () => {
                         </Hidden>
                       </Box>
                     </Box>
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      justifyContent="right"
+                      flex="auto"
+                    >
+                      <IconButton color="primary" onClick={toggleFilterDrawer}>
+                        <Button
+                          style={{
+                            padding: '8px 20px',
+                            margin: '10px 0px',
+                            background: '#0A8FDC',
+                            color: '#FFF',
+                            borderRadius: '10px',
+                            border: 'none',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <FilterListIcon />
+                          &nbsp;&nbsp;Filters
+                        </Button>
+                      </IconButton>
+
+                    </Box>
+
+
                   </Box>
                 </AppsHeader>
               }
@@ -169,15 +170,15 @@ const ProductListing = () => {
         </Slide>
 
 
-        
+
         <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer} fullWidth>
           <Box style={{
-            width:'100%',
-            display:'flex',
-            justifyContent:'flex-end',
-            marginRight:'300px',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginRight: '300px',
           }}>
-            <IoCloseSharp style={{fontSize:'38px',marginRight:'10px',}} onClick={toggleFilterDrawer}/>
+            <IoCloseSharp style={{ fontSize: '38px', marginRight: '10px', }} onClick={toggleFilterDrawer} />
           </Box>
           <Box p={10}>
             <FormControl
@@ -204,20 +205,20 @@ const ProductListing = () => {
                   label="Recently Sold"
                 />
               </FormGroup>
-              
+
             </FormControl>
             {/* Add more filter options */}
-            
+
             <Button
               onClick={applyFilters}
-            style={{
-              padding:'12px 25px',
-              margin:'10px 0px',
-              background:'#0A8FDC',
-              color:'#FFF',
-              borderRadius:'10px',
-              border:'none'
-            }}
+              style={{
+                padding: '12px 25px',
+                margin: '10px 0px',
+                background: '#0A8FDC',
+                color: '#FFF',
+                borderRadius: '10px',
+                border: 'none'
+              }}
             >
               Apply Filters
             </Button>

@@ -1,45 +1,69 @@
-import React from "react";
-import { Typography, Box, Button, List, ListItem, ListItemIcon } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
+import { Typography, Box, Button, List, ListItem, ListItemIcon } from "@mui/material";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { Fonts } from "@crema/constants/AppEnums";
 import CardWrapper from "./CardWrapper";
 import PackageWrapper from "./PackageWrapper";
 import { FaBoxOpen } from "react-icons/fa";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
+import { updateSubscription } from "./Services/pricing.service";
+import jwtAxios from "../../../../../@crema/services/auth/jwt-auth";
+import { useJWTAuthActions } from "../../../../../@crema/services/auth";
 
-Paddle.Environment.set("production");
-Paddle.Initialize({ 
-  token: 'live_1bc6cf442aa74adbab7ffae494d' 
-});
 
 const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
 
-  const openCheckout = (priceId) => {
-    const items = [
-      {
-        priceId: priceId,
-        quantity: 1
+  const { setJWTAuthData } = useJWTAuthActions()
+  Paddle.Environment.set("sandbox");
+  Paddle.Initialize({
+    token: 'test_93a75a8090089c728cf1dda482f',
+    eventCallback: function (data) {
+      if (data.name == "checkout.completed") {
+        handleSuccess(data).then(() => {
+          fetchUpdateUser()
+        })
       }
-    ];
+    }
+  });
+
+  const openCheckout = (priceId) => {
+    const items = [{ priceId: priceId, quantity: 1 }];
 
     Paddle.Checkout.open({
       items: items,
-      successCallback: (data) => {
-        console.log('Checkout completed successfully!', data);
-      },
-      closeCallback: () => {
-        console.log('Checkout closed');
-      },
-      errorCallback: (error) => {
-        console.error('Checkout error', error);
-      },
-      returnUrl: 'http://localhost:5173/extra-pages/checkout/confirmation',
-      override: {
-        returnUrl: 'http://localhost:5173/extra-pages/checkout/confirmation', 
-      },
-      checkoutUrl: 'https://vendors.paddle.com/api/2.0/order', 
     });
+  };
+
+  const getSubscriptionId = (priceId) => {
+    const priceIdMap = {
+      'pri_01j2bmad8xgqv6r813vapz5z47': 1,
+      'pri_01j2bmd1mxce6092pgfwja6baj': 2,
+      'pri_01j2bmhc9g0kdpv2skhjfxvjwx': 3,
+      'pri_01j2bmbkqxj8psryrd5w026452': 4,
+      'pri_01j2bmdzf7bw6rr49hnmy68db8': 5,
+      'pri_01j2bmjysss6dyg3y8yxt8jk6s': 6,
+    };
+
+    return priceIdMap[priceId] || null;
+  };
+
+  const handleSuccess = async (data) => {
+    try {
+      console.log('Paddle Checkout Success:', data);
+      const priceId = data.data.items[0].price_id;
+      console.log("🚀 ~ handleSuccess ~  data.data.items[0].price_id:", data.data.items[0].price_id)
+      const subscriptionId = getSubscriptionId(priceId);
+      if (subscriptionId) {
+        const response = await updateSubscription(subscriptionId);
+
+      } else {
+        console.error('Invalid priceId:', priceId);
+      }
+    } catch (error) {
+      console.error('Error handling Paddle Checkout success:', error);
+    }
   };
 
   const handleButtonClick = () => {
@@ -47,6 +71,21 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
     openCheckout(priceId);
   };
 
+  const fetchUpdateUser = () => {
+    const token = localStorage.getItem('token');
+    jwtAxios
+      .get(`auth/user-data`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((data) => {
+        setJWTAuthData({
+          user: data.data.user,
+          isLoading: false,
+          isAuthenticated: true,
+        })
+      })
+  }
   return (
     <PackageWrapper>
       <Box
@@ -89,11 +128,13 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
             >
               ${currentPricing}
             </Box>
-            /{billingFormat === "month" ? "Month" : "Year"}
+            {pricing.id === 0 ? " " : (billingFormat === "month" ? "/Month" : "/Year")}
+
+           
           </Typography>
           {pricing.popular ? (
             <Box className="popular">
-              <img src="/assets/images/arrowleft.svg" alt="arrowleft" />
+              <img src="/assets/images/arrowleft.svg" alt="arrowleft"/>
               <Typography
                 className="popularText"
                 sx={{
