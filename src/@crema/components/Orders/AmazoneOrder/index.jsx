@@ -297,7 +297,7 @@ const AmazonOrderTable = () => {
           </Box>
           <Box p={10}>
             <FormControl fullWidth sx={{ paddingBottom: 5 }}>
-              <FormGroup>
+              {/* <FormGroup>
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}
                   label="Top Seller Product"
@@ -308,7 +308,7 @@ const AmazonOrderTable = () => {
                   control={<Checkbox defaultChecked />}
                   label="Less Seller Product"
                 />
-              </FormGroup>
+              </FormGroup> */}
               <TextField
                 label="Ebay Order Id"
                 name="ebayOrderId"

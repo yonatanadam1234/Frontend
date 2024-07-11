@@ -15,6 +15,8 @@ import { useJWTAuthActions } from "../../../../../@crema/services/auth";
 
 const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
 
+  console.log("🚀 ~ PackageCard ~ btnText:", btnText)
+
   const { setJWTAuthData } = useJWTAuthActions()
   Paddle.Environment.set("sandbox");
   Paddle.Initialize({
@@ -130,11 +132,11 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
             </Box>
             {pricing.id === 0 ? " " : (billingFormat === "month" ? "/Month" : "/Year")}
 
-           
+
           </Typography>
           {pricing.popular ? (
             <Box className="popular">
-              <img src="/assets/images/arrowleft.svg" alt="arrowleft"/>
+              <img src="/assets/images/arrowleft.svg" alt="arrowleft" />
               <Typography
                 className="popularText"
                 sx={{
@@ -186,28 +188,52 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
             </ListItemIcon>
           ) : null}
         </Box>
-        <Box sx={{ mb: 7.5, mt: 7 }}>
-          <Button
-            variant="outlined"
-            sx={{
-              width: "100%",
-              fontWeight: Fonts.BOLD,
-              color: (theme) => theme.palette.text.primary,
-              minHeight: 46,
-              borderRadius: 7.5,
-              boxShadow: "none",
-              borderWidth: 2,
-              borderColor: pricing.tagColor,
-              "&:hover, &:focus": {
-                borderColor: pricing.tagColor,
+        {btnText === 'Current Plan' ? (
+          <Box sx={{ mb: 7.5, mt: 7 }}>
+            <Button
+              variant="outlined"
+              sx={{
+                width: "100%",
+                fontWeight: Fonts.BOLD,
+                color: (theme) => theme.palette.text.primary,
+                minHeight: 46,
+                borderRadius: 7.5,
+                boxShadow: "none",
                 borderWidth: 2,
-              },
-            }}
-            onClick={handleButtonClick}
-          >
-            {btnText}
-          </Button>
-        </Box>
+                borderColor: pricing.tagColor,
+                "&:hover, &:focus": {
+                  borderColor: pricing.tagColor,
+                  borderWidth: 2,
+                },
+              }}
+              onClick={handleButtonClick}
+              disabled
+            >
+              {btnText}
+            </Button>
+          </Box>) : (<Box sx={{ mb: 7.5, mt: 7 }}>
+            <Button
+              variant="outlined"
+              sx={{
+                width: "100%",
+                fontWeight: Fonts.BOLD,
+                color: (theme) => theme.palette.text.primary,
+                minHeight: 46,
+                borderRadius: 7.5,
+                boxShadow: "none",
+                borderWidth: 2,
+                borderColor: pricing.tagColor,
+                "&:hover, &:focus": {
+                  borderColor: pricing.tagColor,
+                  borderWidth: 2,
+                },
+              }}
+              onClick={handleButtonClick}
+            >
+              {btnText}
+            </Button>
+          </Box>)}
+
         <Box>{pricing.Ofee}</Box>
         <hr color="#0A8FDC" style={{ marginTop: "30px" }} />
         {pricing.pricingList.map((data, index) => (
