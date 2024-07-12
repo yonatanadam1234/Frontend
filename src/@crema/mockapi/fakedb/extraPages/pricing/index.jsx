@@ -114,7 +114,7 @@ export const pricingData = {
       // annualplan: 'Annual Plan',
       // monthplan: 'Monthly Plan',
       order: "Up to 200 Orders",
-      shop: "2 Shop",
+      shop: "Up to 2 Shop",
       Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
@@ -152,7 +152,7 @@ export const pricingData = {
       annualplan: 'Annual Plan',
       monthplan: 'Monthly Plan',
       order: "Up to 600 Orders",
-      shop: "2 Shop",
+      shop: "Up to 2 Shop",
       Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
@@ -164,7 +164,7 @@ export const pricingData = {
             { id: 4, title: "Sophisticated Earnings Filters" },
             { id: 5, title: "Marketing Performance Analytics" },
             { id: 6, title: "One-Year Data Retention" },
-            { id: 7, title: "Data Retention for 6 month" },
+            { id: 7, title: "Data Retention for 3 month" },
           ],
         },
         {
@@ -192,7 +192,7 @@ export const pricingData = {
       annualplan: 'Annual Plan',
       monthplan: 'Monthly Plan',
       popular: "Most popular!",
-      order: "Up to 1200 Orders",
+      order: "600 To 1200 Orders",
       Ofee: "Extra Order fee: $0.1 per order",
       pricingList: [
         {
@@ -227,13 +227,14 @@ export const pricingData = {
       tagColor: "#F04F47",
       title: "Premium",
       btnText: "Premium Plan",
-      monthlyprice: 69,
+      monthlyprice: 99,
       yearlyprice: 730,
       monthlyPriceId: "pri_01j2bmhc9g0kdpv2skhjfxvjwx",
       yearlyPriceId: "pri_01j2bmjysss6dyg3y8yxt8jk6s",
       annualplan: 'Annual Plan',
       monthplan: 'Monthly Plan',
       order: "Unlimited Orders",
+      shop: "Unlimited Shop",
       Ofee: "Extra Order fee: No extra order fee",
       pricingList: [
         {
