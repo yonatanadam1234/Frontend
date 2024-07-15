@@ -67,21 +67,21 @@ const ECommerce = () => {
             {/* 1.Profit Focus Boxes: */}
             <Grid container spacing={4} style={{ marginLeft: '10px' }}>
               {/* Main Grid Container */}
-              <Grid item xs={12} lg={8}>
+              <Grid item xs={12} lg={12}>
                 {/* Sales State */}
                 <Grid item xs={12}>
                   <SalesState
-                    salesState={ecommerceData.salesState}
+                    // salesState={ecommerceData.salesState}    
                     chartData={ecommerceData.salesChartData}
                   />
                 </Grid>
               </Grid>
 
               {/* State Cards Grid */}
-              <Grid item xs={12} lg={4}>
-                <Grid container spacing={3} sx={{ mt: 12 }}>
+              {/* <Grid item xs={12} lg={4}>
+                <Grid container spacing={3} sx={{ mt: 12 }}> */}
                   {/* State Cards (Upper Row) */}
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <Grid container spacing={6} direction="column">
                       {ecommerceData.stateData.slice(0, 3).map((data) => (
                         <Grid key={data.id} item xs={12}>
@@ -89,14 +89,14 @@ const ECommerce = () => {
                         </Grid>
                       ))}
                     </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
+                  </Grid> */}
+                {/* </Grid>
+              </Grid> */}
             </Grid>
 
-            <Grid item xs={12} md={12} lg={12} xl={12}>
+            {/* <Grid item xs={12} md={12} lg={12} xl={12}>
               <RecentOrders recentOrders={ecommerceData.recentOrders} />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={6} lg={3}>
               <RevenueGraph />
             </Grid>

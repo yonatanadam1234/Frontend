@@ -3,6 +3,7 @@ import { Box, Grid, List, Typography } from "@mui/material";
 import AppGridContainer from "@crema/components/AppGridContainer";
 import PackageOneNew from "./PackageOneNew";
 import PricingFaq from "./Faq";
+import Enterprise from "./Enterprise/PackageCard/index";
 import { pricingData, pricingFaq } from "@crema/mockapi/fakedb/extraPages";
 
 const PricingDetail = () => {
@@ -12,13 +13,17 @@ const PricingDetail = () => {
     setBillingFormat(format);
   };
 
+  const handleEnterprise = () => {
+    setBillingFormat("Enterprise");
+  };
+
   return (
     <AppGridContainer>
       <Typography
         variant="h1"
         sx={{ mt: 8, width: "100%", fontSize: 48, textAlign: "center" }}
       >
-        
+
       </Typography>
       <Typography
         variant="body1"
@@ -64,14 +69,26 @@ const PricingDetail = () => {
         >
           Yearly billing
         </Box>
+        <Box
+          className={billingFormat === "Enterprise" ? "active" : ""}
+          sx={{ p: 3, borderRadius: 1.5, cursor: "pointer" }}
+          onClick={handleEnterprise}
+        >
+          Enterprise
+        </Box>
       </Box>
 
-          <Grid item xs={12}>
-            <PackageOneNew
-              billingFormat={billingFormat}
-            />
-          </Grid>
-     
+      {billingFormat === "Enterprise" ? (
+        <Grid item xs={12}>
+          <Box sx={{ width: "30%", margin: "auto", mt: 4 }}>
+            <Enterprise />
+          </Box>
+        </Grid>
+      ) : (
+        <Grid item xs={12}>
+          <PackageOneNew billingFormat={billingFormat} />
+        </Grid>
+      )}
 
       <Grid item xs={12} sx={{ mt: 7 }}>
         <PricingFaq pricingFaq={pricingFaq} />

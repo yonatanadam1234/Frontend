@@ -1,7 +1,7 @@
 export const pricingData = {
   pricingOne: [
     {
-      id: 1,
+      id: 8,
       tag: "Basic",
       tagColor: "#11C15B",
       title: "Basic",
@@ -33,73 +33,73 @@ export const pricingData = {
         },
       ],
     },
-    {
-      id: 2,
-      tag: "Pro",
-      tagColor: "#FF8B26",
-      title: "Pro",
-      price: 349,
-      popular: "Chosen by 57% of customers",
-      pricingList: [
-        {
-          id: 1,
-          title: "All features from previous plan",
-        },
-        {
-          id: 2,
-          title: "Memberships and bundles",
-        },
-        {
-          id: 3,
-          title: "Advanced quizzes",
-        },
-        {
-          id: 4,
-          title: "Private & hidden courses",
-        },
-        {
-          id: 5,
-          title: "2 Site admin accounts",
-        },
-        {
-          id: 6,
-          title: "5 Course admins/authors",
-        },
-      ],
-    },
-    {
-      id: 3,
-      tag: "Growth",
-      tagColor: "#00905F",
-      title: "Growth",
-      price: 149,
-      pricingList: [
-        {
-          id: 1,
-          title: "All features from previous plan",
-        },
-        {
-          id: 2,
-          title: "Memberships and bundles",
-        },
-        {
-          id: 3,
-          title: "Advanced quizzes",
-        },
-        {
-          id: 4,
-          title: "Private & hidden courses",
-        },
-        {
-          id: 5,
-          title: "2 Site admin accounts",
-        },
-        {
-          id: 6,
-          title: "5 Course admins/authors",
-        },
-      ],
-    },
+    // {
+    //   id: 2,
+    //   tag: "Pro",
+    //   tagColor: "#FF8B26",
+    //   title: "Pro",
+    //   price: 349,
+    //   popular: "Chosen by 57% of customers",
+    //   pricingList: [
+    //     {
+    //       id: 1,
+    //       title: "All features from previous plan",
+    //     },
+    //     {
+    //       id: 2,
+    //       title: "Memberships and bundles",
+    //     },
+    //     {
+    //       id: 3,
+    //       title: "Advanced quizzes",
+    //     },
+    //     {
+    //       id: 4,
+    //       title: "Private & hidden courses",
+    //     },
+    //     {
+    //       id: 5,
+    //       title: "2 Site admin accounts",
+    //     },
+    //     {
+    //       id: 6,
+    //       title: "5 Course admins/authors",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 3,
+    //   tag: "Growth",
+    //   tagColor: "#00905F",
+    //   title: "Growth",
+    //   price: 149,
+    //   pricingList: [
+    //     {
+    //       id: 1,
+    //       title: "All features from previous plan",
+    //     },
+    //     {
+    //       id: 2,
+    //       title: "Memberships and bundles",
+    //     },
+    //     {
+    //       id: 3,
+    //       title: "Advanced quizzes",
+    //     },
+    //     {
+    //       id: 4,
+    //       title: "Private & hidden courses",
+    //     },
+    //     {
+    //       id: 5,
+    //       title: "2 Site admin accounts",
+    //     },
+    //     {
+    //       id: 6,
+    //       title: "5 Course admins/authors",
+    //     },
+    //   ],
+    // },
   ],
 
   pricingOneNew: [
@@ -113,8 +113,8 @@ export const pricingData = {
       yearlyprice: 0,
       // annualplan: 'Annual Plan',
       // monthplan: 'Monthly Plan',
-      order: "Up to 200 Orders",
-      shop: "Up to 2 Shop",
+      order: "Up to 200(100/System) Orders",
+      shop: "Up to 2 Platform",
       Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
@@ -126,6 +126,8 @@ export const pricingData = {
             { id: 4, title: "Analytics for Orders & Products" },
             { id: 5, title: "Enhanced Expense Management" },
             { id: 6, title: "Unlimited Account Access" },
+            { id: 7, title: "Data Retention for 1 month" },
+
           ],
         },
         {
@@ -152,7 +154,7 @@ export const pricingData = {
       annualplan: 'Annual Plan',
       monthplan: 'Monthly Plan',
       order: "Up to 600 Orders",
-      shop: "Up to 2 Shop",
+      shop: "Up to 2 Platform",
       Ofee: "Extra Order fee: $0.3 per order",
       pricingList: [
         {
@@ -164,7 +166,7 @@ export const pricingData = {
             { id: 4, title: "Sophisticated Earnings Filters" },
             { id: 5, title: "Marketing Performance Analytics" },
             { id: 6, title: "One-Year Data Retention" },
-            { id: 7, title: "Data Retention for 3 month" },
+            { id: 7, title: "Data Retention for 6 month" },
           ],
         },
         {
@@ -191,8 +193,9 @@ export const pricingData = {
       yearlyPriceId: "pri_01j2bmdzf7bw6rr49hnmy68db8",
       annualplan: 'Annual Plan',
       monthplan: 'Monthly Plan',
+      shop: "Up to 4 Platform",
       popular: "Most popular!",
-      order: "600 To 1200 Orders",
+      order: "Up To 1500 Orders",
       Ofee: "Extra Order fee: $0.1 per order",
       pricingList: [
         {
@@ -204,7 +207,7 @@ export const pricingData = {
             { id: 4, title: "Sophisticated Earnings Filters" },
             { id: 5, title: "Marketing Performance Analytics" },
             { id: 6, title: "Two-Year Data Retention" },
-            { id: 7, title: "Data Retention for 6 month" },
+            { id: 7, title: "Data Retention for 6 month + Contact us for More" },
           ],
         },
         {
@@ -227,7 +230,7 @@ export const pricingData = {
       tagColor: "#F04F47",
       title: "Premium",
       btnText: "Premium Plan",
-      monthlyprice: 99,
+      monthlyprice: 150,
       yearlyprice: 730,
       monthlyPriceId: "pri_01j2bmhc9g0kdpv2skhjfxvjwx",
       yearlyPriceId: "pri_01j2bmjysss6dyg3y8yxt8jk6s",
@@ -253,22 +256,25 @@ export const pricingData = {
             { id: 11, title: "Shop Comparison Tools" },
             { id: 12, title: "Geo-Location Profit Analysis" },
             { id: 13, title: "Forecasted Expense Modeling" },
+            { id: 14, title: "Data Retention for 12 month + Contact us for More" },
+
           ],
         },
         {
           title: "Comprehensive Analytics Suite:",
           allData: [
-            { id: 14, title: "Shipping" },
-            { id: 15, title: "Discount" },
-            { id: 16, title: "Product" },
-            { id: 17, title: "Inventory" },
-            { id: 18, title: "Returns" },
-            { id: 19, title: "Processings" },
-            { id: 20, title: "Gateways" },
+            { id: 15, title: "Shipping" },
+            { id: 16, title: "Discount" },
+            { id: 17, title: "Product" },
+            { id: 18, title: "Inventory" },
+            { id: 19, title: "Returns" },
+            { id: 20, title: "Processings" },
+            { id: 21, title: "Gateways" },
           ],
         },
       ],
     },
+    
   ],
 
   pricingFour: [

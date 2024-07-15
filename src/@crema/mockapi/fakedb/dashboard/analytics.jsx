@@ -79,50 +79,6 @@ const analyticsData = {
     // },
   ],
 
-  salesChartData: [
-    {
-      name: 'Mon',
-      AS: 8000,
-      Rev: 2000,
-      amt: 2400,
-    },
-    {
-      name: 'Tue',
-      AS: 6500,
-      Rev: 1398,
-      amt: 2600,
-    },
-    {
-      name: 'Web',
-      AS: 9800,
-      Rev: 2000,
-      amt: 2290,
-    },
-    {
-      name: 'Thu',
-      AS: 3908,
-      Rev: 1500,
-      amt: 2000,
-    },
-    {
-      name: 'Fri',
-      AS: 7000,
-      Rev: 3000,
-      amt: 2181,
-    },
-    {
-      name: 'Sat',
-      AS: 2390,
-      Rev: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Sun',
-      AS: 8000,
-      Rev: 3600,
-      amt: 2100,
-    },
-  ],
 
   visitorsPageView: [
     { name: '15 May', Page: 150, Visitor: 270 },

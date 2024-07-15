@@ -29,7 +29,7 @@ const PackageOne = ({ billingFormat }) => {
         return "Buy Plan";
       }
     } else if (billingFormat === "year") {
-      const yearlyId = id + 3; // map monthly IDs (0-3) to yearly IDs (4-6)
+      const yearlyId = id + 3; 
       if (yearlyId > user.subscription) {
         return "Upgrade Plan";
       } else {
