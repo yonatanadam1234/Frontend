@@ -4,7 +4,6 @@ import AppGridContainer from "@crema/components/AppGridContainer";
 import Grid from "@mui/material/Grid";
 import PackageCard from "./PackageCard";
 import pricingData from "@crema/mockapi/fakedb/extraPages/pricing";
-import { useAuthUser } from "../../../../@crema/hooks/AuthHooks";
 import { useJWTAuth } from "../../../../@crema/services/auth";
 
 const PackageOne = ({ billingFormat }) => {

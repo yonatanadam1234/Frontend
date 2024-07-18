@@ -4,7 +4,7 @@ import AppGridContainer from "@crema/components/AppGridContainer";
 import AppAnimate from "@crema/components/AppAnimate";
 import { useGetDataApi } from "@crema/hooks/APIHooks";
 import StateCard from "./StateCard";
-import SalesReport from "./SalesReport";
+// import SalesReport from "./SalesReport";
 import BudgetStatistic from "./BudgetStatistic";
 import TopInquiries from "./TopInquiries";
 import WeeklyBestSellers from "./WeeklyBestSellers";
@@ -18,10 +18,11 @@ import NewCustomers from "./NewCustomers";
 import PopularProducts from "./PopularProducts";
 import Browser from "./Browser";
 import AppLoader from "@crema/components/AppLoader";
-import SalesState from "../Analytics/SalesState";
 import { getShopData } from "../../../@crema/components/Shops/services/shop.service";
 import { useJWTAuth } from "../../../@crema/services/auth";
 import AddShopContainer from "./AddShopContainer";
+import ExpenseState from "../Analytics/ExpenseState/ExpenseState";
+import SalesState from "../Analytics/SalesState/SalesState";
 
 const ECommerce = () => {
   const [{ apiData: ecommerceData, loading }] = useGetDataApi(
@@ -48,7 +49,7 @@ const ECommerce = () => {
     fetchData();
   }, [fetchData]);
 
-  const handleCloseShopPopup=()=>{
+  const handleCloseShopPopup = () => {
     setOpenFirstShopPopup(false);
   }
   return (
@@ -63,61 +64,55 @@ const ECommerce = () => {
                 <ReportCard data={data} />
               </Grid>
             ))}
-
-            {/* 1.Profit Focus Boxes: */}
-            <Grid container spacing={4} style={{ marginLeft: '10px' }}>
-              {/* Main Grid Container */}
-              <Grid item xs={12} lg={12}>
-                {/* Sales State */}
-                <Grid item xs={12}>
-                  <SalesState
-                    // salesState={ecommerceData.salesState}    
-                    chartData={ecommerceData.salesChartData}
-                  />
+            <Grid item xs={12} md={6} lg={12}>
+              <SalesState
+                salesState={ecommerceData.salesState}
+                chartData={ecommerceData.salesChartData} />
+            </Grid>
+            {/* <Grid item xs={3} >
+                <Grid container spacing={6} >
+                  {ecommerceData.stateData.slice(0, 3).map((data) => (
+                    <Grid key={data.id} item xs={12} >
+                      <StateCard data={data} />
+                    </Grid>
+                  ))}
                 </Grid>
+              </Grid> */}
+            <Grid item xs={12} lg={12}>
+              <Grid item xs={12}>
+                <ExpenseState />
               </Grid>
-
               {/* State Cards Grid */}
               {/* <Grid item xs={12} lg={4}>
                 <Grid container spacing={3} sx={{ mt: 12 }}> */}
-                  {/* State Cards (Upper Row) */}
-                  {/* <Grid item xs={12}>
-                    <Grid container spacing={6} direction="column">
-                      {ecommerceData.stateData.slice(0, 3).map((data) => (
-                        <Grid key={data.id} item xs={12}>
-                          <StateCard data={data} />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid> */}
-                {/* </Grid>
+              {/* State Cards (Upper Row) */}
+              {/* </Grid>
               </Grid> */}
             </Grid>
-
-            {/* <Grid item xs={12} md={12} lg={12} xl={12}>
+            <Grid item xs={12} md={12} lg={12} xl={12}>
               <RecentOrders recentOrders={ecommerceData.recentOrders} />
-            </Grid> */}
-            <Grid item xs={12} md={6} lg={3}>
-              <RevenueGraph />
             </Grid>
-            <Grid item xs={12} md={12} lg={5} xl={5}>
+            <Grid item xs={12} md={12} lg={5} xl={4}>
               <Revenue revenueData={ecommerceData.revenueData} />
             </Grid>
-            <Grid item xs={12} md={6} lg={4} xl={4} >
+            {/* <Grid item xs={12} md={6} lg={4} xl={4} >
               <TopInquiries topInquiries={ecommerceData.topInquiries} />
-            </Grid>
+            </Grid> */}
+            {/* <Grid item xs={12} md={6} lg={4}> 
+              <RevenueGraph />
+            </Grid> */}
             <Grid item xs={12} md={12} lg={8}>
               <PopularProducts
                 popularProducts={ecommerceData.popularProducts}
               />
             </Grid>
-            <Grid item xs={12} md={4} lg={4}>
+            {/* <Grid item xs={12} md={4} lg={4}>
               <BudgetStatistic />
-            </Grid>
+            </Grid> */}
           </AppGridContainer>
         </AppAnimate>
       )}
-      <AddShopContainer open={openFirstShopPopup} handleCloseShopPopup={handleCloseShopPopup}  />
+      <AddShopContainer open={openFirstShopPopup} handleCloseShopPopup={handleCloseShopPopup} />
     </>
   );
 };

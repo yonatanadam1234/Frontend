@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { Typography, Box, Button, List, ListItem, ListItemIcon } from "@mui/material";
@@ -12,27 +12,26 @@ import { updateSubscription } from "./Services/pricing.service";
 import jwtAxios from "../../../../../@crema/services/auth/jwt-auth";
 import { useJWTAuthActions } from "../../../../../@crema/services/auth";
 
-
 const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
-
-  console.log("🚀 ~ PackageCard ~ btnText:", btnText)
-
-  const { setJWTAuthData } = useJWTAuthActions()
+  const { setJWTAuthData } = useJWTAuthActions();
   Paddle.Environment.set("sandbox");
   Paddle.Initialize({
     token: 'test_93a75a8090089c728cf1dda482f',
     eventCallback: function (data) {
-      if (data.name == "checkout.completed") {
+      console.log("🚀 ~ PackageCard ~ data:", data)
+
+      if (data.name === "checkout.completed") {
         handleSuccess(data).then(() => {
-          fetchUpdateUser()
-        })
+          console.log("Calling fetchUpdateUser after handleSuccess");
+          fetchUpdateUser();
+          fetchTransactionData();
+        });
       }
     }
   });
 
   const openCheckout = (priceId) => {
     const items = [{ priceId: priceId, quantity: 1 }];
-
     Paddle.Checkout.open({
       items: items,
     });
@@ -47,7 +46,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
       'pri_01j2bmdzf7bw6rr49hnmy68db8': 5,
       'pri_01j2bmjysss6dyg3y8yxt8jk6s': 6,
     };
-
     return priceIdMap[priceId] || null;
   };
 
@@ -55,11 +53,12 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
     try {
       console.log('Paddle Checkout Success:', data);
       const priceId = data.data.items[0].price_id;
-      console.log("🚀 ~ handleSuccess ~  data.data.items[0].price_id:", data.data.items[0].price_id)
+      console.log("Price ID:", priceId);
       const subscriptionId = getSubscriptionId(priceId);
       if (subscriptionId) {
         const response = await updateSubscription(subscriptionId);
-
+        const transactionId = data.data.transaction_id;
+        
       } else {
         console.error('Invalid priceId:', priceId);
       }
@@ -67,6 +66,23 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
       console.error('Error handling Paddle Checkout success:', error);
     }
   };
+
+  const fetchTransactionData = async () => {
+    try {
+      const response = await axios.get(`https://api.paddle.com/transactions`, {
+        headers: {
+          Authorization: `API f69ddb65fd111c0d548b791df296314663afeae513b3d5255d`,
+        },
+      });
+      console.log("Transaction data response:", response);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching transaction data:', error.response ? error.response.data : error.message);
+      return null;
+    }
+  };
+
+
 
   const handleButtonClick = () => {
     const priceId = billingFormat === "month" ? pricing.monthlyPriceId : pricing.yearlyPriceId;
@@ -81,13 +97,17 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
           Authorization: `Bearer ${token}`,
         },
       }).then((data) => {
+        console.log("Updated user data:", data);
         setJWTAuthData({
           user: data.data.user,
           isLoading: false,
           isAuthenticated: true,
-        })
-      })
+        });
+      }).catch(error => {
+        console.error("Error updating user data:", error);
+      });
   }
+
   return (
     <PackageWrapper>
       <Box
@@ -131,8 +151,6 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
               ${currentPricing}
             </Box>
             {pricing.id === 0 ? " " : (billingFormat === "month" ? "/Month" : "/Year")}
-
-
           </Typography>
           {pricing.popular ? (
             <Box className="popular">
@@ -188,7 +206,8 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
             </ListItemIcon>
           ) : null}
         </Box>
-        {btnText === 'Current Plan' ? (
+
+        {btnText === 'Current Plan' || btnText === 'Free' ? (
           <Box sx={{ mb: 7.5, mt: 7 }}>
             <Button
               variant="outlined"
@@ -283,9 +302,10 @@ const PackageCard = ({ billingFormat, pricing, currentPricing, btnText }) => {
 };
 
 PackageCard.propTypes = {
-  billingFormat: PropTypes.string,
+  billingFormat: PropTypes.string.isRequired,
   pricing: PropTypes.object.isRequired,
   currentPricing: PropTypes.number.isRequired,
+  btnText: PropTypes.string.isRequired,
 };
 
 export default PackageCard;

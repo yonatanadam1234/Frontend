@@ -6,6 +6,7 @@ import { FormattedNumber } from "react-intl";
 
 import { styled } from "@mui/material/styles";
 import { Fonts } from "@crema/constants/AppEnums";
+import { mt } from "date-fns/locale";
 
 const StateWrapper = styled("div")((props) => {
   
@@ -89,11 +90,10 @@ const StateWrapper = styled("div")((props) => {
 const StateCard = ({ data }) => {
   return (
     <AppCard
-      sxStyle={{ height: 1 }}
+      sxStyle={{ height: 1}}
       contentStyle={{
-        display: "flex",
-        flexDirection: "column",
-        p: 0,
+        display: "flex",  
+        pt: 4,
         "&:last-of-type": {
           pb: 0,
         },
@@ -107,7 +107,7 @@ const StateCard = ({ data }) => {
           </Box>
         </Box>
 
-        <div className="state-content">
+        <Box className="state-content" sx={{display:'flex',flexDirection:'row'}}>
           <Box
             sx={{
               display: "flex",
@@ -181,7 +181,7 @@ const StateCard = ({ data }) => {
             </div>
           </Box>
 
-        </div>
+        </Box>
       </StateWrapper>
     </AppCard>
   );

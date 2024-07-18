@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 
 const RecentOrders = () => {
-  // Sample data with date property
   const listings = [
     {
       id: 1,
@@ -27,7 +26,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 2,
@@ -36,7 +35,7 @@ const RecentOrders = () => {
       revenue: 4000,
       quantity: 40,
       profit: 2500,
-      date: new Date("2023-10-15"),
+      date: new Date("2024-07-15"),
     },
     {
       id: 3,
@@ -45,7 +44,7 @@ const RecentOrders = () => {
       revenue: 67755,
       quantity: 60,
       profit: 3500,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 4,
@@ -54,7 +53,7 @@ const RecentOrders = () => {
       revenue: 8788,
       quantity: 23,
       profit: 600,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 5,
@@ -72,7 +71,7 @@ const RecentOrders = () => {
       revenue: 4555,
       quantity: 67,
       profit: 2500,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 7,
@@ -81,7 +80,7 @@ const RecentOrders = () => {
       revenue: 6000,
       quantity: 4,
       profit: 3500,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 8,
@@ -99,7 +98,7 @@ const RecentOrders = () => {
       revenue: 565,
       quantity: 89,
       profit: 3500,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 10,
@@ -108,7 +107,7 @@ const RecentOrders = () => {
       revenue: 878,
       quantity: 23,
       profit: 500,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 11,
@@ -126,7 +125,7 @@ const RecentOrders = () => {
       revenue: 8887,
       quantity: 89,
       profit: 900,
-      date: new Date("2023-10-20"),
+      date: new Date("2024-07-20"),
     },
     {
       id: 13,
@@ -135,7 +134,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 14,
@@ -144,7 +143,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 15,
@@ -153,7 +152,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 16,
@@ -162,7 +161,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 17,
@@ -171,7 +170,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 18,
@@ -180,7 +179,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 19,
@@ -189,7 +188,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 20,
@@ -198,7 +197,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
     {
       id: 21,
@@ -207,7 +206,7 @@ const RecentOrders = () => {
       revenue: 5000,
       quantity: 34,
       profit: 3000,
-      date: new Date("2023-10-10"),
+      date: new Date("2024-07-10"),
     },
 
     // Additional sample listings...

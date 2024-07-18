@@ -45,7 +45,6 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user, fetchData }) =>
       console.log("Deleting shop with verification state:", shopid);
       const response = await deleteShopData(user.id, shopid);
       if (response.data.success) {
-        // Update local state by filtering out the deleted shop
         const updatedShops = { ...shops };
         updatedShops[platform] = updatedShops[platform].filter(
           (shop) => shop.seller_info.id !== shopid
@@ -53,7 +52,6 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user, fetchData }) =>
         setShops(updatedShops);
         toast.success('Shop Deleted Successfully');
 
-        // Fetch updated data from backend
         fetchData();
       } else {
         toast.error("Error deleting shop");
@@ -100,26 +98,28 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user, fetchData }) =>
         </TableCell>
         <TableCell
           sx={{
-            display: "flex",
-            alignItems: "center",
-            border: 0,
             height: 74,
             gap: 1,
             fontSize: 14,
           }}
         >
-          <img
-            src={`assets/icon/${row.name}`}
-            alt=""
-            style={{
-              width: 40,
-              height: 40,
-              border: "1px solid gray",
-              borderRadius: "50%",
-              padding: 5,
-            }}
-          />
-          {row.platform}
+          <Box sx={{
+            display: "flex",
+            alignItems: "center",
+          }}>
+            <img
+              src={`assets/icon/${row.name}`}
+              alt=""
+              style={{
+                width: 40,
+                height: 40,
+                border: "1px solid gray",
+                borderRadius: "50%",
+                padding: 5,
+              }}
+            />
+            &nbsp; {row.platform}
+          </Box>
         </TableCell>
         <TableCell align="right" sx={{ fontSize: 14 }}>
           {shops[platform]?.length ?? "No"} Shops
@@ -138,12 +138,84 @@ const Row = ({ row, handleOpen, platform, shops, setShops, user, fetchData }) =>
           </Box>
         </TableCell>
       </TableRow>
+
+
+
+      {/* <TableRow>
+  <TableCell>
+    {shops[platform]?.length > 0 && (
+      <IconButton
+        aria-label="expand row"
+        size="small"
+        onClick={handleHistory}
+      >
+        {hOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+      </IconButton>
+    )}
+  </TableCell>
+  <TableCell
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+      height: 74,
+      gap: 1,
+      fontSize: 14,
+    }}
+  >
+    <img
+      src={`assets/icon/${row.name}`}
+      alt=""
+      style={{
+        width: 40,
+        height: 40,
+        border: "1px solid gray",
+        borderRadius: "50%",
+        padding: 5,
+      }}
+    />
+    {row.platform}
+  </TableCell>
+  <TableCell align="right" sx={{ fontSize: 14 }}>
+    {shops[platform]?.length ?? "No"} Shops
+  </TableCell>
+  <TableCell align="right">
+    <Box
+      onClick={() => handleOpen(row.platform)}
+      sx={{
+        cursor: "pointer",
+        color: "blue",
+        fontSize: 14,
+        "&:hover": { color: "black" },
+      }}
+    >
+      Add Shop
+    </Box>
+  </TableCell>
+</TableRow> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {shops[platform]?.length > 0 && (
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={hOpen} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Table size="small" aria-label="purchases">
+                <Table size="small" aria-label="purchases" sx={{ borderBottom: '1px', marginTop: '1px' }}>
                   <TableHead>
                     <TableRow>
                       <TableCell>Store Name</TableCell>
@@ -322,7 +394,7 @@ const Shops = () => {
                 shops={shops}
                 setShops={setShops}
                 user={user}
-                fetchData={fetchData} // Pass fetchData to Row component
+                fetchData={fetchData}
               />
             ))}
           </TableBody>

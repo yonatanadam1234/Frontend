@@ -10,7 +10,7 @@ import OrderNTransaction from './OrderNTransaction';
 import TrafficSource from './TrafficSource';
 import TopSelling from './TopSelling';
 import VisitorPageView from './VisitorPageView';
-import SalesState from './SalesState';
+import SalesState from './SalesState/SalesState';
 import StateCard from './StateCards';
 import WelcomeCard from './WelcomeCard';
 import ActiveVisitors from './ActiveVisitors';

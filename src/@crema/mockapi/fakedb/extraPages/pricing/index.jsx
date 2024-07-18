@@ -1,38 +1,38 @@
 export const pricingData = {
   pricingOne: [
-    {
-      id: 8,
-      tag: "Basic",
-      tagColor: "#11C15B",
-      title: "Basic",
-      price: 69,
-      pricingList: [
-        {
-          id: 1,
-          title: "All features from previous plan",
-        },
-        {
-          id: 2,
-          title: "Memberships and bundles",
-        },
-        {
-          id: 3,
-          title: "Advanced quizzes",
-        },
-        {
-          id: 4,
-          title: "Private & hidden courses",
-        },
-        {
-          id: 5,
-          title: "2 Site admin accounts",
-        },
-        {
-          id: 6,
-          title: "5 Course admins/authors",
-        },
-      ],
-    },
+    // {
+    //   id: 8,
+    //   tag: "Basic",
+    //   tagColor: "#11C15B",
+    //   title: "Basic",
+    //   price: 69,
+    //   pricingList: [
+    //     {
+    //       id: 1,
+    //       title: "All features from previous plan",
+    //     },
+    //     {
+    //       id: 2,
+    //       title: "Memberships and bundles",
+    //     },
+    //     {
+    //       id: 3,
+    //       title: "Advanced quizzes",
+    //     },
+    //     {
+    //       id: 4,
+    //       title: "Private & hidden courses",
+    //     },
+    //     {
+    //       id: 5,
+    //       title: "2 Site admin accounts",
+    //     },
+    //     {
+    //       id: 6,
+    //       title: "5 Course admins/authors",
+    //     },
+    //   ],
+    // },
     // {
     //   id: 2,
     //   tag: "Pro",
@@ -111,8 +111,6 @@ export const pricingData = {
       btnText: "Free Plan",
       monthlyprice: 0, 
       yearlyprice: 0,
-      // annualplan: 'Annual Plan',
-      // monthplan: 'Monthly Plan',
       order: "Up to 200(100/System) Orders",
       shop: "Up to 2 Platform",
       Ofee: "Extra Order fee: $0.3 per order",

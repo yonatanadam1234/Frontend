@@ -48,7 +48,6 @@ const TableItem = ({ data }) => {
 
   const handleShippingGroupChange = (event) => {
     setSelectedShippingGroup(event.target.value);
-    // You can add logic here to update the shipping group in your data source
   };
 
   const handleMrpChange = (event) => {
@@ -57,7 +56,6 @@ const TableItem = ({ data }) => {
 
   const handleMrpBlur = () => {
     setEditingMrp(false);
-    // Update the original data.mrp value here
     data.mrp = mrp;
   };
 
@@ -67,7 +65,6 @@ const TableItem = ({ data }) => {
 
   const handleProductWeightBlur = () => {
     setEditingProductWeight(false);
-    // Update the original data.product_weight value here
     data.product_weight = productWeight;
   };
 
@@ -140,9 +137,9 @@ const TableItem = ({ data }) => {
               display: "flex",
               alignItems: "center",
               cursor: "pointer",
-              color: "primary.main",
+              // color: "primary.main",
             }}
-            onClick={() => navigate(`/ecommerce/product_detail/${data?.id}`)}
+            // onClick={() => navigate(`/ecommerce/product_detail/${data?.id}`)}
           >
             <img
               style={{
@@ -157,7 +154,7 @@ const TableItem = ({ data }) => {
             {ellipsisLines(data.title)}
           </Box>
         </StyledTableCell>
-        <StyledTableCell align="left">{data.Item_SKU}</StyledTableCell>
+        <StyledTableCell align="left">{ellipsisLines(data.Item_SKU)}</StyledTableCell>
         <StyledTableCell style={{ display: "flex" }}>
           <Select
             value={selectedShippingGroup}

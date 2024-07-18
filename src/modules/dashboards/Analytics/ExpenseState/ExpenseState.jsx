@@ -10,9 +10,9 @@ import AppSelect from '@crema/components/AppSelect';
 import { useIntl } from 'react-intl';
 import AppList from '@crema/components/AppList';
 import Avatar from '@mui/material/Avatar';
-import MixBarChart from './MixBarChart';
+import MixChart from './MixChart';
 
-const SalesState = ({ salesState, chartData }) => {
+const Expense = ({ Expense, chartData }) => {
   const handleSelectionType = (data) => {
     console.log('data: ', data);
   };
@@ -22,29 +22,31 @@ const SalesState = ({ salesState, chartData }) => {
   const { messages } = useIntl();
   return (
     <AppCard
-      title={messages['dashboard.analytics.salesState']}
+      title={messages['dashboard.analytics.Expense']}
       sxStyle={{ height: 1 }}
-      sx={{mt:8}}
+      // sx={{mt:8}}
       action={
         <AppSelect
           menus={[
-            messages['dashboard.thisWeek'],
+            messages['dashboard.today'],
+            messages['dashboard.yesterday'],
             messages['dashboard.lastWeeks'],
             messages['dashboard.lastMonth'],
           ]}
-          defaultValue={messages['dashboard.thisWeek']}
+          
+          defaultValue={messages['dashboard.lastWeeks']}
           onChange={handleSelectionType}
         />
       }
     >
-      <Box
+      <Box  
         sx={{
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
         }}
       >
-        <Box
+        {/* <Box
           component='p'
           sx={{
             textAlign: { xs: 'center', sm: 'left' },
@@ -54,7 +56,7 @@ const SalesState = ({ salesState, chartData }) => {
           }}
         >
           1343 {messages['dashboard.analytics.salesThisWeek']}
-        </Box>
+        </Box> */}
 
         <Box
           sx={{
@@ -73,7 +75,7 @@ const SalesState = ({ salesState, chartData }) => {
                   alignItems: { xs: 'center', sm: 'flex-start' },
                 }}
               >
-                <MixBarChart data={chartData} />
+                <MixChart data={chartData} />
               </Box>
             </Grid>
 
@@ -92,10 +94,10 @@ const SalesState = ({ salesState, chartData }) => {
                   delay={200}
                   duration={400}
                   containerStyle={{ width: '100%', overflow: 'hidden' }}
-                  data={getData(salesState)}
+                  data={getData(Expense)}
                   renderRow={(item) => (
                     <Box
-                      key={'salesState-' + item.id}
+                      key={'Expense-' + item.id}
                       sx={{
                         pl: { xl: 6 },
                         py: { xs: 2, md: 4 },
@@ -155,13 +157,13 @@ const SalesState = ({ salesState, chartData }) => {
     </AppCard>
   );
 };
-export default SalesState;
+export default Expense;
 
-SalesState.defaultProps = {
-  salesState: [],
+Expense.defaultProps = {
+  Expense: [],
 };
 
-SalesState.propTypes = {
-  salesState: PropTypes.array,
+Expense.propTypes = {
+  Expense: PropTypes.array,
   chartData: PropTypes.array,
 };

@@ -18,31 +18,24 @@ const Enterprise = () => {
     pricingOne: [
       {
         id: 1,
-        tag: "Enterprise",
-        tagColor: "#11C15B",
-        title: "Enterprise",
+        tag: 'Enterprise',
+        tagColor: '#11C15B',
+        title: 'Enterprise',
         pricingList: [
-          { id: 1, title: "Premium Plan Enhancements" },
-          { id: 2, title: "Unlimited Data History" },
-          { id: 3, title: "Tailored Metrics and Reports" },
-          { id: 4, title: "Automated Workspace Reporting" },
-          { id: 5, title: "Custom Integrations and API Access" },
-          { id: 6, title: "Industry Benchmark Reporting" },
-          { id: 7, title: "Comprehensive Multi-Shop Analytics" },
-          { id: 8, title: "Centralized Shop Reporting" },
-          { id: 9, title: "Unified Marketplace, Brand, and Shop Analysis" },
-          { id: 10, title: "Access to Single or Multiple Store Data" },
-          { id: 11, title: "Shop Comparison Tools" },
-          { id: 12, title: "Geo-Location Profit Analysis" },
-          { id: 13, title: "Forecasted Expense Modeling" },
-          { id: 14, title: "Data Retention for 12 month + Contact us for More" },
-          // { id: 14, title: "Shipping" },
-          // { id: 15, title: "Discount" },
-          // { id: 16, title: "Product" },
-          // { id: 17, title: "Inventory" },
-          // { id: 18, title: "Returns" },
-          // { id: 19, title: "Processings" },
-          // { id: 20, title: "Gateways" },
+          { id: 1, title: 'Premium Plan Enhancements' },
+          { id: 2, title: 'Unlimited Data History' },
+          { id: 3, title: 'Tailored Metrics and Reports' },
+          { id: 4, title: 'Automated Workspace Reporting' },
+          { id: 5, title: 'Custom Integrations and API Access' },
+          { id: 6, title: 'Industry Benchmark Reporting' },
+          { id: 7, title: 'Comprehensive Multi-Shop Analytics' },
+          { id: 8, title: 'Centralized Shop Reporting' },
+          { id: 9, title: 'Unified Marketplace, Brand, and Shop Analysis' },
+          { id: 10, title: 'Access to Single or Multiple Store Data' },
+          { id: 11, title: 'Shop Comparison Tools' },
+          { id: 12, title: 'Geo-Location Profit Analysis' },
+          { id: 13, title: 'Forecasted Expense Modeling' },
+          { id: 14, title: 'Data Retention for 12 month + Contact us for More' },
         ],
       },
     ],
@@ -85,7 +78,7 @@ const Enterprise = () => {
               }}
             >
               Contact us for pricing
-              <Typography sx={{
+              <Typography sx={{ 
                 mt: 3
               }}>For enterprise projects that require premium data or bespoke solutions.</Typography>
             </Typography>
