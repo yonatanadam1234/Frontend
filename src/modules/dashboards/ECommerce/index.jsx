@@ -64,6 +64,7 @@ const ECommerce = () => {
                 <ReportCard data={data} />
               </Grid>
             ))}
+
             <Grid item xs={12} md={6} lg={12}>
               <SalesState
                 salesState={ecommerceData.salesState}

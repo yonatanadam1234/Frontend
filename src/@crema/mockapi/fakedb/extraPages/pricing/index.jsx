@@ -1,107 +1,4 @@
 export const pricingData = {
-  pricingOne: [
-    // {
-    //   id: 8,
-    //   tag: "Basic",
-    //   tagColor: "#11C15B",
-    //   title: "Basic",
-    //   price: 69,
-    //   pricingList: [
-    //     {
-    //       id: 1,
-    //       title: "All features from previous plan",
-    //     },
-    //     {
-    //       id: 2,
-    //       title: "Memberships and bundles",
-    //     },
-    //     {
-    //       id: 3,
-    //       title: "Advanced quizzes",
-    //     },
-    //     {
-    //       id: 4,
-    //       title: "Private & hidden courses",
-    //     },
-    //     {
-    //       id: 5,
-    //       title: "2 Site admin accounts",
-    //     },
-    //     {
-    //       id: 6,
-    //       title: "5 Course admins/authors",
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 2,
-    //   tag: "Pro",
-    //   tagColor: "#FF8B26",
-    //   title: "Pro",
-    //   price: 349,
-    //   popular: "Chosen by 57% of customers",
-    //   pricingList: [
-    //     {
-    //       id: 1,
-    //       title: "All features from previous plan",
-    //     },
-    //     {
-    //       id: 2,
-    //       title: "Memberships and bundles",
-    //     },
-    //     {
-    //       id: 3,
-    //       title: "Advanced quizzes",
-    //     },
-    //     {
-    //       id: 4,
-    //       title: "Private & hidden courses",
-    //     },
-    //     {
-    //       id: 5,
-    //       title: "2 Site admin accounts",
-    //     },
-    //     {
-    //       id: 6,
-    //       title: "5 Course admins/authors",
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 3,
-    //   tag: "Growth",
-    //   tagColor: "#00905F",
-    //   title: "Growth",
-    //   price: 149,
-    //   pricingList: [
-    //     {
-    //       id: 1,
-    //       title: "All features from previous plan",
-    //     },
-    //     {
-    //       id: 2,
-    //       title: "Memberships and bundles",
-    //     },
-    //     {
-    //       id: 3,
-    //       title: "Advanced quizzes",
-    //     },
-    //     {
-    //       id: 4,
-    //       title: "Private & hidden courses",
-    //     },
-    //     {
-    //       id: 5,
-    //       title: "2 Site admin accounts",
-    //     },
-    //     {
-    //       id: 6,
-    //       title: "5 Course admins/authors",
-    //     },
-    //   ],
-    // },
-  ],
-
   pricingOneNew: [
     {
       id: 0,
@@ -117,7 +14,7 @@ export const pricingData = {
       pricingList: [
         {
           title: "Free Plan Included:",
-          allData: [
+          allData: [  
             { id: 1, title: "Live Profit Monitoring Dashboard" },
             { id: 2, title: "Daily Earnings Summary Email" },
             { id: 3, title: "Data refresh 2 times a day" },
@@ -125,7 +22,6 @@ export const pricingData = {
             { id: 5, title: "Enhanced Expense Management" },
             { id: 6, title: "Unlimited Account Access" },
             { id: 7, title: "Data Retention for 1 month" },
-
           ],
         },
         {
@@ -275,6 +171,15 @@ export const pricingData = {
     
   ],
 
+
+
+
+
+
+
+
+
+  
   pricingFour: [
     {
       id: 1,

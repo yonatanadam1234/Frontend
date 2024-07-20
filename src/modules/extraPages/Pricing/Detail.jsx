@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, List, Typography } from "@mui/material";
 import AppGridContainer from "@crema/components/AppGridContainer";
 import PackageOneNew from "./PackageOneNew";
 import PricingFaq from "./Faq";
 import Enterprise from "./Enterprise/PackageCard/index";
-import { pricingData, pricingFaq } from "@crema/mockapi/fakedb/extraPages";
+import { pricingFaq } from "@crema/mockapi/fakedb/extraPages";
 
 const PricingDetail = () => {
-  const [billingFormat, setBillingFormat] = React.useState("month");
+  const [billingFormat, setBillingFormat] = useState("month");
 
-  const handleBillingFormatChange = (format) => {
-    setBillingFormat(format);
-  };
-
-  const handleEnterprise = () => {
-    setBillingFormat("Enterprise");
-  };
 
   return (
     <AppGridContainer>
@@ -23,7 +16,7 @@ const PricingDetail = () => {
         variant="h1"
         sx={{ mt: 8, width: "100%", fontSize: 48, textAlign: "center" }}
       >
-
+        Pricing
       </Typography>
       <Typography
         variant="body1"
@@ -49,7 +42,7 @@ const PricingDetail = () => {
           bgcolor: (theme) => theme.palette.background.paper,
           display: "flex",
           alignItems: "center",
-          ".active": {
+          "& .active": {
             boxShadow:
               "0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06)",
           },
@@ -58,39 +51,51 @@ const PricingDetail = () => {
         <Box
           className={billingFormat === "month" ? "active" : ""}
           sx={{ p: 3, borderRadius: 1.5, cursor: "pointer" }}
-          onClick={() => handleBillingFormatChange("month")}
+          onClick={() => setBillingFormat("month")}
         >
           Monthly billing
         </Box>
         <Box
           className={billingFormat === "year" ? "active" : ""}
           sx={{ p: 3, borderRadius: 1.5, cursor: "pointer" }}
-          onClick={() => handleBillingFormatChange("year")}
+          onClick={() => setBillingFormat("year")}
         >
           Yearly billing
         </Box>
         <Box
-          className={billingFormat === "Enterprise" ? "active" : ""}
+          className={billingFormat === "enterprise" ? "active" : ""}
           sx={{ p: 3, borderRadius: 1.5, cursor: "pointer" }}
-          onClick={handleEnterprise}
+          onClick={() => setBillingFormat("enterprise")}
         >
-          Enterprise
+          EnterPrise
         </Box>
       </Box>
 
-      {billingFormat === "Enterprise" ? (
+      {billingFormat === "month" && (
+        <Grid item xs={12}>
+          <Box sx={{ mt: 4 }}>
+            <PackageOneNew billingFormat={billingFormat} />
+          </Box>
+        </Grid>
+      )}
+
+      {billingFormat === "year" && (
+        <Grid item xs={12}>
+          <Box sx={{ mt: 4 }}>
+            <PackageOneNew billingFormat={billingFormat} />
+          </Box>
+        </Grid>
+      )}
+
+      {billingFormat === "enterprise" && (
         <Grid item xs={12}>
           <Box sx={{ width: "30%", margin: "auto", mt: 4 }}>
             <Enterprise />
           </Box>
         </Grid>
-      ) : (
-        <Grid item xs={12}>
-          <PackageOneNew billingFormat={billingFormat} />
-        </Grid>
       )}
 
-      <Grid item xs={12} sx={{ mt: 7 }}>
+      <Grid item xs={12} sx={{ mt: 25 }}>
         <PricingFaq pricingFaq={pricingFaq} />
       </Grid>
     </AppGridContainer>

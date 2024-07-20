@@ -44,35 +44,35 @@
 
 .crema-dot i:nth-child(1) {
     left: 10px;
-    background-color: #1890ff;
+    background-color: #ec4133;
     top: 0;
 }
 
 .crema-dot i:nth-child(2) {
     right: 0;
     top: 8px;
-    background-color: #1890ff;
+    background-color: #31aa52;
     animation-delay: 0.4s;
 }
 
 .crema-dot i:nth-child(3) {
     right: 4px;
     bottom: 0;
-    background-color: #1890ff;
+    background-color: #e31f8d;
     animation-delay: 0.8s;
 }
 
 .crema-dot i:nth-child(4) {
     left: 4px;
     bottom: 0;
-    background-color: #1890ff;
+    background-color: #4087f5;
     animation-delay: 1.2s;
 }
 
 .crema-dot i:nth-child(5) {
     left: 0;
     top: 8px;
-    background-color: #1890ff;
+    background-color: #fabd01;
     animation-delay: 1.2s;
 }
 

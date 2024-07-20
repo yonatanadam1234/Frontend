@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import noDataImage from '../../../../assets/icon/no_data_found.jpg'
 import AppLoader from '@crema/components/AppLoader';
 import AppTableContainer from '@crema/components/AppTableContainer';
-import { useAuthUser } from '../../../hooks/AuthHooks';
 import { getAmazonOrderData } from '../orders.service';
 import { getShopData } from '../../Shops/services/shop.service';
 import AppSearchBar from "@crema/components/AppSearchBar";

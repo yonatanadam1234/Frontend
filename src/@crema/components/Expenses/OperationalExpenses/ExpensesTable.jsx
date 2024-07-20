@@ -65,42 +65,6 @@ const ExpensesTable = () => {
     setOpenCustomPopup(false);
   };
 
-  // const handleContraSubmit = (values) => {
-  //   setTableData([
-  //     ...tableData,
-  //     {
-  //       ...values,
-  //       id: uuidv4(),
-  //       type: "Custom Expense",
-  //       expense_label: values?.expenseLabel || "N/A",
-  //       recurrence: values?.recurrence || "N/A",
-  //       status: values?.expenseStatus || "N/A",
-  //       category: values?.category || "N/A",
-  //       currency_amount: values?.expenseAmount || "N/A",
-  //       currency_icon: values?.currency || "N/A",
-  //     },
-  //   ]);
-  //   setOpenContraPopup(false);
-  // };
-
-  // const handleVariableSubmit = (values) => {
-  //   setTableData([
-  //     ...tableData,
-  //     {
-  //       ...values,
-  //       id: uuidv4(),
-  //       type: "Custom Expense",
-  //       expense_label: values?.expenseLabel || "N/A",
-  //       recurrence: values?.recurrence || "N/A",
-  //       status: values?.expenseStatus || "N/A",
-  //       category: values?.category || "N/A",
-  //       currency_amount: values?.expenseAmount || "N/A",
-  //       currency_icon: values?.currency || "N/A",
-  //     },
-  //   ]);
-  //   setOpenVariablePopup(false);
-  // };
-
   const handleDeleteExpense = async (id, index) => {
     if (!id) return;
 

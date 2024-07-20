@@ -16,3 +16,7 @@ export const updateSubscription = async (subscriptionId) => {
         subscription: subscriptionId,
     });
 };
+export const pricingPlanData = async () => {
+    return axiosInstance.get('pricing-plan-list', {
+    });
+};

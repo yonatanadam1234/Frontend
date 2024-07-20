@@ -1,61 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AppGridContainer from "@crema/components/AppGridContainer";
 import Grid from "@mui/material/Grid";
 import PackageCard from "./PackageCard";
-import pricingData from "@crema/mockapi/fakedb/extraPages/pricing";
 import { useJWTAuth } from "../../../../@crema/services/auth";
+import { pricingPlanData } from "./PackageCard/Services/pricing.service";
 
 const PackageOne = ({ billingFormat }) => {
-  console.log("🚀 ~ PackageOne ~ billingFormat:", billingFormat)
   const { user } = useJWTAuth();
+  const [pricingData, setPricingData] = useState([]);
 
   const getButtonText = (id) => {
-    if (id === 0) {
+    if (id === 1 || id === 2) {
       return "Free";
     }
-    const isCurrentPlanMonthly = billingFormat === "month" && id === user.subscription;
-    const isCurrentPlanYearly = billingFormat === "year" && (id + 3) === user.subscription;
-
-    if (isCurrentPlanMonthly || isCurrentPlanYearly) {
+    if (id === user.subscription) {
       return "Current Plan";
     }
-    
-    if (billingFormat === "month") {
-      if (id > user.subscription) {
-        return "Upgrade Plan";
-      } else {
-        return "Buy Plan";
-      }
-    } else if (billingFormat === "year") {
-      const yearlyId = id + 3; 
-      if (yearlyId > user.subscription) {
-        return "Upgrade Plan";
-      } else {
-        return "Buy Plan";
-      }
+    else {
+      return "Buy Plan";
+
     }
-    return "Buy Plan";
+
   };
 
-  return (
-    <AppGridContainer>
-      {pricingData.pricingOneNew.map((data) => {
-        const currentPricing =
-          billingFormat === "month" ? data.monthlyprice : data.yearlyprice;
+  const fetchPricingData = async () => {
+    try {
+      const response = await pricingPlanData();
+      if (response) {
+        if (billingFormat === "month") {
+          setPricingData(response.data.data.plans.monthly);
+        } else {
+          setPricingData(response.data.data.plans.yearly);
+        }
+      } else {
+        console.error("Invalid pricing data response");
+      }
+    } catch (error) {
+      console.error("Error fetching pricing data:", error);
+    }
+  };
 
-        return (
-          <Grid item xs={12} sm={6} md={3} key={data.id}>
-            <PackageCard
-              billingFormat={billingFormat}
-              currentPricing={currentPricing}
-              pricing={data}
-              btnText={getButtonText(data.id)}
-            />
-          </Grid>
-        );
-      })}
-    </AppGridContainer>
+  useEffect(() => {
+    fetchPricingData();
+  }, [billingFormat]);
+
+  return (
+    <React.Fragment>
+      <AppGridContainer>
+        {
+          pricingData.map((data) => {
+            return (
+              <Grid item xs={12} sm={6} md={3} key={data.id}>
+                <PackageCard
+                  pricing={data}
+                  buttonText={getButtonText(data.id)}
+                  billingFormat={billingFormat}
+                />
+              </Grid>
+            );
+          })}
+      </AppGridContainer>
+    </React.Fragment>
   );
 };
 

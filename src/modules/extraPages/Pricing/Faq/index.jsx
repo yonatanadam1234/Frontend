@@ -83,7 +83,7 @@ const PricingFaq = ({ pricingFaq }) => {
 };
 
 PricingFaq.propTypes = {
-  pricingFaq: PropTypes.arrayvmd,
+  pricingFaq: PropTypes.array.isRequired,
 };
 
 export default PricingFaq;
