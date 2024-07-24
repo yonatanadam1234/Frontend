@@ -1,9 +1,4 @@
-body {
-    padding: 0;
-    margin: 0;
-}
-
-.loader {
+/* .loader {
     position: relative;
     margin: 0 auto;
     width: 80px;
@@ -23,17 +18,17 @@ body {
     -webkit-justify-content: center;
     -ms-justify-content: center;
     justify-content: center;
-}
+} */
 
-.site-logo {
+/* .site-logo {
     text-align: center;
     margin-bottom: 30px;
 }
 
 .site-logo img {
     width: 100%;
-}
-
+} */
+/* 
 .loader-spin {
     text-align: center;
 }
@@ -109,4 +104,4 @@ body {
         transform: rotate(405deg);
     }
 }
-
+ */

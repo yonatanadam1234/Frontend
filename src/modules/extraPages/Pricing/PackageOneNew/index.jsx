@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import PackageCard from "./PackageCard";
 import { useJWTAuth } from "../../../../@crema/services/auth";
 import { pricingPlanData } from "./PackageCard/Services/pricing.service";
+import AppLoader from "../../../../@crema/components/AppLoader";
 
 const PackageOne = ({ billingFormat }) => {
   const { user } = useJWTAuth();
@@ -23,7 +24,6 @@ const PackageOne = ({ billingFormat }) => {
     }
 
   };
-
   const fetchPricingData = async () => {
     try {
       const response = await pricingPlanData();
@@ -47,6 +47,7 @@ const PackageOne = ({ billingFormat }) => {
 
   return (
     <React.Fragment>
+      
       <AppGridContainer>
         {
           pricingData.map((data) => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import PropTypes from 'prop-types';
-import { FormControl, FormHelperText, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select } from '@mui/material';
 import { Checkbox, InputLabel, ListItemText, OutlinedInput } from '@mui/material';
 import { Box } from '@mui/system';
 import { Legend } from 'recharts';
@@ -15,11 +15,17 @@ const metricColors = {
 };
 
 const MixBarChart = ({ data }) => {
-  const [selectedMetrics, setSelectedMetrics] = useState(Object.keys(data[0]).filter((metric) => metric!== 'name'));
+
+  
+  if (!data || !data.length) {
+    return <Box>No data available</Box>;
+  }
+
+  const [selectedMetrics, setSelectedMetrics] = useState(Object.keys(data[0]).filter((metric) => metric !== 'name'));
 
   const handleMetricSelect = (metric) => {
     if (selectedMetrics.includes(metric)) {
-      setSelectedMetrics(selectedMetrics.filter((m) => m!== metric));
+      setSelectedMetrics(selectedMetrics.filter((m) => m !== metric));
     } else {
       setSelectedMetrics([...selectedMetrics, metric]);
     }
@@ -52,7 +58,7 @@ const MixBarChart = ({ data }) => {
             height: 50,
           }}
         >
-          {Object.keys(data[0]).filter((metric) => metric!== 'name').map((metric) => (
+          {Object.keys(data[0]).filter((metric) => metric !== 'name').map((metric) => (
             <MenuItem key={metric} value={metric}>
               <Checkbox checked={selectedMetrics.includes(metric)} onChange={() => handleMetricSelect(metric)} />
               <span
@@ -97,8 +103,6 @@ const MixBarChart = ({ data }) => {
   );
 };
 
-export default MixBarChart;
-
 MixBarChart.defaultProps = {
   data: [],
 };
@@ -106,3 +110,5 @@ MixBarChart.defaultProps = {
 MixBarChart.propTypes = {
   data: PropTypes.array,
 };
+
+export default MixBarChart;

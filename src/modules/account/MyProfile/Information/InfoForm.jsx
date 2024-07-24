@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Form } from 'formik';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/base';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useJWTAuth, useJWTAuthActions } from '../../../../@crema/services/auth';
 import { pricingPlanData } from '../../../extraPages/Pricing/PackageOneNew/PackageCard/Services/pricing.service';
 import jwtAxios from '../../../../@crema/services/auth/jwt-auth';
+import AppLoader from '../../../../@crema/components/AppLoader';
 
 const InfoForm = () => {
   const { user } = useJWTAuth();
@@ -74,13 +75,16 @@ const InfoForm = () => {
   const currentPlan = useMemo(() => getPlanById(user?.subscription), [user?.subscription, pricingPlans]);
 
   return (
-    <Form autoComplete='off' style={{ padding: '20px' }}>
-      <h1>Subscription Plan</h1>
+    <Form autoComplete='off'>
+      <Typography sx={{my:3,fontSize:'20px'}}>Subscription Plan</Typography>
+      
       {loading ? (
-        <p>Loading...</p>
+        <Box sx={{py:'100px'}}>
+          <AppLoader />
+        </Box>
       ) : (
-        <p>Your current plan: {currentPlan ? currentPlan.tag : ''}</p>
-      )}
+        <>
+        <Typography>Your current plan: {currentPlan ? currentPlan.tag : 'Unknown'}</Typography>
       <br />
       {currentPlan && (
         <div>
@@ -110,6 +114,9 @@ const InfoForm = () => {
           </Box>
         </Grid>
       )}
+      </>
+    )}
+
     </Form>
   );
 };

@@ -58,7 +58,7 @@ const SignupJwtAuth = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
- 
+
   // const handleOpenTermsDialog = () => {
   //   setOpenTermsDialog(true);
   // };
@@ -220,7 +220,8 @@ const SignupJwtAuth = () => {
                       }}
                       type="submit"
                     >
-                      <IntlMessages id="common.signup" />
+                        <IntlMessages id="common.signup" />
+
                     </Button>
                   </div>
                 </Form>

@@ -50,15 +50,14 @@ export const useGetDataApi = (
       jwtAxios
         .get(initialUrl, { params: sanitizeData(params) })
         .then((data) => {
-          console.log("🚀 ~ .then ~ data:", data)
-          console.log('product data',
-            initialUrl,
-            data.data,
-            didCancelRef.current,
-            isRequestSuccessful(data.status),
-          );
+          // console.log('product data',
+          //   initialUrl,
+          //   data.data,
+          //   didCancelRef.current,
+          //   isRequestSuccessful(data.status),
+          // );
           resStateRef.current = false;
-          if (!didCancelRef.current) {
+          if (!didCancelRef.current) {s
             if (isRequestSuccessful(data.status)) {
               setLoading(false);
               setData(data.data);
@@ -106,12 +105,6 @@ export const useGetDataApi = (
     },
   ];
 };
-
-
-
-
-
-
 
 
 

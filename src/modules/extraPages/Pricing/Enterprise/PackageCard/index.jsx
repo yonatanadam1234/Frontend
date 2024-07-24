@@ -12,6 +12,7 @@ import CardWrapper from './CardWrapper';
 import { Fonts } from '@crema/constants/AppEnums';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import PackageWrapper from './PackageWrapper';
+import { Link } from 'react-router-dom';
 
 const Enterprise = () => {
   const pricingData = {
@@ -78,7 +79,7 @@ const Enterprise = () => {
               }}
             >
               Contact us for pricing
-              <Typography sx={{ 
+              <Typography sx={{
                 mt: 3
               }}>For enterprise projects that require premium data or bespoke solutions.</Typography>
             </Typography>
@@ -102,25 +103,28 @@ const Enterprise = () => {
             ) : null}
           </Box>
           <Box sx={{ mb: 7.5 }}>
-            <Button
-              variant='outlined'
-              sx={{
-                width: '100%',
-                fontWeight: Fonts.BOLD,
-                color: (theme) => theme.palette.text.primary,
-                minHeight: 46,
-                borderRadius: 7.5,
-                boxShadow: 'none',
-                borderWidth: 2,
-                borderColor: pricing.tagColor,
-                '&:hover, &:focus': {
-                  borderColor: pricing.tagColor,
+            <Link to="https://anyprofit.io/pages/contact" target="_blank" rel="noopener noreferrer">
+              <Button
+                variant='outlined'
+                sx={{
+                  width: '100%',
+                  fontWeight: Fonts.BOLD,
+                  color: (theme) => theme.palette.text.primary,
+                  minHeight: 46,
+                  borderRadius: 7.5,
+                  boxShadow: 'none',
                   borderWidth: 2,
-                },
-              }}
-            >
-              Contact Us
-            </Button>
+                  borderColor: pricing.tagColor,
+                  '&:hover, &:focus': {
+                    borderColor: pricing.tagColor,
+                    borderWidth: 2,
+                  },
+                }}
+              >
+                Contact Us
+              </Button>
+            </Link>
+
           </Box>
           <List
             sx={{

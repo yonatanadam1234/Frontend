@@ -232,17 +232,7 @@ const AmazonOrderTable = () => {
           }}
         >
           <ToastContainer />
-          <Typography
-            display="block"
-            style={{
-              paddingBottom: "5px",
-              fontSize: "14px",
-              paddingLeft: "15px",
-              fontWeight: "2000",
-            }}
-          >
-            Amazon Orders
-          </Typography>
+ 
           <AppTableContainer>
             {loading ? (
               <AppLoader />
@@ -259,7 +249,7 @@ const AmazonOrderTable = () => {
               </Table>
             ) : (
               <div style={{ textAlign: 'center' }}>
-                <img src={noDataImage} alt="No data available" style={{ width: '100%', height: '500px', objectFit: 'contain', padding: '50px' }} />
+                <img src={noDataImage} alt="No data available" style={{ width: '100%', height: '650px', objectFit: 'contain', padding: '50px' }} />
                 <Typography variant="h2" sx={{ marginBottom: '50px' }}>No Result Found</Typography>
               </div>
             )}
