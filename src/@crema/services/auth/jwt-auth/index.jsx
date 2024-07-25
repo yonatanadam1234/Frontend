@@ -1,7 +1,8 @@
 import axios from '@crema/services/axios';
+const baseURL = import.meta.env.VITE_API_LINK;
 
 const jwtAxios = axios?.create({
-  baseURL: 'https://platform.anyprofit.io/staging/api',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   },

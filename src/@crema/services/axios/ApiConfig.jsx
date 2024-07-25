@@ -1,7 +1,8 @@
 import axios from 'axios';
+const baseURL = import.meta.env.VITE_API_LINK;
 
 const apiConfig = axios?.create({
-  baseURL: 'https://platform.anyprofit.io/staging/api',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
