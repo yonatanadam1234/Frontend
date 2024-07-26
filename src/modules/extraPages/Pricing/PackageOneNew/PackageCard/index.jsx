@@ -11,21 +11,20 @@ import PackageWrapper from "./PackageWrapper";
 import jwtAxios from "../../../../../@crema/services/auth/jwt-auth";
 import { updateSubscription } from "./Services/pricing.service";
 
-
 const PackageCard = ({ pricing, buttonText, billingFormat }) => {
   const { setJWTAuthData } = useJWTAuthActions();
   const { user } = useJWTAuth();
   const userId = user.id;
 
-  Paddle.Environment.set("sandbox");
+  Paddle.Environment.set("production");
   Paddle.Initialize({
-    token: 'test_93a75a8090089c728cf1dda482f',
+    token: 'live_1bc6cf442aa74adbab7ffae494d', 
+    pwCustomer: {},
     eventCallback: function (data) {
-      console.log("🚀 ~ PackageCard ~ data:", data)
+      console.log("🚀 ~ PackageCard ~ data:", data);
 
       if (data.name === "checkout.completed") {
         handleSuccess(data).then(() => {
-          console.log("🚀 ~ handleSuccess ~ data:", data)
           fetchUpdateUser();
         });
       }
@@ -33,28 +32,23 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
   });
 
   const openCheckout = (priceId) => {
-
-
     Paddle.Checkout.open({
       items: [{ priceId: priceId, quantity: 1 }],
-      customData:{"any_profit_user_id":user.id}
+      customData: { "any_profit_user_id": user.id }
     });
-    console.log("🚀 ~ openCheckout ~ user.id,:", user.id,)
-
   };
 
   const getSubscriptionId = (priceId) => {
     const priceIdMap = {
-      'pri_01j2bmad8xgqv6r813vapz5z47': 3,
-      'pri_01j2bmd1mxce6092pgfwja6baj': 5,
-      'pri_01j2bmhc9g0kdpv2skhjfxvjwx': 7,
-      'pri_01j2bmbkqxj8psryrd5w026452': 4,
-      'pri_01j2bmdzf7bw6rr49hnmy68db8': 6,
-      'pri_01j2bmjysss6dyg3y8yxt8jk6s': 8,
+      'pri_01hzey153328nc96wa7xcpja1t': 3,
+      'pri_01hzey2t6yyvpc1148620mft19': 5,
+      'pri_01hzey58skrkf53ybt98s3j6y4': 7,
+      'pri_01hzey22rjs4jsqb357drc7nnf': 4,
+      'pri_01hzey3gxntw4ck5wgvhdx6bkx': 6,
+      'pri_01hzey4cb2r0gzts3y1n3kc5xr': 8,
     };
     return priceIdMap[priceId] || null;
   };
-
 
   const handleSuccess = async (data) => {
     try {
@@ -65,6 +59,7 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
 
       if (subscriptionId) {
         const response = await updateSubscription(subscriptionId);
+        console.log('Subscription updated successfully:', response);
       } else {
         console.error('Invalid priceId:', priceId);
       }
@@ -73,16 +68,15 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
     }
   };
 
-
   const handleButtonClick = () => {
-    const priceId = pricing.paddle_price_id
+    const priceId = pricing.paddle_price_id;
     openCheckout(priceId);
   };
 
   const fetchUpdateUser = () => {
     const token = localStorage.getItem('token');
     jwtAxios
-      .get(`auth/user-data`, {
+      .get('auth/user-data', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -96,7 +90,7 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
       }).catch(error => {
         console.error("Error updating user data:", error);
       });
-  }
+  };
 
   return (
     <>
@@ -130,45 +124,48 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
             ) : null}
           </Box>
 
-          {buttonText === 'Current Plan' || buttonText === 'Free' ? (<Box sx={{ mb: 7.5, mt: 7 }}>
-            <Button
-              variant="outlined"
-              sx={{
-                width: "100%",
-                fontWeight: Fonts.BOLD,
-                color: (theme) => theme.palette.text.primary,
-                minHeight: 46,
-                borderRadius: 7.5,
-                boxShadow: "none",
-                borderWidth: 2,
-                borderColor: pricing.color,
-                "&:hover, &:focus": { borderColor: pricing.color, borderWidth: 2 },
-              }}
-              onClick={handleButtonClick}
-              disabled
-            >
-              {buttonText}
-            </Button>
-          </Box>) : (<Box sx={{ mb: 7.5, mt: 7 }}>
-            <Button
-              variant="outlined"
-              sx={{
-                width: "100%",
-                fontWeight: Fonts.BOLD,
-                color: (theme) => theme.palette.text.primary,
-                minHeight: 46,
-                borderRadius: 7.5,
-                boxShadow: "none",
-                borderWidth: 2,
-                borderColor: pricing.color,
-                "&:hover, &:focus": { borderColor: pricing.color, borderWidth: 2 },
-              }}
-              onClick={handleButtonClick}
-            >
-              {buttonText}
-            </Button>
-          </Box>)}
-
+          {buttonText === 'Current Plan' || buttonText === 'Free' ? (
+            <Box sx={{ mb: 7.5, mt: 7 }}>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  fontWeight: Fonts.BOLD,
+                  color: (theme) => theme.palette.text.primary,
+                  minHeight: 46,
+                  borderRadius: 7.5,
+                  boxShadow: "none",
+                  borderWidth: 2,
+                  borderColor: pricing.color,
+                  "&:hover, &:focus": { borderColor: pricing.color, borderWidth: 2 },
+                }}
+                onClick={handleButtonClick}
+                disabled
+              >
+                {buttonText}
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={{ mb: 7.5, mt: 7 }}>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  fontWeight: Fonts.BOLD,
+                  color: (theme) => theme.palette.text.primary,
+                  minHeight: 46,
+                  borderRadius: 7.5,
+                  boxShadow: "none",
+                  borderWidth: 2,
+                  borderColor: pricing.color,
+                  "&:hover, &:focus": { borderColor: pricing.color, borderWidth: 2 },
+                }}
+                onClick={handleButtonClick}
+              >
+                {buttonText}
+              </Button>
+            </Box>
+          )}
 
           <Box>Extra Order fee: ${pricing.quotas.extra_order_fee} per order</Box>
           <hr color="#0A8FDC" style={{ marginTop: "30px" }} />
