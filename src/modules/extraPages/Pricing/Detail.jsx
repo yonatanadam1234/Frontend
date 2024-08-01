@@ -95,7 +95,7 @@ const PricingDetail = () => {
         </Grid>
       )}
 
-      <Grid item xs={12} sx={{ mt: 25 }}>
+      <Grid item xs={12} sx={{ mt: 45 }}>
         <PricingFaq pricingFaq={pricingFaq} />
       </Grid>
     </AppGridContainer>

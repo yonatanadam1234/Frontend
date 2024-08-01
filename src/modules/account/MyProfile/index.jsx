@@ -17,7 +17,7 @@ import ChangePassword from './ChangePassword';
 import Information from './Information';
 import AccountTabsWrapper from './AccountTabsWrapper';
 import PersonalInfo from './PersonalInfo';
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";function a11yProps(index) {
+import { MdOutlineAccountBalanceWallet } from "react-icons/md"; function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
@@ -34,13 +34,13 @@ const tabs = [
   {
     id: 3,
     icon: <MdOutlineAccountBalanceWallet />,
-    name: <IntlMessages id='Subscription '/>,
+    name: <IntlMessages id='Subscription ' />,
   },
-  // {
-  //   id: 4,
-  //   icon: <IoShareSocialOutline />,
-  //   name: <IntlMessages id='common.social' />,
-  // },
+  {
+    id: 4,
+    icon: <IoShareSocialOutline />,
+    name: <IntlMessages id='Share Account' />,
+  },
   // {
   //   id: 5,
   //   icon: <NotificationsNoneIcon />,
@@ -65,7 +65,7 @@ const Account = () => {
             fontSize: 16,
             color: 'text.primary',
             fontWeight: Fonts.SEMI_BOLD,
-            mb: { 
+            mb: {
               xs: 2,
               lg: 4,
             },

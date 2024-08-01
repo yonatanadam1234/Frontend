@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { Fonts } from '@crema/constants/AppEnums';
 import IntlMessages from '@crema/helpers/IntlMessages';
@@ -6,7 +6,22 @@ import Member from './Member';
 import PropTypes from 'prop-types';
 import AppGridContainer from '@crema/components/AppGridContainer';
 
-const ProfileConnection = ({ profileConnection }) => {
+const ProfileConnection = () => {
+  const accountData = {
+    member: [
+      {
+        id: 1,
+        title: 'jbhpatel2001@gmail.com',
+        image: '/assets/images/avatar/A4.jpg',
+        // name: '@Johndeuo',
+      },
+      
+
+    ],
+  }
+  const [profileConnection, setprofileConnection] = useState(accountData.member)
+  console.log("🚀 ~ ProfileConnection ~ profileConnection:", profileConnection)
+
   return (
     <Box sx={{ position: 'relative' }}>
       <Typography

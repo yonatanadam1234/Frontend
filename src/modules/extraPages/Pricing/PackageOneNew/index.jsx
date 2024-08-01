@@ -6,23 +6,21 @@ import PackageCard from "./PackageCard";
 import { useJWTAuth } from "../../../../@crema/services/auth";
 import { pricingPlanData } from "./PackageCard/Services/pricing.service";
 import AppLoader from "../../../../@crema/components/AppLoader";
+import { Box } from "@mui/system";
 
 const PackageOne = ({ billingFormat }) => {
   const { user } = useJWTAuth();
   const [pricingData, setPricingData] = useState([]);
-
+  const [loading, setloading] = useState(true)
   const getButtonText = (id) => {
     if (id === 1 || id === 2) {
-      return "Free";
+      return "Free";  
     }
     if (id === user.subscription) {
       return "Current Plan";
-    }
-    else {
+    } else {
       return "Buy Plan";
-
     }
-
   };
   const fetchPricingData = async () => {
     try {
@@ -30,8 +28,10 @@ const PackageOne = ({ billingFormat }) => {
       if (response) {
         if (billingFormat === "month") {
           setPricingData(response.data.data.plans.monthly);
+          setloading(false)
         } else {
           setPricingData(response.data.data.plans.yearly);
+          setloading(false)
         }
       } else {
         console.error("Invalid pricing data response");
@@ -47,10 +47,15 @@ const PackageOne = ({ billingFormat }) => {
 
   return (
     <React.Fragment>
-      
-      <AppGridContainer>
-        {
-          pricingData.map((data) => {
+      {loading ? (
+        <Box sx={{
+          paddingBottom:'200px'
+        }}>
+        <AppLoader />
+        </Box>
+      ) : (
+        <AppGridContainer>
+          {pricingData.map((data) => {
             return (
               <Grid item xs={12} sm={6} md={3} key={data.id}>
                 <PackageCard
@@ -61,7 +66,8 @@ const PackageOne = ({ billingFormat }) => {
               </Grid>
             );
           })}
-      </AppGridContainer>
+        </AppGridContainer>
+      )}
     </React.Fragment>
   );
 };

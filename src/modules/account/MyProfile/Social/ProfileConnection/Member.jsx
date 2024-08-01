@@ -69,7 +69,7 @@ const Member = ({ member }) => {
                 textOverflow: 'ellipsis',
               }}
             >
-              {member.name ? member.name : null}
+              {member.title ? member.title : null}
               {member.email ? member.email : null}
             </Typography>
             <Button
