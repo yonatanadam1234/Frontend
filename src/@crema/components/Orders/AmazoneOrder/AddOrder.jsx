@@ -42,7 +42,6 @@ const AddOrder = ({ open, onClose }) => {
     };
 
     const handleSubmit = () => {
-        // Add your submission logic here
         console.log(formData);
         onClose();
     };

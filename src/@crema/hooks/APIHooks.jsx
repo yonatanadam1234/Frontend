@@ -57,7 +57,7 @@ export const useGetDataApi = (
           //   isRequestSuccessful(data.status),
           // );
           resStateRef.current = false;
-          if (!didCancelRef.current) {s
+          if (!didCancelRef.current) {
             if (isRequestSuccessful(data.status)) {
               setLoading(false);
               setData(data.data);

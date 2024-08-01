@@ -2,83 +2,211 @@ import React, { useEffect, useState } from "react";
 import AppsContainer from "@crema/components/AppsContainer";
 import { useIntl } from "react-intl";
 import {
-  Button,
   Hidden,
   Box,
-  IconButton,
-  Drawer,
-  MenuItem,
-  FormControl,
-  Select,
-  TextField,
-  InputLabel,
-  Typography,
-  FormControlLabel,
-  FormGroup,
-  Checkbox,
 } from "@mui/material";
-import { IoCloseSharp } from "react-icons/io5";
 import AppsHeader from "@crema/components/AppsContainer/AppsHeader";
 import AppsContent from "@crema/components/AppsContainer/AppsContent";
 import AppsPagination from "@crema/components/AppsPagination";
 import AppSearchBar from "@crema/components/AppSearchBar";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import AmazoneOrderTable from "../Orders/AmazoneOrder";
+import ShippingGropu from "./ShippingGroups";
 
 const ShippingSetting = () => {
-  // const { messages } = useIntl();
-  // const [page, setPage] = useState(0);
-  // const [search, setSearchQuery] = useState("");
-  // const [isFilterOpen, setIsFilterOpen] = useState(false);
-  // const [filters, setFilters] = useState({
-  //   product: "",
-  //   vendor: "",
-  //   financial: "",
-  //   fulfillment: "",
-  //   countries: "",
-  //   price: "",
-  //   cogs: "",
-  //   shipping: "",
-  //   physicalLocation: "",
-  //   items: "",
-  //   status: "",
-  //   salesChannel: "",
-  //   discountCode: "",
-  //   marketingSource: "",
-  //   utmSource: "",
-  //   utmMedium: "",
-  //   utmContent: "",
-  //   utmTerm: "",
-  //   utmCampaign: "",
-  //   paymentGateways: "",
-  //   orderSource: "",
-  // });
+  const { messages } = useIntl();
+  const [page, setPage] = useState(0);
+  const [search, setSearchQuery] = useState("");
+  const [ShippingGropuData, setShippingGropuData] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
-  // const onPageChange = (event, value) => {
-  //   setPage(value);
-  // };
-  // const toggleFilterDrawer = () => {
-  //   setIsFilterOpen(!isFilterOpen);
-  // };
-  // const onSearchOrder = (value) => {
-  //   setSearchQuery(value);
-  //   setPage(0);
-  // };
-  // const handleFilterChange = (event) => {
-  //   setFilters({
-  //     ...filters,
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
-  // const applyFilters = () => {
-  //   console.log("Applied Filters:", filters);
-  // };
+  useEffect(() => {
+    const dummyData = [
+      {
+        shipping_group_no: 1,
+        urgency: 'Standard',
+        postage_description: 'Small',
+        royal_mail: 1.50,
+        vhl: '-',
+        parcel_force: '-',
+        us1: '-',
+        us2: '5.00',
+        us3: '-', 
+        fr1: '-',
+        fr2: '-',
+        fr3: '9.00',
+      },
+      {
+        shipping_group_no: 2,
+        urgency: 'Standard',
+        postage_description: 'Medium',
+        royal_mail: '-',
+        vhl: '-',
+        parcel_force: '4.50',
+        us1: '5.50',
+        us2: '-',
+        us3: '-', 
+        fr1: '-',
+        fr2: '9.50',
+        fr3: '-',
+      },
+      {
+        shipping_group_no: 3,
+        urgency: 'Standard',
+        postage_description: 'Large',
+        royal_mail: '-',
+        vhl: '4.50',
+        parcel_force: '-',
+        us1: '6.50',
+        us2: '-',
+        us3: '-', 
+        fr1: '-',
+        fr2: '-',
+        fr3: '11.50',
+      },
+      {
+        shipping_group_no: 1,
+        urgency: 'Expedited',
+        postage_description: 'Small',
+        royal_mail: 4.50,
+        vhl: '-',
+        parcel_force: '-',
+        us1: '-',
+        us2: '-',
+        us3: '9.50', 
+        fr1: '-',
+        fr2: '11.50',
+        fr3: '-',
+      },
+      {
+        shipping_group_no: 2,
+        urgency: 'Expedited',
+        postage_description: 'Medium',
+        royal_mail: '-',
+        vhl: '-',
+        parcel_force: '7.50',
+        us1: '-',
+        us2: '9.50',
+        us3: '-', 
+        fr1: '11.50',
+        fr2: '-',
+        fr3: '-',
+      },
+      {
+        shipping_group_no: 3,
+        urgency: 'Expedited',
+        postage_description: 'Large',
+        royal_mail: '-',
+        vhl: '7.50',
+        parcel_force: '-',
+        us1: '-',
+        us2: '10.50',
+        us3: '-', 
+        fr1: '-',
+        fr2: '-',
+        fr3: '14.50',
+      },
+      {
+        shipping_group_no: 1,
+        urgency: 'SecondDay',
+        postage_description: 'Small',
+        royal_mail: '-',
+        vhl: '-',
+        parcel_force: '9.50',
+        us1: '-',
+        us2: '-',
+        us3: '12.50', 
+        fr1: '-',
+        fr2: '14.50',
+        fr3: '-',
+      },
+      {
+        shipping_group_no: 2,
+        urgency: 'SecondDay',
+        postage_description: 'Medium',
+        royal_mail: 8.50,
+        vhl: '-',
+        parcel_force: '-',
+        us1: '-',
+        us2: '12.50',
+        us3: '-', 
+        fr1: '-',
+        fr2: '-',
+        fr3: '15.50',
+      },
+      {
+        shipping_group_no: 3,
+        urgency: 'SecondDay',
+        postage_description: 'Large',
+        royal_mail: '-',
+        vhl: '10.50',
+        parcel_force: '-',
+        us1: '-',
+        us2: '13.50',
+        us3: '-', 
+        fr1: '-',
+        fr2: '-',
+        fr3: '16.50',
+      },
+      {
+        shipping_group_no: 1,
+        urgency: 'NextDay',
+        postage_description: 'Small',
+        royal_mail: 10.50,
+        vhl: '-',
+        parcel_force: '-',
+        us1: '-',
+        us2: '-',
+        us3: '15.50',
+        fr1: '15.50',
+        fr2: '-',
+        fr3: '-',
+      },
+      {
+        shipping_group_no: 2,
+        urgency: 'NextDay',
+        postage_description: 'Medium',
+        royal_mail: '-',
+        vhl: '12.50',
+        parcel_force: '-',
+        us1: '-',
+        us2: '15.50',
+        us3: '-', 
+        fr1: '16.50',
+        fr2: '-',
+        fr3: '-',
+      },
+    ];     
+    setShippingGropuData(dummyData);
+  }, []);
+                                                                                                                                              
+  const onPageChange = (event, value) => {
+    console.log('Page changed:', value);
+    setPage(value);
+  };
+  
+  const handleChangeRowsPerPage = (event) => {
+    console.log('Rows per page changed:', event.target.value);
+    setRowsPerPage(event.target.value);
+    setPage(0);
+  };
+
+  const onSearchOrder = (value) => {
+    setSearchQuery(value);
+    setPage(0);
+  };
+  const filteredData = ShippingGropuData.filter((item) => {
+    return item.shipping_group_no.toString().includes(search);
+  });
+
+  const paginatedData = filteredData.slice(
+    page * rowsPerPage,
+    (page + 1) * rowsPerPage
+  );
+  console.log('Paginated data:', paginatedData);
+
   return (
-
     <>
-    <h1>Shipping Groups</h1>
-      {/* <Box display="flex" alignItems="center">
-
+      <h1>Shipping Groups</h1>
+      <Box display="flex" alignItems="center">
       </Box>
       <AppsContainer fullView>
         <AppsHeader>
@@ -87,7 +215,7 @@ const ShippingSetting = () => {
             flexDirection="row"
             alignItems="center"
             width={1}
-          >
+          > 
             <AppSearchBar
               iconPosition="right"
               overlap={false}
@@ -95,22 +223,15 @@ const ShippingSetting = () => {
               placeholder={messages["common.searchHere"]}
             />
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="right" flex='auto'>
-              <IconButton color="primary" onClick={toggleFilterDrawer}>
-                <Button variant="contained" style={{ background: "#0A8FDC" }}>
-                  <FilterListIcon />
-                  &nbsp;Filters
-                </Button>
-              </IconButton>
-              <Button variant="contained" style={{ background: "#0A8FDC" }} >
-                Add Order
-              </Button>
+              
               <Hidden smDown>
                 <AppsPagination
-                  rowsPerPage={10}
+                  rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={onPageChange}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
-              </Hidden>
+              </Hidden> 
             </Box>
             
           </Box>
@@ -123,275 +244,19 @@ const ShippingSetting = () => {
             overflowX: "auto",
           }}
         >
-          <AmazoneOrderTable />
+          <ShippingGropu ShippingGropuData={paginatedData}/>
         </AppsContent>
 
         <Hidden smUp>
           <AppsPagination
-            rowsPerPage={10}
+            rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={onPageChange}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
           />
-        </Hidden> */}
-        {/* <Drawer anchor="right" open={isFilterOpen} onClose={toggleFilterDrawer}>
-          <Box style={{
-            width:'100%',
-            display:'flex',
-            justifyContent:'flex-end',
-          }}>
-            <IoCloseSharp style={{fontSize:'38px',marginRight:'10px',}} onClick={toggleFilterDrawer}/>
-          </Box>
-          <Box p={10}>
-            <FormControl
-              fullWidth
-              sx={{
-                paddingBottom: 5,
-              }}
-            >
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Top Seller Product"
-                />
-              </FormGroup>
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Low Seller Products"
-                />
-              </FormGroup>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Geographic Location</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Promotional Orders</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Price</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Con.Profit</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Con.Margin</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Order Status</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Ship Country</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Ship City</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Ship State</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-              <Select
-                value={filters.product}
-                onChange={handleFilterChange}
-                name="product"
-                displayEmpty
-                fullWidth
-                style={{ marginTop: "10px" }}
-              >
-                <MenuItem value="">Ship Postal Code</MenuItem>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <TextField
-                    id="standard-basic"
-                    label="Min-Price"
-                    variant="filled"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Max-Price"
-                    variant="filled"
-                  />
-                </Box>
-              </Select>
-            </FormControl>
-            <Button
-              onClick={applyFilters}
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              Apply Filters
-            </Button>
-          </Box>
-        </Drawer> */}
-      {/* </AppsContainer> */}
+        </Hidden> 
+        
+      </AppsContainer>
     </>
   );
 };
