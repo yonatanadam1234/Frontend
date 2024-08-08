@@ -24,9 +24,11 @@ const RecentOrders = ({ listings }) => {
   // const [timeframe, setTimeframe] = useState(7); 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(8);
-  const parsedListings = listings.map(listing => ({
+  if (!listings) return null; // or some loading indicator
+
+  const parsedListings = listings.map((listing) => ({
     ...listing,
-    date: new Date(listing.date.trim())
+    date: new Date(listing.date.trim()),
   }));
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
