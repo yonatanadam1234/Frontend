@@ -32,7 +32,7 @@ export const useAuthMethod = () => {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('email', res.data.user.email);
           // showMessage(res.data.message);
-          navigate('/verify-otp');  
+          navigate('/signin');  
         }
       })
     }
@@ -48,7 +48,7 @@ export const useAuthMethod = () => {
         if (res.status === 200) {
           showMessage(res.data.message);
           localStorage.setItem('email', data.email);
-          navigate('/forgetpasswordverifyotp');
+          navigate('/setNewPassword');
         }
       })
         .catch((res) => {
@@ -70,7 +70,7 @@ export const useAuthMethod = () => {
         if (res.status === 200) {
           showMessage(res.data.message);
           navigate('/setNewPassword');
-          localStorage.setItem('token', res.data.token);
+          // localStorage.setItem('token', res.data.token);
         }
       })
         .catch((res) => {
@@ -84,11 +84,11 @@ export const useAuthMethod = () => {
 
   const updatePassword = (password) => {
     try {
-      const token = localStorage.getItem('token')
+      // const token = localStorage.getItem('token')
       const data = {
         email: localStorage.getItem('email'),
         password: password.password,
-        token: token
+        // token: token
       }
 
       jwtAxios.post('auth/updatePassword', data).then((res) => {
