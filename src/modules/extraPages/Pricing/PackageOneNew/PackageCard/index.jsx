@@ -26,9 +26,9 @@ const PackageCard = ({ pricing, buttonText, billingFormat }) => {
   const { user } = useJWTAuth();
   const userId = user.id;
 
-  Paddle.Environment.set("production");
+  Paddle.Environment.set("sandbox");
   Paddle.Initialize({
-    token: "live_1bc6cf442aa74adbab7ffae494d",
+    token: "test_93a75a8090089c728cf1dda482f",
     pwCustomer: {},
     eventCallback: function (data) {
       console.log("🚀 ~ PackageCard ~ data:", data);
